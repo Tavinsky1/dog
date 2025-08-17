@@ -1,0 +1,84 @@
+Perfect ✅ — a README.md will help you (and Manus) stay on track when swapping files in and out of Visual Studio Code.
+Here’s a clean draft tailored for your DogAtlas project:
+
+⸻
+
+🐾 DogAtlas – UI/UX Overhaul
+
+This project is a Next.js 14 + Prisma + TailwindCSS web app for discovering dog-friendly places (parks, cafés, vets, trails, groomers, hotels, trainers, etc.) starting with Berlin and later expanding worldwide.
+
+📂 Project Structure
+
+/prisma
+  └── schema.prisma        # Database schema (places, categories, reviews, photos)
+
+/public
+  └── banners/             # Category & landing page banners (placeholders included)
+
+/src
+  /app
+    ├── layout.tsx         # Global layout with Header/Footer
+    ├── page.tsx           # Landing page
+    ├── berlin/page.tsx    # Berlin overview
+    ├── berlin/c/[category]/page.tsx   # Category page (list + map)
+    └── berlin/[slug]/page.tsx         # Place detail page
+  /components
+    ├── Header.tsx
+    ├── Footer.tsx
+    ├── Hero.tsx
+    ├── CategoryCard.tsx
+    ├── PlaceCard.tsx
+    ├── PhotoStrip.tsx
+    └── (any new UI components go here)
+
+🎨 UI/UX Goals
+	•	Replace the plain white layout with a modern, visually appealing, mobile-first design.
+	•	Add banners, cards, gradients, icons, and better typography.
+	•	Look & feel inspired by:
+	•	Sport Finder
+	•	Active Together
+
+✅ Implemented Features
+	•	Category-first navigation (/berlin → categories → places).
+	•	Place detail pages with photos, reviews, activities, badges, and lightbox.
+	•	Map + List toggle for categories.
+	•	SEO improvements:
+	•	JSON-LD with reviews.
+	•	robots.txt + sitemap.
+
+🔧 Next Steps (for UI overhaul)
+	1.	Landing Page
+	•	Add engaging hero section with background image.
+	•	Highlight top categories with visual cards.
+	2.	Category Pages
+	•	Display category banner image.
+	•	Show results in card grid with rating stars, tags, and photos.
+	3.	Place Pages
+	•	Redesign detail layout with gallery, reviews, map tab.
+	•	Add clear badges (off-leash, dogs allowed indoors, etc.).
+	4.	Tailwind
+	•	Improve responsive layout.
+	•	Add utility classes for spacing, shadows, gradients.
+
+📦 Deliverables from Manus
+	•	Full updated source files (.tsx, .css, tailwind.config.js) ready to paste into Visual Studio Code.
+	•	Updated /public/banners/ with placeholder images.
+	•	A short changelog in this README (below).
+
+⸻
+
+📝 Changelog (to be filled by Manus)
+	•	Updated: src/app/page.tsx → new landing hero + category cards.
+	•	Updated: src/app/berlin/page.tsx → city overview with categories.
+	•	Updated: src/app/berlin/c/[category]/page.tsx → new grid + tabs UI.
+	•	Updated: src/app/berlin/[slug]/page.tsx → redesigned place detail.
+	•	Added: /public/banners/ placeholder images.
+	•	Updated: tailwind.config.js and globals.css for theme polish.
+
+⸻
+
+👉 This README should be placed in the root of your project so Manus and you both know exactly where files go and what has changed.
+
+⸻
+
+Do you want me to also add a design guideline section (colors, typography, spacing rules) so Manus doesn’t just freestyle but keeps it consistent? That would make the UI more professional and future-proof.

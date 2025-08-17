@@ -1,0 +1,77 @@
+Yes, I know Manus (manus.im) — it’s an AI tool that specializes in direct code enhancement, UI/UX polishing, and automated fixes. It’s great for what you need: turning a raw, working Next.js + Prisma + Tailwind project into something polished and professional-looking.
+
+For Manus to really understand your current state, you need to give it context + your goals. Right now, your site works functionally, but the UI looks “horrible” (your words) because Tailwind isn’t being applied properly or you don’t yet have a design system.
+
+⸻
+
+🔑 What to Share with Manus
+	1.	Project context (what it is and where you’re stuck)
+	•	“This is a Next.js 14 project using the App Router, Prisma, and Tailwind CSS. It lists dog-friendly places in Berlin with categories, reviews, and photos. It works, but the UI is very plain—white background, no layout, no styling. I need help making it beautiful and engaging.”
+	2.	Current state (so Manus doesn’t repeat fixes already done)
+	•	“I already have Tailwind installed, Prisma models, and pages working. The home page lists Berlin, categories, and places. Place detail pages include reviews, photos, and JSON-LD for SEO. But the UI looks raw, unstyled, and not user-friendly.”
+	3.	Your goals (so Manus knows what “done” means)
+	•	“I want a clean, modern, mobile-friendly design with:
+	•	An attractive landing page (hero, category cards with images, stats, CTA).
+	•	Better place detail pages (photo gallery, reviews styled nicely, badges).
+	•	A clear navigation header + footer.
+	•	Consistent colors, spacing, and typography.
+	•	Make the UX feel like a real product, not a developer demo.”
+	4.	Constraints / stack
+	•	“Keep it in Tailwind + Next.js (App Router). No external UI library like MUI, but shadcn/ui or Headless UI is OK. Stick with Prisma for DB.”
+	5.	Optional extras you’d like
+	•	Dark mode toggle.
+	•	Image placeholders / skeletons.
+	•	Engaging typography and rounded cards.
+	•	Consistent dog-themed branding (colors, icons, pawprints, etc.).
+
+⸻
+
+📝 Prompt You Can Paste into Manus
+
+You are helping me enhance a Next.js 14 (App Router) + Prisma + Tailwind project called DogAtlas.  
+The backend is working fine (Prisma, places, reviews, categories). Tailwind is installed and applied, but the site currently looks horrible: white background, raw text, no styling.  
+
+I need you to **focus 100% on UI/UX polish** while keeping the code clean and type-safe.  
+
+### Current state
+- Next.js App Router + Prisma working.
+- Tailwind installed, but UI is raw and unstyled.
+- Home page lists Berlin, categories, and places.
+- Place detail page shows photos, reviews, activities, and JSON-LD SEO.  
+- Category pages exist but are very plain.
+
+### Goals
+- Attractive, mobile-first **landing page** with:
+  - Hero section (title, subtitle, CTA buttons).
+  - Stats strip (number of places, reviews, etc.).
+  - Category cards with images.
+  - City spotlight (Berlin).
+- **Place detail page** should have:
+  - Styled photo gallery/lightbox.
+  - Review list with avatars and stars.
+  - Activity and category badges.
+- **Navigation**: sticky header, footer with links.
+- **Branding**: clean typography, consistent colors, subtle gradients, modern cards.
+- Must feel like a real product (engaging, polished, not plain text).
+
+### Constraints
+- Stack: Next.js (App Router), Prisma, Tailwind CSS.
+- Keep everything type-safe.
+- Prefer Tailwind utilities + shadcn/ui for components.
+- No Material UI or heavy external UI kits.
+
+### Deliverables
+- Rewrite `src/app/page.tsx` into a proper landing page.
+- Improve `src/app/berlin/page.tsx` and category pages (list/map toggle).
+- Improve `src/app/berlin/[slug]/page.tsx` (place detail) to look professional.
+- Add a clean header and footer components.
+- Use Tailwind best practices for spacing, fonts, colors.
+
+Make the site **engaging, modern, and polished** while keeping it maintainable.
+
+
+⸻
+
+👉 Tavo, if you share that with Manus along with your repo or the key files (page.tsx, layout.tsx, tailwind.config.js), it’ll have all the context to redesign your UI.
+
+Do you want me to also write you a checklist of which files you should send to Manus (so it doesn’t miss anything), or just the prompt is enough?
