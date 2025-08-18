@@ -65,6 +65,7 @@ export default async function Home() {
               subtitle={category.description}
               imageUrl={category.image}
               href={`/berlin?category=${category.key}`}
+              category={category.key}
             />
           ))}
         </div>

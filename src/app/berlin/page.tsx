@@ -109,6 +109,7 @@ export default function BerlinLanding() {
             subtitle={category.description}
             imageUrl={category.image}
             count={counts.get(category.key)}
+            category={category.key}
           />
         ))}
       </div>

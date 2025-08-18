@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { trackSearch } from "@/lib/analytics";
 
 export default function SearchInput({
   placeholder = "Search…",
@@ -15,6 +16,14 @@ export default function SearchInput({
       else url.searchParams.delete("q");
       url.searchParams.delete("page"); // reset pagination on new query
       window.history.replaceState(null, "", url.toString());
+      
+      // Track search analytics
+      if (q.trim().length > 0) {
+        // Note: We can't easily get results count here since this is client-side
+        // The actual results counting would happen server-side
+        trackSearch(q.trim(), 0); // Pass 0 as placeholder
+      }
+      
       // Trigger a refresh for server component
       // @ts-ignore
       if (window?.next?.router?.refresh) window.next.router.refresh();

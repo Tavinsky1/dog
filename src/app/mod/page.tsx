@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Submission = { id: string; type: string; status: string; placeId?: string | null; payload: any; notes?: string|null };
 
@@ -26,7 +27,17 @@ export default function ModPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Moderation queue</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <Link 
+          href="/admin/analytics" 
+          className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors flex items-center gap-2"
+        >
+          📊 Analytics
+        </Link>
+      </div>
+      
+      <h2 className="text-xl font-semibold mb-4">Moderation Queue</h2>
       <ul className="space-y-3">
         {subs.map(s => (
           <li key={s.id} className="border rounded p-3">

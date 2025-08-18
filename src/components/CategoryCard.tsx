@@ -1,11 +1,24 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { trackCategoryClick } from "@/lib/analytics";
+import { useRouter } from "next/navigation";
 
 export default function CategoryCard({
-  href, title, subtitle, imageUrl, count
-}: { href: string; title: string; subtitle?: string; imageUrl: string; count?: number }) {
+  href, title, subtitle, imageUrl, count, category
+}: { href: string; title: string; subtitle?: string; imageUrl: string; count?: number; category?: string }) {
+  const router = useRouter();
+  
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (category) {
+      trackCategoryClick(category);
+    }
+    router.push(href);
+  };
+
   return (
-    <Link href={href} className="group block card-hover overflow-hidden">
+    <div className="group block card-hover overflow-hidden cursor-pointer" onClick={handleClick}>
       <div className="relative h-48 overflow-hidden">
         <Image 
           src={imageUrl} 
@@ -39,6 +52,6 @@ export default function CategoryCard({
           </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

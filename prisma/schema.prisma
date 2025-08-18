@@ -122,3 +122,46 @@ model Sponsor {
   url       String?
   createdAt DateTime @default(now())
 }
+
+model AnalyticsEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // page_view, place_view, search, category_click, etc.
+  eventData   Json?    // Additional event-specific data
+  userId      String?  // Track authenticated users
+  sessionId   String   // Track anonymous sessions
+  ipAddress   String?
+  userAgent   String?
+  page        String   // Current page path
+  referrer    String?  // Referring page
+  city        String?  // City context (berlin, etc.)
+  category    String?  // Category context if applicable
+  placeId     String?  // Place ID if viewing a place
+  searchQuery String?  // Search term if applicable
+  deviceType  String?  // mobile, desktop, tablet
+  browser     String?  // Chrome, Safari, Firefox, etc.
+  country     String?  // User's country
+  createdAt   DateTime @default(now())
+
+  @@index([eventType, createdAt])
+  @@index([city, createdAt])
+  @@index([sessionId])
+  @@index([userId])
+}
+
+model AnalyticsSession {
+  id          String   @id @default(uuid())
+  sessionId   String   @unique
+  userId      String?
+  startedAt   DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+  pageViews   Int      @default(0)
+  city        String?
+  entryPage   String
+  exitPage    String?
+  duration    Int?     // Session duration in seconds
+  deviceType  String?
+  browser     String?
+  country     String?
+  ipAddress   String?
+  userAgent   String?
+}

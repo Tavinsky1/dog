@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { trackLocationChange } from "@/lib/analytics";
 
 const locations = [
   { name: "Berlin", href: "/berlin", flag: "🇩🇪" },
@@ -13,6 +14,14 @@ const locations = [
 
 export default function LocationsDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLocationClick = (locationName: string) => {
+    const currentLocation = window.location.pathname.includes('/berlin') ? 'berlin' : 'unknown';
+    if (currentLocation !== locationName.toLowerCase()) {
+      trackLocationChange(currentLocation, locationName.toLowerCase());
+    }
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -32,7 +41,7 @@ export default function LocationsDropdown() {
               key={location.name}
               href={location.href}
               className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-orange-50 hover:text-orange-600 transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={() => handleLocationClick(location.name)}
             >
               <span className="text-lg">{location.flag}</span>
               <span>{location.name}</span>

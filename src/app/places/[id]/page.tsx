@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 import { PrismaClient, Prisma } from "@prisma/client";
 import Link from "next/link";
 import PhotoStrip from "@/components/PhotoStrip";
+import PlaceAnalytics from "@/components/PlaceAnalytics";
 
 const prisma = new PrismaClient();
 
@@ -103,6 +104,13 @@ export default async function PlacePage({ params }: { params: { id: string } }) 
 
   return (
     <div className="space-y-8">
+      {/* Analytics Tracking */}
+      <PlaceAnalytics 
+        placeId={place.id} 
+        placeName={place.name} 
+        category={place.category || 'unknown'} 
+      />
+      
       {/* SEO: JSON-LD structured data */}
       <script
         type="application/ld+json"
@@ -191,7 +199,7 @@ export default async function PlacePage({ params }: { params: { id: string } }) 
             <div className="card p-6">
               <h3 className="heading-md mb-4">🎾 Activities</h3>
               <ul className="space-y-3">
-                {place.activities.map((a) => (
+                {place.activities.map((a: any) => (
                   <li key={a.id} className="flex items-start gap-3">
                     <span className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 text-sm font-bold flex-shrink-0 mt-0.5">
                       🐕
@@ -227,7 +235,7 @@ export default async function PlacePage({ params }: { params: { id: string } }) 
             <h3 className="heading-md mb-4">⭐ Reviews ({reviews.length})</h3>
             {reviews.length ? (
               <div className="space-y-4">
-                {reviews.slice(0, 5).map((r) => (
+                {reviews.slice(0, 5).map((r: any) => (
                   <div key={r.id} className="border-l-4 border-orange-200 pl-4 py-2">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="flex">
