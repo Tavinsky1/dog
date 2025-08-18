@@ -9,6 +9,9 @@
     "prisma:studio": "prisma studio",
     "seed": "ts-node --transpile-only scripts/seed.ts",
     "import:berlin": "ts-node --transpile-only scripts/import_berlin.ts",
+    "import:places": "npx tsx scripts/import_places.ts",
+    "import:reviews": "npx tsx scripts/import_reviews.ts",
+    "import:all": "npx tsx scripts/import_all.ts",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },

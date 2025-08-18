@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
   const prisma = new (require("@prisma/client").PrismaClient)();
   const place = await prisma.place.findUnique({
-    where: { id: params.id },
+    where: { id },
     select: { name: true, description: true, category: true, district: true, city: true, rating: true },
   });
   if (!place) return { title: "Place not found • DogAtlas" };
@@ -22,36 +23,50 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import Link from "next/link";
 import PhotoStrip from "@/components/PhotoStrip";
 import PlaceAnalytics from "@/components/PlaceAnalytics";
+import StarRating from "@/components/StarRating";
+import ReviewForm from "@/components/ReviewForm";
+import ReviewsList from "@/components/ReviewsList";
 
 const prisma = new PrismaClient();
 
 const placeInclude = {
-  features: true,
-  hours: true,
   photos: true,
   reviews: true,
+  features: true,
+  hours: true,
   activities: true,
-} satisfies Prisma.PlaceInclude;
+};
 
-type PlaceWithRelations = Prisma.PlaceGetPayload<{ include: typeof placeInclude }>;
+// Get the place data with relations
+async function getPlaceWithRelations(id: string) {
+  const prisma = new PrismaClient();
+  try {
+    return await prisma.place.findUnique({
+      where: { id },
+      include: placeInclude,
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+type PlaceWithRelations = NonNullable<Awaited<ReturnType<typeof getPlaceWithRelations>>>;
 
 function prettyCategory(cat?: string | null) {
   return (cat ?? "").replace(/_/g, " ");
 }
 
-export default async function PlacePage({ params }: { params: { id: string } }) {
-  const place = await prisma.place.findUnique({
-    where: { id: params.id },
-    include: placeInclude,
-  });
+export default async function PlacePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const place = await getPlaceWithRelations(id);
 
   if (!place) return <div className="p-6">Not found</div>;
 
-  const photos = (place.photos ?? []).map((p) => p.url).filter(Boolean);
+  const photos = (place.photos ?? []).map((p: any) => p.url).filter(Boolean);
   const reviews = place.reviews ?? [];
   const computedAvg =
     reviews.length > 0
-      ? reviews.reduce((sum, r) => sum + (r.rating ?? 0), 0) / reviews.length
+      ? reviews.reduce((sum: number, r: any) => sum + (r.rating ?? 0), 0) / reviews.length
       : null;
 
   const displayRating =
@@ -61,13 +76,13 @@ export default async function PlacePage({ params }: { params: { id: string } }) 
       ? Number(computedAvg.toFixed(1))
       : null;
 
-  const features = new Map((place.features ?? []).map((f) => [f.key, f.value]));
+  const features = new Map((place.features ?? []).map((f: any) => [f.key, f.value]));
   const dogsIndoors = features.get("dogs_allowed_indoors") === "true";
   const offLeash = features.get("off_leash_allowed");
   const waterBowls = features.get("water_bowls") === "true";
 
   // JSON-LD structured data for SEO, now with reviews
-  const reviewJson = (reviews ?? []).slice(0, 20).map((r) => ({
+  const reviewJson = (reviews ?? []).slice(0, 20).map((r: any) => ({
     "@type": "Review",
     reviewRating: r.rating != null ? {
       "@type": "Rating",
@@ -314,6 +329,32 @@ export default async function PlacePage({ params }: { params: { id: string } }) 
               </div>
             </div>
           )}
+
+          {/* User Reviews Section */}
+          <div className="card p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="heading-md">🐕 Community Reviews</h3>
+              <div className="flex items-center gap-2">
+                {displayRating && (
+                  <>
+                    <StarRating rating={displayRating} size="sm" readonly />
+                    <span className="text-sm text-gray-600">
+                      {displayRating} • {reviews.length} reviews
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Review Form */}
+            <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+              <h4 className="font-medium mb-4">Share your experience!</h4>
+              <ReviewForm placeId={place.id} />
+            </div>
+
+            {/* Reviews List */}
+            <ReviewsList placeId={place.id} />
+          </div>
         </div>
       </div>
     </div>

@@ -25,33 +25,36 @@ model User {
 }
 
 model Place {
-  id          String         @id @default(uuid())
-  city        String
-  name        String
-  slug        String
-  category    String
-  description String?
-  address     String?
-  district    String?
-  neighborhood String?
-  lat         Float?
-  lng         Float?
-  website     String?
-  phone       String?
-  priceLevel  String?
-  rating      Float?
-  ratingCount Int?
-  status      String        @default("pending")
-  features    PlaceFeature[]
-  hours       PlaceHour[]
-  activities  Activity[]
-  photos      Photo[]
-  reviews     Review[]
-  submissions Submission[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  user        User?         @relation("UserPlaces", fields: [userId], references: [id])
-  userId      String?
+  id            String         @id @default(uuid())
+  city          String
+  name          String
+  slug          String
+  category      String
+  description   String?
+  address       String?
+  district      String?
+  neighborhood  String?
+  lat           Float?
+  lng           Float?
+  website       String?
+  phone         String?
+  priceLevel    Int?           // Changed to Int for price level (1-5)
+  rating        Float?         @default(0)
+  ratingCount   Int?           @default(0)
+  status        String         @default("published")
+  googlePlaceId String?        @unique  // For deduplication and linking
+  osmId         String?        @unique  // OpenStreetMap ID
+  externalUrls  Json?          // For storing facebook_url, instagram_url, etc.
+  features      PlaceFeature[]
+  hours         PlaceHour[]
+  activities    Activity[]
+  photos        Photo[]
+  reviews       Review[]
+  submissions   Submission[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  user          User?          @relation("UserPlaces", fields: [userId], references: [id])
+  userId        String?
 
   @@unique([city, slug])
 }
@@ -76,6 +79,9 @@ model PlaceHour {
 model Photo {
   id        String   @id @default(uuid())
   url       String
+  width     Int?     // Image width
+  height    Int?     // Image height  
+  source    String?  // Source of the photo (google_places, user, etc.)
   place     Place    @relation(fields: [placeId], references: [id])
   placeId   String
   user      User?    @relation(fields: [userId], references: [id])
@@ -84,16 +90,23 @@ model Photo {
 }
 
 model Review {
-  id        String   @id @default(uuid())
-  place     Place    @relation(fields: [placeId], references: [id])
-  placeId   String
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
-  rating    Int
-  body      String?
-  tags      String[]
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
+  id          String   @id @default(uuid())
+  place       Place    @relation(fields: [placeId], references: [id])
+  placeId     String
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  rating      Int
+  body        String?
+  tags        String[]
+  source      String?  // google, reddit, tripadvisor, dogatlas_user, etc.
+  url         String?  // Link to original review
+  language    String?  // Language of the review
+  author      String?  // Original author name
+  helpfulCount Int?    @default(0)
+  publishedAt DateTime? // When the review was originally published
+  metadata    Json?    // Additional review data
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
 }
 
 model Submission {

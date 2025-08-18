@@ -45,6 +45,18 @@ export async function POST(req: Request) {
 
   const { placeId, rating, body, tags } = parsed.data;
 
+  // Check if user already reviewed this place
+  const existingReview = await prisma.review.findFirst({
+    where: {
+      placeId,
+      userId: user.id
+    }
+  });
+
+  if (existingReview) {
+    return NextResponse.json({ error: "You have already reviewed this place" }, { status: 409 });
+  }
+
   const review = await prisma.review.create({
     data: {
       placeId,
@@ -52,19 +64,108 @@ export async function POST(req: Request) {
       rating,
       body,
       tags: tags ?? [],
-      status: "pending"
+      source: "dogatlas_user",
+      status: "published" // Auto-approve user reviews
+    },
+    include: {
+      user: {
+        select: {
+          name: true
+        }
+      }
     }
   });
 
-  await prisma.submission.create({
-    data: {
-      type: "review",
-      payload: parsed.data as any,
+  // Recalculate place rating
+  const allReviews = await prisma.review.findMany({
+    where: { 
       placeId,
-      userId: user.id,
-      status: "pending"
+      status: 'published'
+    },
+    select: { rating: true }
+  });
+
+  const totalRating = allReviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0);
+  const avgRating = totalRating / allReviews.length;
+
+  await prisma.place.update({
+    where: { id: placeId },
+    data: {
+      rating: Math.round(avgRating * 10) / 10,
+      ratingCount: allReviews.length
     }
   });
 
-  return NextResponse.json({ ok: true, id: review.id });
+  return NextResponse.json({ 
+    ok: true, 
+    id: review.id,
+    review: {
+      id: review.id,
+      rating: review.rating,
+      body: review.body,
+      tags: review.tags,
+      createdAt: review.createdAt,
+      user: {
+        name: review.user?.name || 'Anonymous'
+      }
+    }
+  });
+}
+
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const placeId = url.searchParams.get('placeId');
+  const page = parseInt(url.searchParams.get('page') || '1');
+  const limit = 10;
+
+  if (!placeId) {
+    return NextResponse.json({ error: 'Place ID required' }, { status: 400 });
+  }
+
+  const reviews = await prisma.review.findMany({
+    where: {
+      placeId,
+      status: 'published'
+    },
+    include: {
+      user: {
+        select: {
+          name: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    skip: (page - 1) * limit,
+    take: limit
+  });
+
+  const totalReviews = await prisma.review.count({
+    where: {
+      placeId,
+      status: 'published'
+    }
+  });
+
+  return NextResponse.json({
+    reviews: reviews.map((review: any) => ({
+      id: review.id,
+      rating: review.rating,
+      body: review.body,
+      tags: review.tags,
+      source: review.source,
+      createdAt: review.createdAt,
+      publishedAt: review.publishedAt,
+      user: {
+        name: review.user?.name || review.author || 'Anonymous'
+      }
+    })),
+    pagination: {
+      page,
+      limit,
+      total: totalReviews,
+      pages: Math.ceil(totalReviews / limit)
+    }
+  });
 }

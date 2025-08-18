@@ -1,0 +1,140 @@
+
+{"name": "Wahrhaft Nahrhaft", "category": "cafe_restaurant_bar", "address": "Revaler Straße 16, Friedrichshain", "hours": [{"day": "Mo", "open": "09:00", "close": "17:00"}, {"day": "Mi", "open": "09:00", "close": "17:00"}, {"day": "Do", "open": "09:00", "close": "17:00"}, {"day": "Fr", "open": "10:00", "close": "17:00"}, {"day": "Sa", "open": "10:00", "close": "17:00"}, {"day": "So", "open": "10:00", "close": "17:00"}], "instagram_url": "https://www.instagram.com/wahrhaftnahrhaft/"}
+
+
+
+{"name": "Café Bornträger", "category": "cafe_restaurant_bar", "address": "Stahlheimer Straße 3A, Prenzlauer Berg", "hours": [{"day": "Di", "open": "13:00", "close": "18:00"}, {"day": "Fr", "open": "13:00", "close": "18:00"}, {"day": "Sa", "open": "11:00", "close": "18:00"}, {"day": "So", "open": "11:00", "close": "18:00"}]}
+
+
+
+{"name": "The Senses", "category": "cafe_restaurant_bar", "address": "Simon-Dach-Straße 1, Friedrichshain", "hours": [{"day": "Mo", "open": "09:00", "close": "22:00"}, {"day": "Fr", "open": "09:00", "close": "22:00"}, {"day": "So", "open": "09:00", "close": "22:00"}, {"day": "Sa", "open": "09:00", "close": "23:00"}], "instagram_url": "https://www.instagram.com/thesensesberlin/"}
+
+
+
+{"name": "Barcomi’s Deli und Café", "category": "cafe_restaurant_bar", "address": "Bergmannstraße 21, Kreuzberg", "hours": [{"day": "Mo", "open": "10:00", "close": "18:00"}, {"day": "Do", "open": "10:00", "close": "18:00"}, {"day": "Fr", "open": "10:00", "close": "19:00"}, {"day": "So", "open": "10:00", "close": "19:00"}], "instagram_url": "https://www.instagram.com/barcomis/"}
+
+
+
+{"name": "Kaffeehaus SowohlAlsAuch", "category": "cafe_restaurant_bar", "address": "Kollwitzstraße 88, Prenzlauer Berg", "hours": [{"day": "Mo", "open": "08:00", "close": "23:00"}, {"day": "So", "open": "08:00", "close": "23:00"}]}
+
+
+
+{"name": "Drei Elefanten", "category": "cafe_restaurant_bar", "address": "Donaustraße 104, Neukölln", "hours": [{"day": "Mo", "open": "12:00", "close": "22:00"}, {"day": "So", "open": "12:00", "close": "22:00"}], "website": "https://www.drei-elefanten.de/"}
+
+
+
+{"name": "Companion Tea & Coffee", "category": "cafe_restaurant_bar", "address": "Weserstraße 166, Neukölln", "hours": [{"day": "Mo", "open": "08:30", "close": "18:00"}, {"day": "DO", "open": "08:30", "close": "18:00"}, {"day": "Fr", "open": "09:00", "close": "18:00"}, {"day": "Sa", "open": "10:00", "close": "18:00"}, {"day": "So", "open": "10:00", "close": "18:00"}], "instagram_url": "https://www.instagram.com/companion_tea_coffee/"}
+
+
+
+{"name": "The Greens", "category": "cafe_restaurant_bar", "address": "Am Krögel 2, Mitte", "hours": [{"day": "Mo", "open": "10:00", "close": "18:00"}, {"day": "Di", "open": "10:00", "close": "16:00"}], "instagram_url": "https://www.instagram.com/thegreensberlin/"}
+
+
+
+{"name": "Café Kalwil", "category": "cafe_restaurant_bar", "address": "Motzstraße 30, Schöneberg", "hours": [{"day": "Mo", "open": "09:00", "close": "19:00"}, {"day": "So", "open": "09:00", "close": "19:00"}]}
+
+
+
+{"name": "Stößensee", "category": "park_offleash_area", "address": "Siemenswerderweg 33, 13595 Berlin Spandau"}
+
+
+
+{"name": "Spektewiesen", "category": "park_offleash_area", "address": "An der Felgenlake, 13595 Berlin Spandau"}
+
+
+
+{"name": "Hundeauslaufgebiet Welfenallee", "category": "park_offleash_area", "address": "Welfenallee, 13465 Berlin Reinickendorf"}
+
+
+
+{"name": "Tegeler Forst", "category": "park_offleash_area", "address": "Ruppiner Chaussee, 13465 Berlin Reinickendorf"}
+
+
+
+{"name": "Lietzensee", "category": "park_offleash_area", "address": "Kaiserdamm, 14057 Berlin Charlottenburg"}
+
+
+
+{"name": "Hundepark Pücklerstraße", "category": "park_offleash_area", "address": "Pücklerstraße, 14195 Berlin Wilmersdorf"}
+
+
+
+{"name": "Hundeauslaufgebiet Grunewald", "category": "park_offleash_area", "address": "Königsallee, 14193 Berlin Wilmersdorf"}
+
+
+
+{"name": "Hundeauslaufgebiet Düppel", "category": "park_offleash_area", "address": "Königsweg, 14129 Berlin Zehlendorf"}
+
+
+
+{"name": "Hundeauslaufgebiet Nikolskoe", "category": "park_offleash_area", "address": "Pfaueninselchaussee, 14109 Berlin Zehlendorf"}
+
+
+
+{"name": "Hundeauslaufgebiet Stölpchensee", "category": "park_offleash_area", "address": "Kohlhasenbrücker Str., 14109 Berlin Zehlendorf"}
+
+
+
+{"name": "Kleistpark", "category": "park_offleash_area", "address": "Pallastraße, 10781 Berlin Schöneberg"}
+
+
+
+{"name": "Tempelhofer Feld", "category": "park_offleash_area", "address": "Tempelhofer Damm, 12049 Berlin Tempelhof"}
+
+
+
+{"name": "Hundeauslauffläche im Mauerpark", "category": "park_offleash_area", "address": "Gleimstr. 55, 10437 Berlin Pankow"}
+
+
+
+{"name": "Hundeplatz", "category": "park_offleash_area", "address": "Revaler Str., 10245 Berlin Friedrichshain"}
+
+
+
+{"name": "Hundepark Hasenheide", "category": "park_offleash_area", "address": "Hasenheide 5, 10967 Berlin Neukölln"}
+
+
+
+{"name": "Hundepark am Orankesee", "category": "park_offleash_area", "address": "Orankesee Berlin Weißensee"}
+
+
+
+{"name": "Hundepark im Naturschutzgebiet Fauler See", "category": "park_offleash_area", "address": "Naturschutzgebiet Fauler See Berlin Weißensee"}
+
+
+
+{"name": "Hundeauslauf und Hunde Trainingsverein", "category": "park_offleash_area", "address": "Hönower Weg Berlin Lichtenberg"}
+
+
+
+{"name": "Hundeauslaufgebiet Forsthausallee", "category": "park_offleash_area", "address": "Forsthausallee, 12437 Berlin Treptow"}
+
+
+
+{"name": "Grunewaldsee", "category": "lake_swim", "description": "Berlin's ultimate swimming spot for dogs, with crystal-clear water and soft sandy beaches.", "features": {"off_leash_allowed": "Always", "water_bowls": "UNKNOWN", "fenced": "UNKNOWN", "shade": "true", "poop_bags": "true"}, "website": "https://blog.petbnb.de/en/grunewaldsee-berlins-ultimate-swimming-spot-for-dogs/"}
+
+
+
+{"name": "Schnee im Erpetal in Friedrichshagen", "category": "trail_hike", "description": "Dog-friendly trail in Erpetal, Friedrichshagen, suitable for snowy conditions.", "website": "https://www.pfotentour-berlin.de/mit-dem-hund-unterwegs-schnee-im-erpetal-in-friedrichshagen/"}
+
+
+
+{"name": "Wandern mit Hund: Von Fangschleuse über Löcknitz und Flakensee bis Woltersdorf", "category": "trail_hike", "description": "Dog-friendly trail from Fangschleuse over Löcknitz and Flakensee to Woltersdorf.", "website": "https://www.pfotentour-berlin.de/wandern-mit-hund-von-fangschleuse-ueber-loecknitz-und-flakensee-bis-woltersdorf/"}
+
+
+
+{"name": "Locke at East Side Gallery", "category": "hotel", "address": "Friedrichshain-Kreuzberg, Berlin", "rating": 9.2, "price_per_night": 122.98, "website": "https://www.booking.com/hotel/de/locke-at-east-side-gallery.html"}
+
+
+
+{"name": "sly Berlin", "category": "hotel", "address": "Friedrichshain-Kreuzberg, Berlin", "rating": 9.1, "price_per_night": 183.41, "website": "https://www.booking.com/hotel/de/sly-berlin.html"}
+
+
+
+{"name": "Boutique Hotel Château Royal", "category": "hotel", "address": "Mitte, Berlin", "rating": 9.0, "price_per_night": 333.79, "website": "https://www.booking.com/hotel/de/boutique-chateau-royal.html"}
+
+
+
+{"name": "Kiezhund", "category": "shop", "description": "Dog supply store offering high-quality food, accessories, and care products.", "address": "Berlin Mitte, Moabit & Friedrichshain", "hours": [{"day": "Mo-Fr", "open": "10:00", "close": "18:30"}, {"day": "Sa", "open": "12:00", "close": "18:00"}], "website": "https://kiezhund.de/"}
+
+

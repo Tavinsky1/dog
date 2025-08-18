@@ -1,0 +1,148 @@
+Perfect timing — now that you’ve clarified the category architecture (4 featured lifestyle + 5 service categories), I’ll rebuild the Manus prompt so it matches DogAtlas exactly. This way Manus won’t invent categories, and the data will align with our Prisma schema + UI tabs out of the box.
+
+Here’s the remade prompt (ready to paste into Manus):
+
+⸻
+
+📌 Prompt for Manus: DogAtlas Deep Research → Import-Ready Data
+
+Project: DogAtlas — Next.js (App Router) + Prisma + Tailwind
+Goal: Populate DogAtlas with real places + reviews across Berlin, structured into 9 fixed categories, in import-ready JSONL files for Visual Studio Code + Copilot.
+
+⸻
+
+✅ Categories (must match exactly)
+
+🏠 Featured (Homepage)
+	1.	cafe_restaurant_bar → Paws & Patios
+“Dog-friendly cafés, restaurants & bars with outdoor seating”
+	2.	park_offleash_area → Parks & Play
+“Off-leash areas, dog parks & recreational spaces”
+	3.	lake_swim → Splash & Swim
+“Lakes, beaches & swimming spots for water-loving dogs”
+	4.	trail_hike → Trails & Treks
+“Hiking trails, forest paths & scenic walking routes”
+
+🏙️ City-specific (Berlin & other cities)
+	5.	pet_store_boutique → Pet Stores
+“Pet supplies and boutique shops”
+	6.	vet_clinic_hospital → Veterinary Services
+“Clinics, hospitals and emergency care”
+	7.	dog_groomer → Dog Groomers
+“Professional grooming and spa services”
+	8.	dog_hotel_boarding → Dog Hotels
+“Boarding, daycare and accommodation”
+	9.	dog_walker_trainer → Trainers & Walkers
+“Professional training and walking services”
+
+⚠️ No other categories should appear. Each place must belong to exactly one of these.
+
+⸻
+
+🔍 Research Sources
+	•	Primary: Google Places API (legal usage) → place details, ratings, website, opening hours, photos metadata, aggregated reviews.
+	•	Secondary: OpenStreetMap (parks, dog meadows, trails, off-leash areas).
+	•	Local Data: Berlin Open Data (official Hundewiesen, leash rules, algae alerts).
+	•	Supplementary: TripAdvisor, Yelp, Reddit (r/berlin, r/dogs), dog forums, blogs, venue websites.
+	•	Licensing: No scraping behind logins. Reviews = star rating + short paraphrase (<280 chars) + source URL.
+
+⸻
+
+📦 Output Format
+
+Deliver a folder /data/berlin/ with:
+
+places.jsonl      # 1 place per line
+reviews.jsonl     # reviews linked to places
+sources.md        # sources, APIs, rate limits
+coverage.json     # counts per category
+
+places.jsonl schema
+
+{
+  "city": "Berlin",
+  "name": "Café Hundeglück",
+  "category": "cafe_restaurant_bar",
+  "description": "Dog-friendly café with outdoor seating and water bowls.",
+  "address": "Mainstr. 12, 10967 Berlin",
+  "district": "Neukölln",
+  "neighborhood": "Kreuzberg",
+  "lat": 52.4901,
+  "lng": 13.4123,
+  "website": "https://cafehundeglueck.de",
+  "phone": "+49 30 1234567",
+  "priceLevel": 2,
+  "status": "published",
+  "features": {
+    "dogs_allowed_indoors": "true",
+    "off_leash_allowed": "No",
+    "water_bowls": "true",
+    "fenced": "false",
+    "shade": "true",
+    "poop_bags": "UNKNOWN"
+  },
+  "hours": [
+    { "day": 1, "open": "08:00", "close": "20:00" }
+  ],
+  "activity": null,
+  "rating": 4.6,
+  "ratingCount": 87,
+  "photos": [
+    { "url": "https://...", "width": 1600, "height": 900, "source": "google_places" }
+  ],
+  "external_ids": {
+    "google_place_id": "ChIJ123abc",
+    "osm_id": null
+  }
+}
+
+reviews.jsonl schema
+
+{
+  "google_place_id": "ChIJ123abc",
+  "source": "google",
+  "url": "https://maps.google.com/review/...",
+  "language": "de",
+  "published_at": "2024-08-01T10:00:00Z",
+  "rating": 5,
+  "excerpt": "The staff gave our dog water and treats!",
+  "summary": "Very dog-friendly indoors, staff offers water bowls and snacks.",
+  "tags": ["dogs_indoor", "water_bowls", "friendly_staff"],
+  "author": "First L.",
+  "helpful_count": 2
+}
+
+
+⸻
+
+🎯 Deliverables
+	•	✅ Minimum coverage (Berlin launch):
+	•	Cafés: 100+
+	•	Parks: 50+
+	•	Lakes: 20+
+	•	Trails: 30+
+	•	Pet stores: 50+
+	•	Vets: 80+
+	•	Groomers: 40+
+	•	Hotels: 40+
+	•	Walkers/Trainers: 50+
+	•	✅ coverage.json summary (counts per category).
+	•	✅ All places have: name, address, geo, website, rating, category.
+	•	✅ Reviews paraphrased + source URL.
+	•	✅ Drop-in ready for VS Code → pnpm seed data/berlin/places.jsonl.
+
+⸻
+
+✨ Bonus Ideas (if time permits)
+	•	Mark badges: puppy-friendly, fenced, shaded, busy-times, algae-warning.
+	•	Add nearest U/S-Bahn station.
+	•	Provide lists: “Top Off-Leash Parks”, “Best Dog Cafés in Neukölln”.
+	•	Flag seasonal leash rules at lakes/forests.
+
+⸻
+
+📌 Definition of Done: /data/berlin/ delivered with 1k+ real places across categories, clean JSONL files, sources documented, and coverage stats ready for import.
+
+⸻
+
+👉 Tavo, would you like me to also draft the importer script (e.g. scripts/import_reviews.ts) so once Manus gives us the JSONL, you can run pnpm ts-node scripts/import_reviews.ts and load reviews straight into Prisma? That way we close the loop.

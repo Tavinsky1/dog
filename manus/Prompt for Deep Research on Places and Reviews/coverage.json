@@ -1,0 +1,165 @@
+{
+  "categories": {
+    "cafe_restaurant_bar": {
+      "count": 9,
+      "places": [
+        {
+          "name": "Wahrhaft Nahrhaft",
+          "slug": "wahrhaft-nahrhaft"
+        },
+        {
+          "name": "Café Bornträger",
+          "slug": "caf-borntr-ger"
+        },
+        {
+          "name": "The Senses",
+          "slug": "the-senses"
+        },
+        {
+          "name": "Barcomi’s Deli und Café",
+          "slug": "barcomi-s-deli-und-caf"
+        },
+        {
+          "name": "Kaffeehaus SowohlAlsAuch",
+          "slug": "kaffeehaus-sowohlalsauch"
+        },
+        {
+          "name": "Drei Elefanten",
+          "slug": "drei-elefanten"
+        },
+        {
+          "name": "Companion Tea & Coffee",
+          "slug": "companion-tea-coffee"
+        },
+        {
+          "name": "The Greens",
+          "slug": "the-greens"
+        },
+        {
+          "name": "Café Kalwil",
+          "slug": "caf-kalwil"
+        }
+      ]
+    },
+    "park_offleash_area": {
+      "count": 19,
+      "places": [
+        {
+          "name": "Stößensee",
+          "slug": "st-ensee"
+        },
+        {
+          "name": "Spektewiesen",
+          "slug": "spektewiesen"
+        },
+        {
+          "name": "Hundeauslaufgebiet Welfenallee",
+          "slug": "hundeauslaufgebiet-welfenallee"
+        },
+        {
+          "name": "Tegeler Forst",
+          "slug": "tegeler-forst"
+        },
+        {
+          "name": "Lietzensee",
+          "slug": "lietzensee"
+        },
+        {
+          "name": "Hundepark Pücklerstraße",
+          "slug": "hundepark-p-cklerstra-e"
+        },
+        {
+          "name": "Hundeauslaufgebiet Grunewald",
+          "slug": "hundeauslaufgebiet-grunewald"
+        },
+        {
+          "name": "Hundeauslaufgebiet Düppel",
+          "slug": "hundeauslaufgebiet-d-ppel"
+        },
+        {
+          "name": "Hundeauslaufgebiet Nikolskoe",
+          "slug": "hundeauslaufgebiet-nikolskoe"
+        },
+        {
+          "name": "Hundeauslaufgebiet Stölpchensee",
+          "slug": "hundeauslaufgebiet-st-lpchensee"
+        },
+        {
+          "name": "Kleistpark",
+          "slug": "kleistpark"
+        },
+        {
+          "name": "Tempelhofer Feld",
+          "slug": "tempelhofer-feld"
+        },
+        {
+          "name": "Hundeauslauffläche im Mauerpark",
+          "slug": "hundeauslauffl-che-im-mauerpark"
+        },
+        {
+          "name": "Hundeplatz",
+          "slug": "hundeplatz"
+        },
+        {
+          "name": "Hundepark Hasenheide",
+          "slug": "hundepark-hasenheide"
+        },
+        {
+          "name": "Hundepark am Orankesee",
+          "slug": "hundepark-am-orankesee"
+        },
+        {
+          "name": "Hundepark im Naturschutzgebiet Fauler See",
+          "slug": "hundepark-im-naturschutzgebiet-fauler-see"
+        },
+        {
+          "name": "Hundeauslauf und Hunde Trainingsverein",
+          "slug": "hundeauslauf-und-hunde-trainingsverein"
+        },
+        {
+          "name": "Hundeauslaufgebiet Forsthausallee",
+          "slug": "hundeauslaufgebiet-forsthausallee"
+        }
+      ]
+    },
+    "lake_swim": {
+      "count": 1,
+      "places": [
+        {
+          "name": "Grunewaldsee",
+          "slug": "grunewaldsee"
+        }
+      ]
+    },
+    "trail_hike": {
+      "count": 0,
+      "places": []
+    },
+    "hotel": {
+      "count": 3,
+      "places": [
+        {
+          "name": "Locke at East Side Gallery",
+          "slug": "locke-at-east-side-gallery"
+        },
+        {
+          "name": "sly Berlin",
+          "slug": "sly-berlin"
+        },
+        {
+          "name": "Boutique Hotel Château Royal",
+          "slug": "boutique-hotel-ch-teau-royal"
+        }
+      ]
+    },
+    "shop": {
+      "count": 1,
+      "places": [
+        {
+          "name": "Kiezhund",
+          "slug": "kiezhund"
+        }
+      ]
+    }
+  }
+}

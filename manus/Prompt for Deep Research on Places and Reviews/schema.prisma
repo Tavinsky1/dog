@@ -1,0 +1,124 @@
+// Prisma schema for DogAtlas
+// Adjust field types and relations as needed for your app
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("USER")
+  points    Int      @default(0)
+  reviews   Review[]
+  submissions Submission[]
+  places    Place[]  @relation("UserPlaces")
+  photos    Photo[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Place {
+  id          String         @id @default(uuid())
+  city        String
+  name        String
+  slug        String
+  category    String
+  description String?
+  address     String?
+  district    String?
+  neighborhood String?
+  lat         Float?
+  lng         Float?
+  website     String?
+  phone       String?
+  priceLevel  String?
+  rating      Float?
+  ratingCount Int?
+  status      String        @default("pending")
+  features    PlaceFeature[]
+  hours       PlaceHour[]
+  activities  Activity[]
+  photos      Photo[]
+  reviews     Review[]
+  submissions Submission[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User?         @relation("UserPlaces", fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([city, slug])
+}
+
+model PlaceFeature {
+  id      String  @id @default(uuid())
+  key     String
+  value   String
+  place   Place   @relation(fields: [placeId], references: [id])
+  placeId String
+}
+
+model PlaceHour {
+  id      String  @id @default(uuid())
+  day     String
+  open    String
+  close   String
+  place   Place   @relation(fields: [placeId], references: [id])
+  placeId String
+}
+
+model Photo {
+  id        String   @id @default(uuid())
+  url       String
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  rating    Int
+  body      String?
+  tags      String[]
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}
+
+model Submission {
+  id        String   @id @default(uuid())
+  type      String
+  payload   Json
+  place     Place?   @relation(fields: [placeId], references: [id])
+  placeId   String?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  type      String
+  attrs     Json
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   String
+}
+
+model Sponsor {
+  id        String   @id @default(uuid())
+  name      String
+  url       String?
+  createdAt DateTime @default(now())
+}

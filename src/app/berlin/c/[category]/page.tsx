@@ -20,8 +20,9 @@ const VALID = new Set([
 
 const pretty = (c?: string | null) => (c ?? "").replace(/_/g, " ");
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const cat = VALID.has(params.category) ? params.category : null;
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category } = await params;
+  const cat = VALID.has(category) ? category : null;
   const title = cat ? `${pretty(cat)} in Berlin • DogAtlas` : `Dog-friendly places in Berlin • DogAtlas`;
   const description = cat
     ? `Discover the best ${pretty(cat)} for dogs in Berlin: ratings, photos, and local tips.`
@@ -38,18 +39,20 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: {
-  params: { category: string };
-  searchParams: Record<string, string | string[] | undefined>;
+  params: Promise<{ category: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const category = String(params.category);
+  const { category } = await params;
+  const resolvedSearchParams = await searchParams;
+  
   if (!VALID.has(category)) {
     return <div className="p-6">Unknown category</div>;
   }
 
-  const page = Number(Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page ?? 1);
+  const page = Number(Array.isArray(resolvedSearchParams.page) ? resolvedSearchParams.page[0] : resolvedSearchParams.page ?? 1);
   const limit = 24;
   const skip = (page - 1) * limit;
-  const q = (Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q) as string | undefined;
+  const q = (Array.isArray(resolvedSearchParams.q) ? resolvedSearchParams.q[0] : resolvedSearchParams.q) as string | undefined;
 
   // Build where with optional q filter
   const where: any = { city: "Berlin", category, status: "published" };
@@ -134,9 +137,9 @@ export default async function CategoryPage({
       ) : (
         <>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {items.map((p) => {
-              const hasDogsIndoors = p.features?.some((f) => f.key === "dogs_allowed_indoors" && f.value === "true");
-              const offLeash = p.features?.find((f) => f.key === "off_leash_allowed")?.value;
+            {items.map((p: any) => {
+              const hasDogsIndoors = p.features?.some((f: any) => f.key === "dogs_allowed_indoors" && f.value === "true");
+              const offLeash = p.features?.find((f: any) => f.key === "off_leash_allowed")?.value;
 
               return (
                 <PlaceCard
