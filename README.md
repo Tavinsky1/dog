@@ -40,7 +40,41 @@ DogAtlas is a modern web platform that helps dog owners discover the best dog-fr
 8. 🏨 **Dog Hotels** - Boarding, daycare and accommodation
 9. 🐕‍🦺 **Trainers & Walkers** - Professional training and walking services
 
-## 🛠️ Tech Stack
+## � Project Organization (Spec-Kit)
+
+DogAtlas uses **Spec-Kit** for organized, spec-driven development. This ensures all features are thoroughly planned and documented before implementation.
+
+### 📁 Project Structure
+```
+├── specs/           # Feature specifications and requirements
+├── plans/           # Development plans and roadmaps
+├── tasks/           # Task management and checklists
+├── .specify/        # Spec-kit configuration and templates
+└── CONSTITUTION.md  # Project principles and governance
+```
+
+### 🛠️ Spec-Kit Commands
+```bash
+# Check project status and requirements
+npm run spec:check
+
+# Create new feature specification
+npm run spec:new
+
+# View current tasks
+npm run spec:tasks
+
+# Check project status
+npm run project:status
+```
+
+### 📖 Key Documents
+- **[CONSTITUTION.md](CONSTITUTION.md)** - Project principles and non-negotiable rules
+- **[specs/dogatlas-platform-spec.md](specs/dogatlas-platform-spec.md)** - Complete platform specification
+- **[plans/phase-1-completion-plan.md](plans/phase-1-completion-plan.md)** - Current development roadmap
+- **[tasks/development-tasks.md](tasks/development-tasks.md)** - Active development tasks
+
+## �🛠️ Tech Stack
 
 ### Frontend
 - **Framework**: Next.js 15.4.6 with App Router

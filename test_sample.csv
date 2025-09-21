@@ -1,0 +1,2 @@
+name,type,city,latitude,longitude,short_description,full_description,image_url,website_url,phone,region,country,opening_hours,price_range,rating,amenities,tags
+"Test Dog Park","park_offleash_area","berlin","52.5200","13.4050","A great test park","This is a test dog park for validating the CSV upload functionality.","https://example.com/image.jpg","https://example.com","030-12345678","Berlin","Germany","6:00 AM - 10:00 PM","Free","4.5","water_bowls,waste_bags","dog_friendly_staff,off_leash_allowed"

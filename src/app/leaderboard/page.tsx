@@ -1,34 +1,11 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
-export default async function LeaderboardPage() {
-  const users = await prisma.user.findMany({
-    orderBy: { points: "desc" },
-    take: 50,
-    select: { id: true, name: true, email: true, points: true }
-  });
-
+export default function LeaderboardPage() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-3">Top Collaborators</h1>
-      <table className="w-full text-sm border">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="text-left p-2">#</th>
-            <th className="text-left p-2">User</th>
-            <th className="text-left p-2">Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u, i) => (
-            <tr key={u.id} className="border-t">
-              <td className="p-2">{i+1}</td>
-              <td className="p-2">{u.name ?? u.email}</td>
-              <td className="p-2">{u.points}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="space-y-4">
+      <h1 className="text-3xl font-display font-bold text-slate-900">Leaderboard</h1>
+      <p className="text-slate-600">
+        The collaborator leaderboard is currently unavailable while we simplify the MVP. Points
+        tracking will return in a future update.
+      </p>
     </div>
   );
 }

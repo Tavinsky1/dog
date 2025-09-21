@@ -1,3 +1,9 @@
+# Spec-Kit
+.specify/temp/
+*.spec.tmp
+*.plan.tmp
+*.task.tmp
+
 # Dependencies
 node_modules/
 .pnp
@@ -151,3 +157,4 @@ Thumbs.db
 
 # Local development
 .vercel
+spec-kit-repo/

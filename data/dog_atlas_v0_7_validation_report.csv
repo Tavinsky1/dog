@@ -1,0 +1,147 @@
+id,name,city,source,issues
+69767a53-c46a-5201-962a-1cb21f481346,Tempelhofer Feld (former airport),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+e11eb88f-06c3-5949-896b-b44030e08ebb,Großer Tiergarten,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+32f546d5-dcaf-52f8-9173-100962f40213,Grunewald & Grunewaldsee,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+b9c0cf93-fd8f-5c3d-8f99-6d88676351fb,Schlachtensee Circuit,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+aba37f43-bd23-53d3-b60e-e27ed0c4f00a,Krumme Lanke,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+bb13f309-c27f-5974-a4f2-8e0cb949f3cb,Tegeler See & Greenwichpromenade,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+be6dbf47-55fe-5f5c-b52f-00601045d157,Müggelsee (Nordufer & Müggelspree),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+0468cd78-e39d-5bd1-ad03-53e6b0865c28,Volkspark Friedrichshain,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+0f55a966-5cb3-5c26-833e-9d7f31493302,Mauerpark & Falkplatz,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+05ec8f9c-4df6-5449-ba5f-5ec4652d7f72,Görlitzer Park,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+12ca11b5-7c70-556c-a159-c5f7c91f86f2,Volkspark Hasenheide (Dog Run),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+041f0a1f-9af3-52a7-8907-a36bcbfff6b1,Park am Gleisdreieck,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+2b964f88-3bdb-58eb-953d-77e99e956775,Volkspark Humboldthain (Flak Tower View),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+63380f25-2913-5357-91ef-e4dd2ab3efb7,Schlosspark Charlottenburg,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+db9e8ce7-b890-5ae7-8c25-bc94bffbe38a,Weißer See (Park am Weißen See),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+429e369d-d526-5249-90a3-afb69cb05f03,Natur-Park Schöneberger Südgelände,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+e188f5e3-6bc0-5141-ae73-a9451f8e6594,Café am Neuen See (CANs),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+f84c6aa2-f21b-5e9d-9b96-b5c236e3b4a0,BRLO Brwhouse (Gleisdreieck),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+cd655ec2-3b49-5ca8-b63c-dcb723c2a564,Silo Coffee,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+f5563dd8-122f-5baf-abcc-7fe8d3c71ec3,Zeit für Brot,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+849be45c-22ad-5739-b3cf-40a8f5aa03df,Markthalle Neun,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+16cb9807-d042-5091-947f-bdeaf73ad2b5,25hours Hotel Bikini Berlin,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+d184314e-e77d-58ae-aeae-83230356082b,Hotel Zoo Berlin,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+7c9e5185-86d9-542b-a509-e4bf7208faa1,Michelberger Hotel,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+6a501eda-28ca-501f-84de-c409d18f0f85,Kleintierklinik der Freien Universität Berlin (Düppel),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+134b48b1-648b-5176-842f-ef56983a2c83,AniCura Tierklinik Berlin (Lankwitz),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+31db6e6f-dad4-5fc0-bcbd-e8bf06006afb,Tierklinik Biesdorf (Kleintierzentrum),Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+79acf307-d16c-532c-aef7-b9f3ab74df42,Tierarztpraxis am Treptower Park,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+bafd61da-512e-5555-98d9-fcfb290ec925,Tierarztpraxis Boxhagener Straße,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+463b3642-9948-5b9b-b5b1-18df37dfcdc8,Fressnapf XXL Berlin‑Lichtenberg,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+d86c399c-f602-509a-b66f-6382f51a9197,Hundesalon Fellfreunde,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+f8e24cae-e495-5ec4-b9a2-34c492fd2941,Rudelbildung – Hundeschule & Tagesbetreuung,Berlin,dog_atlas_berlin_enriched.csv,missing_coords
+d3de149e-e853-50e9-b908-53c21464240f,Bois de Boulogne (Lakes & Allées),Paris,dog_atlas_paris_enriched.csv,missing_coords
+9369d665-3176-573e-ae92-e37dd63e508e,Bois de Vincennes (Lac Daumesnil),Paris,dog_atlas_paris_enriched.csv,missing_coords
+dfd6c098-ca92-560f-a0e8-da9d77bb55fa,Parc des Buttes‑Chaumont,Paris,dog_atlas_paris_enriched.csv,missing_coords
+306351b1-c2ff-57ca-8bc3-2a02d6bd7e98,Parc Montsouris,Paris,dog_atlas_paris_enriched.csv,missing_coords
+7c507c9b-3d61-5af4-a880-66806b233f8d,Coulée Verte René‑Dumont (Promenade Plantée),Paris,dog_atlas_paris_enriched.csv,missing_coords
+489ea691-d98c-5e28-b20e-4b2b65bcf2fd,Berges de Seine (Rive Droite & Gauche),Paris,dog_atlas_paris_enriched.csv,missing_coords
+286d65cd-a04b-541d-8ccb-b98e49f6f2b0,Canal Saint‑Martin Promenade,Paris,dog_atlas_paris_enriched.csv,missing_coords
+5770a9da-a56e-591b-98c1-71619811371b,Parc Monceau,Paris,dog_atlas_paris_enriched.csv,missing_coords
+7cf7c9e3-6aa9-5b0d-9bc5-ff8fd6194cd9,Parc Rives de Seine – Île aux Cygnes Access,Paris,dog_atlas_paris_enriched.csv,missing_coords
+e4f345e3-35c7-5e4f-9010-9632714da5f9,Parc de Belleville,Paris,dog_atlas_paris_enriched.csv,missing_coords
+0b1cb714-48cb-5c66-b281-610529e87c9b,Coutume Café,Paris,dog_atlas_paris_enriched.csv,missing_coords
+f1efe53c-7d0e-5ffc-9083-c94efb30d984,Du Pain et des Idées,Paris,dog_atlas_paris_enriched.csv,missing_coords
+b016584a-0899-53d9-b910-1e5202b7a140,La Fontaine de Belleville,Paris,dog_atlas_paris_enriched.csv,missing_coords
+bb39302b-f639-56bc-a5c1-70b3f7fd15b5,Marché des Enfants Rouges,Paris,dog_atlas_paris_enriched.csv,missing_coords
+01dc4fd8-0aae-5570-9fcb-2886df44a044,Le Bristol Paris,Paris,dog_atlas_paris_enriched.csv,missing_coords
+88f2ef2c-385a-5c32-a366-26f319faba1d,Hôtel des Grands Boulevards,Paris,dog_atlas_paris_enriched.csv,missing_coords
+ab7ea1de-76d2-5094-ac88-1138d83370f9,Mama Shelter Paris East,Paris,dog_atlas_paris_enriched.csv,missing_coords
+39012b3c-fd5a-5f52-861b-5a174d232b2e,CHV Frégis (Arcueil),Paris,dog_atlas_paris_enriched.csv,missing_coords
+9e3dd945-2762-578b-b204-c1efc4e33dc2,Advetia – Hôpital Vétérinaire Paris Ouest,Paris,dog_atlas_paris_enriched.csv,missing_coords
+60446528-f29d-5daf-8407-cb12e045fe55,CHV Pommery (Reims – regional),Paris,dog_atlas_paris_enriched.csv,missing_coords
+c119b857-cffd-5cfa-b7cc-945249b151fc,VétoAdom (SOS Vétérinaires à Domicile),Paris,dog_atlas_paris_enriched.csv,missing_coords
+bc66dc5f-3dc5-592e-9797-62eafeeba833,Clinique Vétérinaire Saint‑Martin,Paris,dog_atlas_paris_enriched.csv,missing_coords
+25ec0bdf-aed0-5f3e-9916-d0c50f84ed2f,Clinique Vétérinaire du 15e – Convention,Paris,dog_atlas_paris_enriched.csv,missing_coords
+605b9b78-c3a8-5381-a9fa-bb99d446274b,Tom&Co Paris – Nation,Paris,dog_atlas_paris_enriched.csv,missing_coords
+71d4011b-22ce-5f32-9c18-02b651a86b71,Waf Waf Dog Grooming (11e),Paris,dog_atlas_paris_enriched.csv,missing_coords
+fe05087c-3c66-5c56-9c3b-62b758d5a3d9,Paris Dogs – Éducation & Balades,Paris,dog_atlas_paris_enriched.csv,missing_coords
+8fa25f42-daed-52ed-86fb-cefa49159893,Lago di Martignano,Rome,dog_atlas_rome_barcelona.csv,missing_coords
+14408a6e-abd1-550d-99ca-31cf082c3915,Villa Borghese Gardens,Rome,dog_atlas_rome_barcelona.csv,missing_coords
+6ed6d015-4355-5aaf-ac3d-2f188e1f9c59,Policlinico Veterinario Roma Sud (CVRS),Rome,dog_atlas_rome_barcelona.csv,missing_coords
+f6abf280-4701-502a-b9ca-127b9638ce94,Playa de Llevant – Dog Beach,Barcelona,dog_atlas_rome_barcelona.csv,missing_coords
+f4ecfc8c-cf3f-519b-9c28-0b3cd852e825,Parc de la Ciutadella,Barcelona,dog_atlas_rome_barcelona.csv,missing_coords
+f9829493-bc62-5722-9b49-2efac0dd0912,Hospital Veterinari Glòries,Barcelona,dog_atlas_rome_barcelona.csv,missing_coords
+910827ae-5d76-5b2f-b2b6-5a288d59f3fc,Villa Borghese Gardens (Area Cani),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+b16678b8-1cd8-5fbe-a621-67c8674fd432,Villa Doria Pamphilj,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+1e636767-73f7-5efc-8c74-8ba36b1996b0,Parco degli Acquedotti (Appia Antica),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+aafd60ce-4b6b-5df9-9dac-f923afa4e4b3,Parco della Caffarella,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+cb0ad67c-931b-53dd-b118-d75d72466b26,Giardino degli Aranci (Parco Savello),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+28d38554-80b2-5502-9fe4-3ff549b8252b,Villa Celimontana,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+b0fdd75e-4eb3-522a-8263-7e667439c77d,Parco del Pineto (Pineta Sacchetti),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+6cd4256c-352b-5def-a231-d16bf9c8f48b,Parco di Monte Ciocci,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+e17c6945-3810-58ae-945b-61c68ed4fe6d,Lago di Martignano (Parco Bracciano‑Martignano),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+c4bf6aba-8e47-5a18-8ff9-586e2308efc9,Lago di Bracciano (Parco Bracciano‑Martignano),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+1b3b8186-6f76-594a-8fae-88b0561cda56,Riserva Naturale dell’Insugherata,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+4c88adc5-5094-516c-a347-62af6f3c3a0d,Parco di Veio – Valle del Sorbo,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+4fd951f7-22ff-590e-9c92-3e23315080c6,Pineta di Castel Fusano (Riserva del Litorale Romano),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+80d04f74-9ff7-5c5e-93a9-4183888fce2e,Pista Ciclabile del Tevere (Riverside Greenway),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+60177d13-1d8b-535d-a89d-6558a8403081,Baubeach® – Maccarese (Fiumicino),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+6ed6d015-4355-5aaf-ac3d-2f188e1f9c59,Policlinico Veterinario Roma Sud (CVRS),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+a68ae851-4742-5110-98cd-bc0b8b18d685,Ospedale Veterinario Croce Azzurra (EUR),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+a98a25a1-e622-5847-b33e-7bd2dbc8699c,Clinica Veterinaria Pievaroli (Mostacciano),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+da75050b-a54c-552e-a0d8-a5b50937ad59,Clinica Veterinaria San Francesco (Montesacro),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+86fe64a1-f289-5cfd-b601-fe900fa14989,Centro Veterinario Specialistico (CVS),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+33edaa38-8692-5f2c-a27b-252784b9f1c8,Clinica Veterinaria San Giovanni (H24),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+bb6abfdd-864e-5a84-b7a5-9c299b750287,Clinica Veterinaria Roma Appia 24 Ore,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+7976a5c0-25a5-5867-8979-eda361d3c576,Clinica Veterinaria Destrero (Monteverde),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+92cd0606-2b50-5d1e-b634-b368e062125f,Ambulatorio Tre Madonne (Parioli),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+2590f2a1-c686-588d-a953-fc0f47d00602,Ambulatorio Veterinario Dr. Giorgio Sorichetti (Balduina),Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+bed4de8e-6e4e-5284-8c44-b0bcbf82b654,"The Westin Excelsior, Rome",Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+130c6ce5-028c-531b-9f8c-0cbcc9a88c17,The St. Regis Rome,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+e33e1f4b-aed0-5377-95fb-d93ca467f65d,W Rome,Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+2388e1fc-b419-5b64-b765-c26ba2c3463b,"Palazzo Velabro, Design Hotels",Rome,dog_atlas_unified_rome_barcelona.csv,missing_coords
+f132e72b-b008-5972-a5db-896d76a99de0,Parc Natural de la Serra de Collserola (Carretera de les Aigües),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+f2ea6112-7abc-54b3-a964-00f3a4bb8bba,Montjuïc Park (Castell & Gardens),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+f4ecfc8c-cf3f-519b-9c28-0b3cd852e825,Parc de la Ciutadella,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+42cb1bba-2619-502f-9e79-18f80e550c63,Parc del Guinardó,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+d64d34f8-f6f5-54b6-a34d-69a11628fb9f,Turó del Putxet Gardens,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+0552b7f3-6d1b-5ac7-a8c6-d9d38c144954,Parc de la Creueta del Coll,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+a81fb0ba-7ab3-579d-b7e3-5d1d17a72511,Parc del Poblenou (Parc del Centre del Poblenou),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+42c62585-8c56-5086-aa0f-8ceefc633cf9,Parc del Guinardó – Bunkers del Carmel Access,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+2deac8cc-0193-5dfe-8e6e-01021a854554,Collserola – Sant Medir & Hermita Loops,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+72416623-5794-5a28-bec4-b9db46643b2d,Parc del Fòrum Promenade,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+20540e6b-1afc-510d-b664-39d0b5bf250e,Platja de Llevant – Àrea per a Gossos (seasonal),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+f9829493-bc62-5722-9b49-2efac0dd0912,Hospital Veterinari Glòries,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+37d4e847-250b-5f95-964c-813a484919bf,AniCura Ars Veterinaria Hospital Veterinari,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+e2a43053-dc48-5b7d-86cc-0bd96cb0bbf3,Hospital Veterinari Barcelona (HVB),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+230d7f74-45b8-5c41-9e06-f657973a5e0c,Hospital Clínic Veterinari UAB (Bellaterra),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+1c9579e1-ed8b-5347-bbc0-b8d204bf7065,Vet’s Affinity – Eixample,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+0c2391cc-7e9d-548d-8590-65e71f240d1e,Clínica Veterinària El Putxet,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+b03aaeff-bdf7-5866-aaa5-07e7835e0c17,W Barcelona,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+a30b8426-af8c-5065-93e7-2ec23f9bfffa,Hotel SB Icaria Barcelona,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+4dcc465b-c36e-5b12-8f5d-efd77130645b,Hotel Claris & Spa GL,Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+64e2f827-1813-54de-a0e9-2d6cc3856ded,Mercat de la Boqueria – Bars & Stalls (terraces nearby),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+076738cb-56ea-50fd-974d-ad30e1b80f16,Brunch & Cake (multiple locations),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+c352a07b-fb3c-519c-8bf7-b80b39b67b88,Alsur Café (multiple locations),Barcelona,dog_atlas_unified_rome_barcelona.csv,missing_coords
+a90e8ed7-be54-51a4-a21f-8df89459571f,Café de Flore,Paris,DogAtlas_Paris_latest_20250902_120723.csv,missing_coords
+57abcf0d-1676-516d-9584-ef5327fc46b4,Bois de Boulogne – Allée des Chiens,Paris,DogAtlas_Paris_latest_20250902_120723.csv,missing_coords
+a90e8ed7-be54-51a4-a21f-8df89459571f,Café de Flore,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+2a1c13be-fd70-5399-9073-8be3bf72b4be,Les Deux Magots,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+5ef78af9-0eea-5dd5-89f5-137accdc3a2c,Angelina (Rivoli),Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+57abcf0d-1676-516d-9584-ef5327fc46b4,Bois de Boulogne – Allée des Chiens,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+cf546c48-5cd7-534d-9d17-b345b3d1a9f9,Bois de Vincennes – Lac Daumesnil Dog Zone,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+07c3a0cd-20e6-5514-8935-1d19d18b56c9,Parc Montsouris (dog areas),Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+ef2e7be3-ad5c-57ac-99bb-865b2b03cdbe,Coulée Verte René‑Dumont,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+e106e928-c076-5fb3-a07d-f1d153b28305,Canal Saint‑Martin Riverside,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+66793d57-ed6f-5567-846b-3902dbb6d107,Forêt de Fontainebleau,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+e74c91b4-d0b3-5184-9063-104daf91a76a,Île de Loisirs de Cergy‑Pontoise,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+95a70afa-3afa-5f69-86f4-1eefbcdea9a2,Île de Loisirs de Vaires‑Torcy,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+1bc57e35-b18d-5416-9265-23e963abd7be,Étangs de Meudon,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+5448f7b9-433a-5811-a666-53fbb62e855c,Moustaches – Archives,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+c2d54de7-28c2-5033-8d64-c17e501ca31d,Petsochic – Rue Dauphine,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+b6bee5d5-8ded-5852-aa3a-9833fed09175,Animalis – Bercy Village,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+e0af5367-1774-5fd0-a143-bf685d973011,CHV Frégis,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+cdc711ed-3ee4-5700-b30c-a2904a8b3ecf,CHV ADVETIA,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+122e8305-a1c8-562b-84ca-1884505bcec5,Clinique Vétérinaire Paris 7,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+550a2f0f-a2a9-5887-87b7-e1b19f0a7898,Dog‑Station Toilettage,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+9481d9c7-401a-5c76-8496-933efdec24f9,Toutou Chic,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+ad8393a8-c726-5fb7-a075-703f84761e30,Au Paradis Canin,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+dc7873c8-aead-5ee0-8da7-2fc3881e4421,Pension du Pont de Sèvres,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+072c118a-d191-5db0-bc8a-3395af0fa1e6,The Canine Residency,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+e6926e25-5af9-574a-ae1a-425671e9ab98,Le Domaine Câlin,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+1d3ff8fd-7435-5a4a-b556-c271969cc355,Canidélite Paris,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+1d92a1a5-a454-5d5f-ab6c-caef13f31518,GentleDog Éducation Canine,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+275b9e37-73a1-555b-ba4a-35163f74cda0,Parlez‑Vous Chien?,Paris,DogAtlas_Paris_rebuild_20250902_120953.csv,missing_coords
+1b38cb7f-f703-5a72-850f-b4f21f7952ab,Nina Dalle – Toilettage Spa,Paris,dogatlas_places_seed.csv,missing_coords

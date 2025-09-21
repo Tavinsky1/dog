@@ -248,13 +248,11 @@ async function main() {
   try {
     await importPlaces()
   } catch (error) {
-    console.error('Import failed:', error)
+    console.error("Import failed:", error)
     process.exit(1)
   } finally {
     await prisma.$disconnect()
   }
 }
 
-if (require.main === module) {
-  main()
-}
+main();

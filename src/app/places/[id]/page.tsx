@@ -4,13 +4,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const prisma = new (require("@prisma/client").PrismaClient)();
   const place = await prisma.place.findUnique({
     where: { id },
-    select: { name: true, description: true, category: true, district: true, city: true, rating: true },
+    select: { name: true, shortDescription: true, type: true, region: true, country: true, rating: true },
   });
   if (!place) return { title: "Place not found • DogAtlas" };
-  const title = `${place.name} • ${place.city ?? "Berlin"} | DogAtlas`;
+  const title = `${place.name} • ${place.country ?? "Berlin"} | DogAtlas`;
   const desc =
-    place.description ??
-    `Dog-friendly ${String(place.category ?? "").replace(/_/g, " ")} in ${place.district ?? place.city ?? "Berlin"}.`;
+    place.shortDescription ??
+    `Dog-friendly ${String(place.type ?? "").replace(/_/g, " ")} in ${place.region ?? place.country ?? "Berlin"}.`;
   return {
     title,
     description: desc,
@@ -30,18 +30,14 @@ import ReviewsList from "@/components/ReviewsList";
 const prisma = new PrismaClient();
 
 const placeInclude = {
-  photos: true,
-  reviews: true,
-  features: true,
-  hours: true,
-  activities: true,
+  favorites: true,
 };
 
 // Get the place data with relations
 async function getPlaceWithRelations(id: string) {
   const prisma = new PrismaClient();
   try {
-    return await prisma.place.findUnique({
+    return await (prisma as any).place.findUnique({
       where: { id },
       include: placeInclude,
     });

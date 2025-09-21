@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { generateId, getAriaLabel } from '@/lib/accessibility'
 
 interface StarRatingProps {
   rating: number
@@ -9,13 +10,14 @@ interface StarRatingProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-export default function StarRating({ 
-  rating, 
-  onRatingChange, 
+export default function StarRating({
+  rating,
+  onRatingChange,
   readonly = false,
   size = 'md'
 }: StarRatingProps) {
   const [hoverRating, setHoverRating] = useState(0)
+  const ratingId = generateId('star-rating')
 
   const sizeClasses = {
     sm: 'w-4 h-4',
@@ -50,21 +52,29 @@ export default function StarRating({
   }
 
   return (
-    <div 
+    <div
+      id={ratingId}
       className="flex space-x-1"
       onMouseLeave={handleMouseLeave}
+      role="radiogroup"
+      aria-label={readonly ? `Rating: ${rating} out of 5 stars` : 'Rate this place'}
+      aria-readonly={readonly ? 'true' : 'false'}
     >
       {[1, 2, 3, 4, 5].map((starIndex) => (
         <button
           key={starIndex}
           type="button"
           disabled={readonly}
+          role="radio"
+          aria-checked={rating >= starIndex ? 'true' : 'false'}
+          aria-setsize={5}
+          aria-posinset={starIndex}
+          aria-label={getAriaLabel('rating-star', `${starIndex} star${starIndex > 1 ? 's' : ''}`)}
           title={readonly ? `${starIndex} star${starIndex > 1 ? 's' : ''}` : `Rate ${starIndex} star${starIndex > 1 ? 's' : ''}`}
-          aria-label={readonly ? `${starIndex} star${starIndex > 1 ? 's' : ''}` : `Rate ${starIndex} star${starIndex > 1 ? 's' : ''}`}
           className={`
-            ${sizeClasses[size]} 
+            ${sizeClasses[size]}
             ${getStarColor(starIndex)}
-            ${readonly ? 'cursor-default' : 'cursor-pointer hover:scale-110'}
+            ${readonly ? 'cursor-default' : 'cursor-pointer hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'}
             transition-all duration-150
           `}
           onClick={() => handleStarClick(starIndex)}

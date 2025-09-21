@@ -21,7 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Include only the most recent 500 places to keep the file lean
   const places = await prisma.place.findMany({
-    where: { status: "published" },
     select: { id: true, updatedAt: true },
     orderBy: { updatedAt: "desc" },
     take: 500,

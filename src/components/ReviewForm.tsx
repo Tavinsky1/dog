@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import StarRating from './StarRating'
+import { generateId, a11yProps, announceToScreenReader } from '@/lib/accessibility'
 
 interface ReviewFormProps {
   placeId: string
@@ -18,6 +19,9 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const formId = generateId('review-form')
+  const commentId = generateId('comment')
+  const errorId = generateId('error')
 
   const suggestedTags = [
     'dog_friendly_staff',
@@ -83,7 +87,10 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
       setRating(0)
       setComment('')
       setTags([])
-      
+
+      // Announce success to screen readers
+      announceToScreenReader('Review submitted successfully', 'polite')
+
       if (onReviewSubmitted && data.review) {
         onReviewSubmitted(data.review)
       }
@@ -92,7 +99,9 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
       setTimeout(() => setSuccess(false), 3000)
 
     } catch (err: any) {
-      setError(err.message || 'Failed to submit review')
+      const errorMessage = err.message || 'Failed to submit review'
+      setError(errorMessage)
+      announceToScreenReader(`Error: ${errorMessage}`, 'assertive')
     } finally {
       setIsSubmitting(false)
     }
@@ -102,9 +111,11 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
     return (
       <div className="bg-gray-50 rounded-lg p-6 text-center">
         <p className="text-gray-600 mb-4">Sign in to leave a review for this place</p>
-        <button 
+        <button
+          type="button"
           onClick={() => window.location.href = '/api/auth/signin'}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          aria-label="Sign in to leave a review"
         >
           Sign In
         </button>
@@ -126,7 +137,13 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      id={formId}
+      onSubmit={handleSubmit}
+      className="space-y-6"
+      {...a11yProps.form('Review submission form', !!error)}
+      aria-describedby={error ? errorId : undefined}
+    >
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Your Rating *
@@ -143,15 +160,16 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
           Your Experience
         </label>
         <textarea
-          id="comment"
+          id={commentId}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Tell other dog owners about your experience..."
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           rows={4}
           maxLength={1000}
+          aria-describedby={`${commentId}-length`}
         />
-        <p className="text-sm text-gray-500 mt-1">
+        <p id={`${commentId}-length`} className="text-sm text-gray-500 mt-1" aria-live="polite">
           {comment.length}/1000 characters
         </p>
       </div>
@@ -194,7 +212,8 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
                   <button
                     type="button"
                     onClick={() => handleTagRemove(tag)}
-                    className="ml-2 text-blue-600 hover:text-blue-800"
+                    className="ml-2 text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+                    aria-label={`Remove ${tag.replace(/_/g, ' ')} tag`}
                   >
                     ×
                   </button>
@@ -206,7 +225,12 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
       </div>
 
       {error && (
-        <div className="text-red-600 text-sm">
+        <div
+          id={errorId}
+          className="text-red-600 text-sm"
+          role="alert"
+          aria-live="assertive"
+        >
           {error}
         </div>
       )}
@@ -215,12 +239,13 @@ export default function ReviewForm({ placeId, onReviewSubmitted }: ReviewFormPro
         type="submit"
         disabled={isSubmitting || rating === 0}
         className={`
-          w-full py-2 px-4 rounded-md font-medium transition-colors
+          w-full py-2 px-4 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
           ${rating === 0 || isSubmitting
             ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
             : 'bg-blue-600 text-white hover:bg-blue-700'
           }
         `}
+        aria-describedby={rating === 0 ? undefined : 'submit-help'}
       >
         {isSubmitting ? 'Submitting...' : 'Submit Review'}
       </button>

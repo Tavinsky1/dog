@@ -1,180 +1,199 @@
 // Prisma schema for DogAtlas
-// Adjust field types and relations as needed for your app
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-model User {
+enum PlaceType {
+  // Recreation & Exercise
+  park_offleash_area
+  park_onleash_area
+  trail_hiking
+  trail_walking
+  beach_dog_friendly
+  lake_dog_friendly
+  
+  // Food & Drink
+  cafe_dog_friendly
+  restaurant_dog_friendly
+  brewery_dog_friendly
+  
+  // Services
+  vet_clinic
+  vet_emergency
+  grooming_salon
+  grooming_mobile
+  pet_store
+  doggy_daycare
+  dog_training
+  
+  // Accommodation
+  hotel_pet_friendly
+  hostel_pet_friendly
+  apartment_pet_friendly
+  
+  // Activities & Events
+  dog_park_event
+  dog_training_class
+  dog_meetup
+  pet_expo
+  
+  // Specialty
+  dog_spa
+  pet_photography
+  dog_taxi
+  pet_cemetery
+}
+
+enum Role {
+  USER
+  EDITOR
+  ADMIN
+}
+
+model City {
   id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  role      String   @default("USER")
-  points    Int      @default(0)
-  reviews   Review[]
-  submissions Submission[]
-  places    Place[]  @relation("UserPlaces")
-  photos    Photo[]
+  slug      String   @unique
+  name      String
+  region    String?
+  country   String
+  lat       Float
+  lng       Float
+  bbox      Json?    // GeoJSON bbox
+  active    Boolean  @default(true)
+  places    Place[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([slug])
 }
 
 model Place {
-  id            String         @id @default(uuid())
-  city          String
-  name          String
-  slug          String
-  category      String
-  description   String?
-  address       String?
-  district      String?
-  neighborhood  String?
-  lat           Float?
-  lng           Float?
-  website       String?
-  phone         String?
-  priceLevel    Int?           // Changed to Int for price level (1-5)
-  rating        Float?         @default(0)
-  ratingCount   Int?           @default(0)
-  status        String         @default("published")
-  googlePlaceId String?        @unique  // For deduplication and linking
-  osmId         String?        @unique  // OpenStreetMap ID
-  externalUrls  Json?          // For storing facebook_url, instagram_url, etc.
-  features      PlaceFeature[]
-  hours         PlaceHour[]
-  activities    Activity[]
-  photos        Photo[]
+  id                String     @id @default(uuid())
+  slug              String     @unique
+  name              String
+  type              PlaceType
+  cityId            String
+  city              City       @relation(fields: [cityId], references: [id])
+  region            String?
+  country           String
+  lat               Float
+  lng               Float
+  shortDescription  String
+  fullDescription   String?
+  imageUrl          String?
+  gallery           Json?      // Array of image URLs
+  dogFriendlyLevel  Int?
+  amenities         Json?      // Array of amenities
+  rules             String?
+  websiteUrl        String?
+  phone             String?
+  email             String?
+  priceRange        String?
+  openingHours      String?
+  rating            Float?
+  tags              Json?      // Array of tags
+  source            String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  favorites         Favorite[]
+  reviews           Review[]
+
+  @@index([cityId])
+  @@index([type])
+  @@index([slug])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  passwordHash  String?
+  accounts      Account[]
+  sessions      Session[]
+  favorites     Favorite[]
   reviews       Review[]
-  submissions   Submission[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  user          User?          @relation("UserPlaces", fields: [userId], references: [id])
-  userId        String?
-
-  @@unique([city, slug])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
-model PlaceFeature {
-  id      String  @id @default(uuid())
-  key     String
-  value   String
-  place   Place   @relation(fields: [placeId], references: [id])
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id      String @id @default(cuid())
+  userId  String
   placeId String
-}
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  place   Place  @relation(fields: [placeId], references: [id], onDelete: Cascade)
 
-model PlaceHour {
-  id      String  @id @default(uuid())
-  day     String
-  open    String
-  close   String
-  place   Place   @relation(fields: [placeId], references: [id])
-  placeId String
-}
-
-model Photo {
-  id        String   @id @default(uuid())
-  url       String
-  width     Int?     // Image width
-  height    Int?     // Image height  
-  source    String?  // Source of the photo (google_places, user, etc.)
-  place     Place    @relation(fields: [placeId], references: [id])
-  placeId   String
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
-  createdAt DateTime @default(now())
+  @@unique([userId, placeId])
 }
 
 model Review {
-  id          String   @id @default(uuid())
-  place       Place    @relation(fields: [placeId], references: [id])
-  placeId     String
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      String?
-  rating      Int
-  body        String?
-  tags        String[]
-  source      String?  // google, reddit, tripadvisor, dogatlas_user, etc.
-  url         String?  // Link to original review
-  language    String?  // Language of the review
-  author      String?  // Original author name
-  helpfulCount Int?    @default(0)
-  publishedAt DateTime? // When the review was originally published
-  metadata    Json?    // Additional review data
-  status      String   @default("pending")
-  createdAt   DateTime @default(now())
-}
-
-model Submission {
   id        String   @id @default(uuid())
-  type      String
-  payload   Json
-  place     Place?   @relation(fields: [placeId], references: [id])
-  placeId   String?
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
-}
-
-model Activity {
-  id        String   @id @default(uuid())
-  type      String
-  attrs     Json
   place     Place    @relation(fields: [placeId], references: [id])
   placeId   String
-}
-
-model Sponsor {
-  id        String   @id @default(uuid())
-  name      String
-  url       String?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  rating    Int
+  body      String?
+  tags      Json?    // Array of tag strings
+  status    String   @default("published")
   createdAt DateTime @default(now())
-}
+  updatedAt DateTime @updatedAt
 
-model AnalyticsEvent {
-  id          String   @id @default(uuid())
-  eventType   String   // page_view, place_view, search, category_click, etc.
-  eventData   Json?    // Additional event-specific data
-  userId      String?  // Track authenticated users
-  sessionId   String   // Track anonymous sessions
-  ipAddress   String?
-  userAgent   String?
-  page        String   // Current page path
-  referrer    String?  // Referring page
-  city        String?  // City context (berlin, etc.)
-  category    String?  // Category context if applicable
-  placeId     String?  // Place ID if viewing a place
-  searchQuery String?  // Search term if applicable
-  deviceType  String?  // mobile, desktop, tablet
-  browser     String?  // Chrome, Safari, Firefox, etc.
-  country     String?  // User's country
-  createdAt   DateTime @default(now())
-
-  @@index([eventType, createdAt])
-  @@index([city, createdAt])
-  @@index([sessionId])
+  @@index([placeId])
   @@index([userId])
 }
 
-model AnalyticsSession {
-  id          String   @id @default(uuid())
-  sessionId   String   @unique
-  userId      String?
-  startedAt   DateTime @default(now())
-  lastSeenAt  DateTime @default(now())
-  pageViews   Int      @default(0)
-  city        String?
-  entryPage   String
-  exitPage    String?
-  duration    Int?     // Session duration in seconds
-  deviceType  String?
-  browser     String?
-  country     String?
-  ipAddress   String?
-  userAgent   String?
+model IngestJob {
+  id                 String   @id @default(uuid())
+  filename           String
+  status             String   @default("pending") // pending, validating, validated, applying, completed, failed
+  totalRows          Int
+  validRows          Int      @default(0)
+  invalidRows        Int      @default(0)
+  validationErrors   Json?    // Array of error objects
+  validationWarnings Json?    // Array of warning objects
+  validData          Json?    // Array of validated row data
+  appliedAt          DateTime?
+  appliedBy          String?
+  createdBy          String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdBy])
 }

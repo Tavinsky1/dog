@@ -27,6 +27,4 @@ async function runImport() {
   }
 }
 
-if (require.main === module) {
-  runImport()
-}
+runImport()

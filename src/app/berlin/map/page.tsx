@@ -8,7 +8,7 @@ import Link from "next/link";
 type Place = {
   id: string;
   name: string;
-  category: string;
+  type: string;
   lat?: number | null;
   lng?: number | null;
   district?: string | null;
@@ -132,7 +132,7 @@ export default function BerlinMapPage() {
         <ul className="space-y-2">
           {data.items.slice(0, 100).map(p => (
             <li key={p.id} className="border rounded-xl p-3 bg-white">
-              <div className="text-xs uppercase opacity-60">{p.category.replace(/_/g," ")}</div>
+              <div className="text-xs uppercase opacity-60">{p.type.replace(/_/g," ")}</div>
               <Link className="font-semibold hover:text-brand-600" href={`/places/${p.id}`}>{p.name}</Link>
               <div className="text-xs opacity-70">
                 {p.rating != null ? <>★ {p.rating.toFixed(1)}</> : "No rating"}

@@ -1,44 +1,80 @@
-import Link from "next/link";
+'use client';
 
-export default function PlaceCard({
-  id, name, category, district, neighborhood, badges = []
-}: {
-  id: string; name: string; category: string; district?: string|null; neighborhood?: string|null; badges?: string[];
-}) {
+import Link from "next/link";
+import FavoriteButton from "./FavoriteButton";
+
+type Place = {
+  id: string;
+  slug: string;
+  name: string;
+  type: string;
+  shortDescription: string | null;
+  dogFriendlyLevel?: number | null;
+  imageUrl?: string | null;
+  rating?: number | null;
+  city: {
+    slug: string;
+  };
+};
+
+interface PlaceCardProps {
+  place: Place;
+  showFavoriteButton?: boolean;
+  isFavorited?: boolean;
+}
+
+export default function PlaceCard({ place, showFavoriteButton = false, isFavorited = false }: PlaceCardProps) {
   return (
-    <div className="card-hover p-6">
-      <div className="flex items-start justify-between mb-4">
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-amber-100 text-amber-800 border border-amber-200">
-          🐕 {category.replace(/_/g, " ")}
-        </span>
-      </div>
-      
-      <Link href={`/places/${id}`} className="block mb-4 group">
-        <h3 className="text-2xl font-display font-extrabold text-gray-800 leading-tight mb-2 group-hover:text-orange-600 transition-colors">
-          {name}
-        </h3>
-      </Link>
-      
-      <div className="flex items-center text-gray-600 mb-4 text-lg">
-        <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        <span>{district}{neighborhood ? ` • ${neighborhood}` : ""}</span>
-      </div>
-      
-      {badges.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {badges.map(badge => (
-            <span 
-              key={badge} 
-              className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-orange-100 text-orange-800 border border-orange-200"
-            >
-              ⭐ {badge}
-            </span>
-          ))}
+    <div className="block rounded-xl border border-slate-200 bg-white p-4 hover:shadow-md transition-shadow">
+      {place.imageUrl && (
+        <div className="aspect-video w-full mb-3 rounded-lg overflow-hidden bg-slate-100">
+          <img
+            src={place.imageUrl}
+            alt={place.name}
+            className="w-full h-full object-cover"
+          />
         </div>
       )}
+
+      <div className="space-y-2">
+        <div className="flex items-start justify-between">
+          <Link
+            href={`/${place.city.slug}/p/${place.slug}`}
+            className="flex-1 hover:text-blue-600 transition-colors"
+          >
+            <h3 className="text-lg font-semibold line-clamp-2">{place.name}</h3>
+          </Link>
+          {place.rating && (
+            <div className="flex items-center text-sm text-yellow-600 ml-2">
+              <span>★ {place.rating.toFixed(1)}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="text-xs uppercase text-slate-500 bg-slate-100 px-2 py-1 rounded">
+            {place.type.replace(/_/g, ' ')}
+          </span>
+          {place.dogFriendlyLevel && (
+            <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
+              Dog Level {place.dogFriendlyLevel}/5
+            </span>
+          )}
+        </div>
+
+        {place.shortDescription && (
+          <p className="text-sm text-slate-600 line-clamp-2">{place.shortDescription}</p>
+        )}
+
+        {showFavoriteButton && (
+          <div className="flex justify-end pt-2">
+            <FavoriteButton
+              placeId={place.id}
+              initialIsFavorited={isFavorited}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

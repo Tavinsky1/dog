@@ -1,97 +1,130 @@
-import Image from "next/image";
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import CategoryCard from "@/components/CategoryCard";
 import Stat from "@/components/Stat";
-import { PrismaClient } from "@prisma/client";
+import CitySelector from "@/components/CitySelector";
+import { prisma } from "@/lib/prisma";
+// import { CATEGORY_GROUPS, getAllGroupsOrdered, getCategoriesByGroup } from "@/lib/categories";
 
-const prisma = new PrismaClient();
-
-// Category data - using dog-focused images with better proportions
-const CAFE_IMG = "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=500&h=300&fit=crop&crop=center";
-const PARK_IMG = "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500&h=300&fit=crop&crop=center";
-const LAKE_IMG = "https://images.unsplash.com/photo-1544568100-847a948585b9?w=500&h=300&fit=crop&crop=center";
-const TRAIL_IMG = "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=300&fit=crop&crop=center";
-
-const CATEGORIES = [
-  { 
-    key: "cafe_restaurant_bar", 
-    title: "Paws & Patios", 
-    description: "Dog-friendly cafés, restaurants & bars with outdoor seating",
-    image: CAFE_IMG 
+const FEATURE_CARDS = [
+  {
+    title: "Find your next adventure",
+    description: "Discover parks, lakes, and trails that welcome wagging tails.",
+    icon: "🏃‍♂️",
+    categories: ["park_offleash_area", "trail_hiking", "beach_dog_friendly"]
   },
-  { 
-    key: "park_offleash_area", 
-    title: "Parks & Play", 
-    description: "Off-leash areas, dog parks & recreational spaces",
-    image: PARK_IMG 
+  {
+    title: "Cafés & hangouts",
+    description: "Dog-friendly cafés, patios, and community hotspots.",
+    icon: "☕",
+    categories: ["cafe_dog_friendly", "restaurant_dog_friendly", "brewery_dog_friendly"]
   },
-  { 
-    key: "lake_swim", 
-    title: "Splash & Swim", 
-    description: "Lakes, beaches & swimming spots for water-loving dogs",
-    image: LAKE_IMG 
+  {
+    title: "Trusted services",
+    description: "Vets, groomers, walkers, and trainers recommended by locals.",
+    icon: "🏥",
+    categories: ["vet_clinic", "grooming_salon", "dog_training"]
   },
-  { 
-    key: "trail_hike", 
-    title: "Trails & Treks", 
-    description: "Hiking trails, forest paths & scenic walking routes",
-    image: TRAIL_IMG 
+  {
+    title: "Community-powered",
+    description: "Every listing comes from real adventures shared by the community.",
+    icon: "👥",
+    categories: ["dog_meetup", "dog_park_event", "pet_expo"]
   },
 ];
 
 export default async function Home() {
-  const placesCount = await prisma.place.count({ where: { status: "published" } });
-  const berlinCount = await prisma.place.count({ where: { status: "published", city: "Berlin" } });
+  const [placesCount, activeCities] = await Promise.all([
+    prisma.place.count(),
+    prisma.city.findMany({
+      where: { active: true },
+      orderBy: { name: "asc" },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        country: true,
+        _count: {
+          select: {
+            places: true,
+          },
+        },
+      },
+    }),
+  ]);
 
   return (
-    <div className="space-y-8">
-      <Hero 
-        title="Find Amazing Dog-Friendly Places"
-        subtitle="Discover the best spots in your city where you and your furry friend are both welcome"
+    <div className="space-y-16">
+      <Hero
+        title="DogAtlas"
+        subtitle="The easiest way to explore dog-friendly trails, cafés, services, and activities in cities around the world."
+        cta={
+          <>
+            <Link href="#cities" className="btn-primary">
+              Explore cities
+            </Link>
+            <CitySelector />
+          </>
+        }
       />
-      
-      {/* Categories Grid */}
-      <section className="space-y-6">
+
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {FEATURE_CARDS.map((feature) => (
+          <div key={feature.title} className="card-hover p-6 text-left">
+            <h3 className="text-lg font-semibold text-slate-900">{feature.title}</h3>
+            <p className="mt-2 text-sm text-slate-600">{feature.description}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Explore Categories</h2>
-          <p className="text-gray-600">Find the perfect spots for you and your furry friend</p>
+          <h2 className="heading-lg">DogAtlas at a glance</h2>
+          <p className="mt-2 text-slate-600">Curated by people who explore cities with their dogs every day</p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CATEGORIES.map((category) => (
-            <CategoryCard
-              key={category.key}
-              title={category.title}
-              subtitle={category.description}
-              imageUrl={category.image}
-              href={`/berlin?category=${category.key}`}
-              category={category.key}
-            />
-          ))}
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <Stat icon={<span aria-hidden="true">🏙️</span>} label="Active cities" value={activeCities.length.toString()} />
+          <Stat icon={<span aria-hidden="true">🏞️</span>} label="Dog-friendly places" value={placesCount.toString()} />
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-amber-200">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">DogAtlas by the Numbers</h2>
-          <p className="text-gray-600">Growing community of dog lovers</p>
+      <section id="cities" className="space-y-6">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="heading-lg">Featured cities</h2>
+            <p className="text-sm text-slate-600">Pick a city to see curated dog-friendly places, maps, and itineraries.</p>
+          </div>
+          <Link href="/submit" className="btn-secondary">
+            Suggest a city
+          </Link>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <Stat 
-            value={placesCount.toString()} 
-            label="Dog-Friendly Places" 
-            icon="🏞️" 
-          />
-          <Stat 
-            value={berlinCount.toString()} 
-            label="Berlin Locations" 
-            icon="🐕" 
-          />
-        </div>
+
+        {activeCities.length === 0 ? (
+          <div className="card p-6 text-center text-sm text-slate-500">
+            We are setting up our first cities. Check back soon or suggest your city to kick things off.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {activeCities.map((city) => (
+              <Link
+                key={city.id}
+                href={`/${city.slug}`}
+                className="card-hover flex items-start justify-between gap-4 p-6"
+              >
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">{city.country}</p>
+                  <h3 className="mt-1 text-2xl font-display font-bold text-slate-900">{city.name}</h3>
+                  <p className="mt-4 text-sm text-slate-600">
+                    {city._count.places} dog-friendly spots shared by locals.
+                  </p>
+                </div>
+                <span className="text-xl text-blue-500" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
 }
-
-

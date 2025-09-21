@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 import { trackCategoryClick } from "@/lib/analytics";
 import { useRouter } from "next/navigation";

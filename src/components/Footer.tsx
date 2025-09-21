@@ -2,12 +2,16 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-10 py-8 border-t bg-white/60 backdrop-blur-sm border-amber-200">
-      <div className="max-w-6xl mx-auto px-3 text-sm flex flex-wrap items-center justify-between gap-2">
-        <div className="text-gray-600">© {new Date().getFullYear()} DogAtlas</div>
+    <footer className="mt-12 border-t border-slate-200 bg-white">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div>© {new Date().getFullYear()} DogAtlas. Built for dog people.</div>
         <nav className="flex gap-4">
-          <Link className="hover:text-orange-600 transition-colors" href="/privacy">Privacy</Link>
-          <Link className="hover:text-orange-600 transition-colors" href="/tos">Terms</Link>
+          <Link className="transition-colors hover:text-blue-600" href="/privacy">
+            Privacy
+          </Link>
+          <Link className="transition-colors hover:text-blue-600" href="/tos">
+            Terms
+          </Link>
         </nav>
       </div>
     </footer>
