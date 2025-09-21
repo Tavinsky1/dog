@@ -7,22 +7,22 @@ const prisma = new PrismaClient();
 // Curated images for specific place types and cities
 const imageUpdates = [
   // Berlin
-  { name: 'Hundesalon Berlin', imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Hundezone Prenzlauer Berg', imageUrl: 'https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Tierarztpraxis Mitte', imageUrl: 'https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Hundesalon Berlin', imageUrl: 'https://images.unsplash.com/photo-1596797882460-8da8d73b64c4?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Hundezone Prenzlauer Berg', imageUrl: 'https://images.unsplash.com/photo-1589928383133-1a84f7543787?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Tierarztpraxis Mitte', imageUrl: 'https://images.unsplash.com/photo-1583224964983-286a4744b78c?auto=format&fit=crop&w=800&q=80' },
   
   // Barcelona  
-  { name: 'Park Güell Dog Walk', imageUrl: 'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Café Can Deu', imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Park Güell Dog Walk', imageUrl: 'https://images.unsplash.com/photo-1587009894883-0402c3a5e954?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Café Can Deu', imageUrl: 'https://images.unsplash.com/photo-1567423281822-66d4a8a8b132?auto=format&fit=crop&w=800&q=80' },
   
   // Paris
-  { name: 'Trocadéro Gardens', imageUrl: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Père Lachaise Cemetery Walk', imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Café de Flore Dog Terrace', imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Trocadéro Gardens', imageUrl: 'https://images.unsplash.com/photo-1558509302-9ae1c4a45a30?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Père Lachaise Cemetery Walk', imageUrl: 'https://images.unsplash.com/photo-1601202829142-63556e398d89?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Café de Flore Dog Terrace', imageUrl: 'https://images.unsplash.com/photo-1541167760496-162885647544?auto=format&fit=crop&w=800&q=80' },
   
   // Rome
-  { name: 'Villa Borghese Dog Park', imageUrl: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Roman Countryside Trail', imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Villa Borghese Dog Park', imageUrl: 'https://images.unsplash.com/photo-1599863484223-99ffff999120?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Roman Countryside Trail', imageUrl: 'https://images.unsplash.com/photo-1533174340755-d1e9e7b27a3c?auto=format&fit=crop&w=800&q=80' },
 ];
 
 async function updateImages() {
@@ -54,16 +54,16 @@ async function updateImages() {
   console.log(`\n🔍 Found ${placesWithoutImages.length} places without images`);
   
   const typeImageMap: Record<string, string> = {
-    park_offleash_area: 'https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80',
-    park_onleash_area: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80',
-    trail_hiking: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80',
-    trail_walking: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
-    beach_dog_friendly: 'https://images.unsplash.com/photo-1517638851339-4aa32003c11a?auto=format&fit=crop&w=800&q=80',
-    cafe_dog_friendly: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
-    restaurant_dog_friendly: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-    vet_clinic: 'https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?auto=format&fit=crop&w=800&q=80',
-    grooming_salon: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80',
-    pet_store: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80',
+    park_offleash_area: 'https://images.unsplash.com/photo-1589928383133-1a84f7543787?auto=format&fit=crop&w=800&q=80',
+    park_onleash_area: 'https://images.unsplash.com/photo-1558818184-4d8d3a6c5f4d?auto=format&fit=crop&w=800&q=80',
+    trail_hiking: 'https://images.unsplash.com/photo-1592659762303-90081d34b277?auto=format&fit=crop&w=800&q=80',
+    trail_walking: 'https://images.unsplash.com/photo-1500462918414-b6314532b2f8?auto=format&fit=crop&w=800&q=80',
+    beach_dog_friendly: 'https://images.unsplash.com/photo-1548574542-34a3b9138d27?auto=format&fit=crop&w=800&q=80',
+    cafe_dog_friendly: 'https://images.unsplash.com/photo-1559925393-8be0ec4764c8?auto=format&fit=crop&w=800&q=80',
+    restaurant_dog_friendly: 'https://images.unsplash.com/photo-1579871494447-a02a721cc45e?auto=format&fit=crop&w=800&q=80',
+    vet_clinic: 'https://images.unsplash.com/photo-1583224964983-286a4744b78c?auto=format&fit=crop&w=800&q=80',
+    grooming_salon: 'https://images.unsplash.com/photo-1596797882460-8da8d73b64c4?auto=format&fit=crop&w=800&q=80',
+    pet_store: 'https://images.unsplash.com/photo-1585250003342-2b6883b17485?auto=format&fit=crop&w=800&q=80',
   };
   
   for (const place of placesWithoutImages) {
