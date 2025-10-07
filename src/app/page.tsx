@@ -7,28 +7,28 @@ import { prisma } from "@/lib/prisma";
 
 const FEATURE_CARDS = [
   {
-    title: "Find your next adventure",
-    description: "Discover parks, lakes, and trails that welcome wagging tails.",
-    icon: "🏃‍♂️",
-    categories: ["park_offleash_area", "trail_hiking", "beach_dog_friendly"]
+    title: "Parks & Nature",
+    description: "Discover dog parks, green areas, and off-leash zones where your pup can play.",
+    icon: "�️",
+    categories: ["parks"]
   },
   {
-    title: "Cafés & hangouts",
-    description: "Dog-friendly cafés, patios, and community hotspots.",
+    title: "Cafés & Restaurants",
+    description: "Dog-friendly cafés and restaurants that welcome you and your furry friend.",
     icon: "☕",
-    categories: ["cafe_dog_friendly", "restaurant_dog_friendly", "brewery_dog_friendly"]
+    categories: ["cafes_restaurants"]
   },
   {
-    title: "Trusted services",
-    description: "Vets, groomers, walkers, and trainers recommended by locals.",
-    icon: "🏥",
-    categories: ["vet_clinic", "grooming_salon", "dog_training"]
+    title: "Walks & Trails",
+    description: "Urban walks, hiking paths, and beaches for your daily adventures.",
+    icon: "🚶",
+    categories: ["walks_trails"]
   },
   {
-    title: "Community-powered",
-    description: "Every listing comes from real adventures shared by the community.",
-    icon: "👥",
-    categories: ["dog_meetup", "dog_park_event", "pet_expo"]
+    title: "Services & Shops",
+    description: "Vets, groomers, pet stores, and all the services you need.",
+    icon: "�️",
+    categories: ["shops_services"]
   },
 ];
 

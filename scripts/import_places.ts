@@ -47,6 +47,52 @@ interface PlaceData {
   }
 }
 
+// Category mapping from old granular categories to new consolidated categories
+function mapCategory(oldCategory: string): string {
+  const categoryMap: Record<string, string> = {
+    // Parks (dog parks, green areas, off-leash zones, nature spots)
+    'park_offleash_area': 'parks',
+    'park_onleash_area': 'parks',
+    'trail_hiking': 'walks_trails',
+    'trail_walking': 'walks_trails',
+    'beach_dog_friendly': 'walks_trails',
+    'lake_dog_friendly': 'walks_trails',
+    
+    // Cafés & Restaurants (places where dogs are welcome indoors/outdoors)
+    'cafe_dog_friendly': 'cafes_restaurants',
+    'restaurant_dog_friendly': 'cafes_restaurants',
+    'brewery_dog_friendly': 'cafes_restaurants',
+    'cafe_restaurant_bar': 'cafes_restaurants',
+    
+    // Accommodation (dog-friendly hotels, Airbnbs, hostels)
+    'hotel_pet_friendly': 'accommodation',
+    'hostel_pet_friendly': 'accommodation',
+    'apartment_pet_friendly': 'accommodation',
+    
+    // Shops & Services (pet shops, vets, groomers, dog sitters, trainers)
+    'vet_clinic': 'shops_services',
+    'vet_emergency': 'shops_services',
+    'grooming_salon': 'shops_services',
+    'grooming_mobile': 'shops_services',
+    'pet_store': 'shops_services',
+    'doggy_daycare': 'shops_services',
+    'dog_training': 'shops_services',
+    
+    // Tips & Local Info (rules, transport info, cultural notes, events)
+    'dog_park_event': 'tips_local_info',
+    'dog_training_class': 'tips_local_info',
+    'dog_meetup': 'tips_local_info',
+    'pet_expo': 'tips_local_info',
+    
+    // Specialty services
+    'dog_spa': 'shops_services',
+    'pet_photography': 'shops_services',
+    'dog_taxi': 'shops_services'
+  }
+  
+  return categoryMap[oldCategory] || 'tips_local_info' // Default fallback
+}
+
 async function importPlaces() {
   const placesFilePath = path.join(process.cwd(), 'manus/Prompt for Deep Research on Places and Reviews/places.jsonl')
   
@@ -68,11 +114,8 @@ async function importPlaces() {
     try {
       const placeData: PlaceData = JSON.parse(line)
       
-      // Prepare external URLs for JSON storage
-      const externalUrls = {
-        facebook_url: placeData.external_ids.facebook_url,
-        instagram_url: placeData.external_ids.instagram_url
-      }
+      // Map old category to new consolidated category
+      const mappedCategory = mapCategory(placeData.category)
 
       // Clean up null values
       const cleanExternalUrls = Object.fromEntries(

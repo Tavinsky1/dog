@@ -2,58 +2,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Map from "@/components/Map";
 import ItineraryGenerator from "@/components/ItineraryGenerator";
+import SearchInput from "@/components/SearchInput";
+import CategoryFilter from "@/components/CategoryFilter";
 import { prisma } from "@/lib/prisma";
 
 const FALLBACK_IMAGES: Record<string, string> = {
-  // Recreation & Exercise
-  park_offleash_area: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
-  park_onleash_area: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
-  trail_hiking: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80",
-  trail_walking: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
-  beach_dog_friendly: "https://images.unsplash.com/photo-1517638851339-4aa32003c11a?auto=format&fit=crop&w=800&q=80",
-  lake_dog_friendly: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
-  
-  // Food & Drink
-  cafe_dog_friendly: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
-  restaurant_dog_friendly: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
-  brewery_dog_friendly: "https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80",
-  
-  // Services
-  vet_clinic: "https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?auto=format&fit=crop&w=800&q=80",
-  vet_emergency: "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=800&q=80",
-  grooming_salon: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80",
-  grooming_mobile: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?auto=format&fit=crop&w=800&q=80",
-  pet_store: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
-  doggy_daycare: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  dog_training: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  
-  // Accommodation
-  hotel_pet_friendly: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-  hostel_pet_friendly: "https://images.unsplash.com/photo-1586611292717-f828b167408c?auto=format&fit=crop&w=800&q=80",
-  apartment_pet_friendly: "https://images.unsplash.com/photo-1502920514313-52581002a659?auto=format&fit=crop&w=800&q=80",
-  
-  // Activities & Events
-  dog_park_event: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  dog_training_class: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  dog_meetup: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
-  pet_expo: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  
-  // Specialty
-  dog_spa: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80",
-  pet_photography: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?auto=format&fit=crop&w=800&q=80",
-  dog_taxi: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80",
-  pet_cemetery: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80",
-  
-  // Legacy fallbacks
-  park: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
-  trail: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80",
-  cafe: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
-  beach: "https://images.unsplash.com/photo-1517638851339-4aa32003c11a?auto=format&fit=crop&w=800&q=80",
-  activity: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  hotel: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-  store: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
-  vet: "https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?auto=format&fit=crop&w=800&q=80",
-  grooming: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80",
+  // Consolidated categories
+  parks: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
+  cafes_restaurants: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+  accommodation: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+  shops_services: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
+  walks_trails: "https://images.unsplash.com/photo-1551632811-1e306?auto=format&fit=crop&w=800&q=80",
+  tips_local_info: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
   default: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
 };
 
@@ -89,44 +49,12 @@ function friendlyType(type: string) {
 
 function getCategoryForType(type: string): string {
   const categoryMap: Record<string, string> = {
-    // Recreation & Exercise
-    park_offleash_area: "Recreation & Exercise",
-    park_onleash_area: "Recreation & Exercise",
-    trail_hiking: "Recreation & Exercise",
-    trail_walking: "Recreation & Exercise",
-    beach_dog_friendly: "Recreation & Exercise",
-    lake_dog_friendly: "Recreation & Exercise",
-    
-    // Food & Drink
-    cafe_dog_friendly: "Food & Drink",
-    restaurant_dog_friendly: "Food & Drink",
-    brewery_dog_friendly: "Food & Drink",
-    
-    // Services
-    vet_clinic: "Services",
-    vet_emergency: "Services",
-    grooming_salon: "Services",
-    grooming_mobile: "Services",
-    pet_store: "Services",
-    doggy_daycare: "Services",
-    dog_training: "Services",
-    
-    // Accommodation
-    hotel_pet_friendly: "Accommodation",
-    hostel_pet_friendly: "Accommodation",
-    apartment_pet_friendly: "Accommodation",
-    
-    // Activities & Events
-    dog_park_event: "Activities & Events",
-    dog_training_class: "Activities & Events",
-    dog_meetup: "Activities & Events",
-    pet_expo: "Activities & Events",
-    
-    // Specialty
-    dog_spa: "Specialty",
-    pet_photography: "Specialty",
-    dog_taxi: "Specialty",
-    pet_cemetery: "Specialty",
+    parks: "Parks",
+    cafes_restaurants: "Cafés & Restaurants",
+    accommodation: "Accommodation",
+    shops_services: "Shops & Services",
+    walks_trails: "Walks & Trails",
+    tips_local_info: "Tips & Local Info",
   };
   
   return categoryMap[type] || "Other";
@@ -156,8 +84,9 @@ function groupPlacesByCategory(places: NormalizedPlace[]): Record<string, Normal
   return grouped;
 }
 
-export default async function CityPage({ params }: { params: Promise<{ city: string }> }) {
+export default async function CityPage({ params, searchParams }: { params: Promise<{ city: string }>, searchParams: Promise<{ q?: string, category?: string }> }) {
   const { city: citySlug } = await params;
+  const { q: searchQuery, category: selectedCategory } = await searchParams;
 
   const city = await prisma.city.findUnique({
     where: { slug: citySlug, active: true },
@@ -209,10 +138,31 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     openingHours: place.openingHours,
   }));
 
-  const groupedPlaces = groupPlacesByCategory(places);
+  // Filter places based on search query and category
+  const filteredPlaces = places.filter((place) => {
+    // Category filter - match against the actual database type value
+    if (selectedCategory && place.type !== selectedCategory) {
+      return false;
+    }
+    
+    // Search filter
+    if (searchQuery) {
+      return (
+        place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        place.amenities.some(amenity => amenity.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+    
+    return true;
+  });
+
+  const groupedPlaces = groupPlacesByCategory(filteredPlaces);
 
   const typeSummary = Object.entries(
-    places.reduce<Record<string, number>>((acc, place) => {
+    filteredPlaces.reduce<Record<string, number>>((acc, place) => {
       acc[place.type] = (acc[place.type] ?? 0) + 1;
       return acc;
     }, {})
@@ -220,7 +170,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     .sort(([, aCount], [, bCount]) => bCount - aCount)
     .slice(0, 4);
 
-  const mapPlaces = places
+  const mapPlaces = filteredPlaces
     .filter((place) => typeof place.lat === "number" && typeof place.lng === "number")
     .map((place) => ({
       id: place.id,
@@ -247,6 +197,117 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             Explore curated places loved by the DogAtlas community. Find parks, cafés, services, and unique spots to enjoy with your companion.
           </p>
         </div>
+        <div className="space-y-4">
+          <SearchInput placeholder={`Search ${city.name} places...`} initial={searchQuery || ""} />
+          
+          {/* Category Cards */}
+          <div>
+            <h3 className="text-sm font-semibold text-slate-700 mb-3">Browse by category</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <Link
+                href={`/${citySlug}`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  !selectedCategory 
+                    ? 'border-blue-500 bg-blue-50' 
+                    : 'border-slate-200 bg-white hover:border-blue-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">🌍</div>
+                <div className={`text-sm font-semibold ${!selectedCategory ? 'text-blue-700' : 'text-slate-900'}`}>
+                  All
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.length}
+                </div>
+              </Link>
+              
+              <Link
+                href={`/${citySlug}?category=parks`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  selectedCategory === 'parks'
+                    ? 'border-emerald-500 bg-emerald-50' 
+                    : 'border-slate-200 bg-white hover:border-emerald-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">🏞️</div>
+                <div className={`text-sm font-semibold ${selectedCategory === 'parks' ? 'text-emerald-700' : 'text-slate-900'}`}>
+                  Parks
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.filter(p => p.type === 'parks').length}
+                </div>
+              </Link>
+              
+              <Link
+                href={`/${citySlug}?category=cafes_restaurants`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  selectedCategory === 'cafes_restaurants'
+                    ? 'border-amber-500 bg-amber-50' 
+                    : 'border-slate-200 bg-white hover:border-amber-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">☕</div>
+                <div className={`text-sm font-semibold ${selectedCategory === 'cafes_restaurants' ? 'text-amber-700' : 'text-slate-900'}`}>
+                  Cafés
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.filter(p => p.type === 'cafes_restaurants').length}
+                </div>
+              </Link>
+              
+              <Link
+                href={`/${citySlug}?category=walks_trails`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  selectedCategory === 'walks_trails'
+                    ? 'border-violet-500 bg-violet-50' 
+                    : 'border-slate-200 bg-white hover:border-violet-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">🚶</div>
+                <div className={`text-sm font-semibold ${selectedCategory === 'walks_trails' ? 'text-violet-700' : 'text-slate-900'}`}>
+                  Trails
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.filter(p => p.type === 'walks_trails').length}
+                </div>
+              </Link>
+              
+              <Link
+                href={`/${citySlug}?category=shops_services`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  selectedCategory === 'shops_services'
+                    ? 'border-red-500 bg-red-50' 
+                    : 'border-slate-200 bg-white hover:border-red-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">🛍️</div>
+                <div className={`text-sm font-semibold ${selectedCategory === 'shops_services' ? 'text-red-700' : 'text-slate-900'}`}>
+                  Services
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.filter(p => p.type === 'shops_services').length}
+                </div>
+              </Link>
+              
+              <Link
+                href={`/${citySlug}?category=accommodation`}
+                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                  selectedCategory === 'accommodation'
+                    ? 'border-purple-500 bg-purple-50' 
+                    : 'border-slate-200 bg-white hover:border-purple-300'
+                }`}
+              >
+                <div className="text-3xl mb-2">🏨</div>
+                <div className={`text-sm font-semibold ${selectedCategory === 'accommodation' ? 'text-purple-700' : 'text-slate-900'}`}>
+                  Hotels
+                </div>
+                <div className="text-xs text-slate-500 mt-1">
+                  {places.filter(p => p.type === 'accommodation').length}
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
         {typeSummary.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {typeSummary.map(([type, count]) => (
@@ -265,10 +326,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <div className="grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
         <div className="space-y-6">
           <Map places={mapPlaces} />
-          {places.length > 0 ? (
+          {filteredPlaces.length > 0 ? (
             <ItineraryGenerator
               city={{ name: city.name, slug: citySlug }}
-              places={places.map((place) => ({
+              places={filteredPlaces.map((place) => ({
                 id: place.id,
                 name: place.name,
                 type: place.type,
@@ -283,9 +344,15 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
 
         <div className="space-y-8">
-          {places.length === 0 && (
+          {filteredPlaces.length === 0 && (
             <div className="card p-6 text-sm text-slate-500">
-              We are still collecting dog-friendly spots in {city.name}. Know a great one? <Link href="/submit" className="text-blue-600 hover:underline">Share it with the community</Link>.
+              {searchQuery
+                ? `No places found matching "${searchQuery}". Try a different search term.`
+                : `We are still collecting dog-friendly spots in ${city.name}. Know a great one?`
+              }
+              {!searchQuery && (
+                <Link href="/submit" className="text-blue-600 hover:underline">Share it with the community</Link>
+              )}
             </div>
           )}
 

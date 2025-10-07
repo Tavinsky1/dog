@@ -10,44 +10,13 @@ datasource db {
 }
 
 enum PlaceType {
-  // Recreation & Exercise
-  park_offleash_area
-  park_onleash_area
-  trail_hiking
-  trail_walking
-  beach_dog_friendly
-  lake_dog_friendly
-  
-  // Food & Drink
-  cafe_dog_friendly
-  restaurant_dog_friendly
-  brewery_dog_friendly
-  
-  // Services
-  vet_clinic
-  vet_emergency
-  grooming_salon
-  grooming_mobile
-  pet_store
-  doggy_daycare
-  dog_training
-  
-  // Accommodation
-  hotel_pet_friendly
-  hostel_pet_friendly
-  apartment_pet_friendly
-  
-  // Activities & Events
-  dog_park_event
-  dog_training_class
-  dog_meetup
-  pet_expo
-  
-  // Specialty
-  dog_spa
-  pet_photography
-  dog_taxi
-  pet_cemetery
+  // Consolidated categories
+  parks
+  cafes_restaurants
+  accommodation
+  shops_services
+  walks_trails
+  tips_local_info
 }
 
 enum Role {
@@ -103,6 +72,7 @@ model Place {
   updatedAt         DateTime   @updatedAt
   favorites         Favorite[]
   reviews           Review[]
+  photos            Photo[]
 
   @@index([cityId])
   @@index([type])
@@ -196,4 +166,41 @@ model IngestJob {
 
   @@index([status])
   @@index([createdBy])
+}
+
+model Photo {
+  id        String   @id @default(uuid())
+  placeId   String
+  place     Place    @relation(fields: [placeId], references: [id])
+  url       String
+  width     Int?
+  height    Int?
+  alt       String?
+  status    String   @default("pending") // pending, approved, rejected
+  uploadedBy String?
+  approvedBy String?
+  approvedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([placeId])
+  @@index([status])
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  type        String   // "place", "photo", "review"
+  entityId    String   // ID of the entity being submitted
+  submittedBy String
+  status      String   @default("pending") // pending, approved, rejected
+  data        Json     // The submitted data
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([submittedBy])
 }

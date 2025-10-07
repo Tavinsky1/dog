@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const prisma = new (require("@prisma/client").PrismaClient)();
   const place = await prisma.place.findUnique({
     where: { id },
     select: { name: true, shortDescription: true, type: true, region: true, country: true, rating: true },
@@ -19,7 +20,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-import { PrismaClient, Prisma } from "@prisma/client";
 import Link from "next/link";
 import PhotoStrip from "@/components/PhotoStrip";
 import PlaceAnalytics from "@/components/PlaceAnalytics";
@@ -27,26 +27,17 @@ import StarRating from "@/components/StarRating";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewsList from "@/components/ReviewsList";
 
-const prisma = new PrismaClient();
-
 const placeInclude = {
   favorites: true,
 };
 
 // Get the place data with relations
 async function getPlaceWithRelations(id: string) {
-  const prisma = new PrismaClient();
-  try {
-    return await (prisma as any).place.findUnique({
-      where: { id },
-      include: placeInclude,
-    });
-  } finally {
-    await prisma.$disconnect();
-  }
+  return await prisma.place.findUnique({
+    where: { id },
+    include: placeInclude,
+  });
 }
-
-type PlaceWithRelations = NonNullable<Awaited<ReturnType<typeof getPlaceWithRelations>>>;
 
 function prettyCategory(cat?: string | null) {
   return (cat ?? "").replace(/_/g, " ");
@@ -58,8 +49,15 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
 
   if (!place) return <div className="p-6">Not found</div>;
 
-  const photos = (place.photos ?? []).map((p: any) => p.url).filter(Boolean);
-  const reviews = place.reviews ?? [];
+  const photos = Array.isArray(place.gallery) ? place.gallery.filter((url: any): url is string => typeof url === 'string') : [];
+  
+  // Get reviews separately since they're not included in the place query
+  const reviews = await prisma.review.findMany({
+    where: { placeId: id, status: "published" },
+    include: { user: { select: { name: true } } },
+    orderBy: { createdAt: "desc" }
+  });
+  
   const computedAvg =
     reviews.length > 0
       ? reviews.reduce((sum: number, r: any) => sum + (r.rating ?? 0), 0) / reviews.length
@@ -72,10 +70,10 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
       ? Number(computedAvg.toFixed(1))
       : null;
 
-  const features = new Map((place.features ?? []).map((f: any) => [f.key, f.value]));
-  const dogsIndoors = features.get("dogs_allowed_indoors") === "true";
-  const offLeash = features.get("off_leash_allowed");
-  const waterBowls = features.get("water_bowls") === "true";
+  const amenities = Array.isArray(place.amenities) ? place.amenities.filter((a: any): a is string => typeof a === 'string') : [];
+  const dogsIndoors = amenities.includes("dogs_allowed_indoors");
+  const waterBowls = amenities.includes("water_bowls");
+  const offLeash = amenities.find((a: string) => a.startsWith("off_leash_allowed:"))?.replace("off_leash_allowed:", "");
 
   // JSON-LD structured data for SEO, now with reviews
   const reviewJson = (reviews ?? []).slice(0, 20).map((r: any) => ({
@@ -97,10 +95,9 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
     name: place.name,
     address: {
       "@type": "PostalAddress",
-      streetAddress: place.address ?? undefined,
-      addressLocality: place.district ?? "Berlin",
-      addressRegion: "BE",
-      addressCountry: "DE",
+      addressLocality: place.region || place.country,
+      addressRegion: place.region,
+      addressCountry: place.country,
     },
     geo:
       place.lat != null && place.lng != null
@@ -111,15 +108,13 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
         ? { "@type": "AggregateRating", ratingValue: displayRating, reviewCount: reviews.length }
         : undefined,
     review: reviewJson.length ? reviewJson : undefined,
-  };
-
-  return (
+  };  return (
     <div className="space-y-8">
       {/* Analytics Tracking */}
       <PlaceAnalytics 
         placeId={place.id} 
         placeName={place.name} 
-        category={place.category || 'unknown'} 
+        category={place.type} 
       />
       
       {/* SEO: JSON-LD structured data */}
@@ -135,7 +130,7 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="text-sm text-orange-600 font-bold mb-1 uppercase tracking-wider">
-                {prettyCategory(place.category)}
+                {prettyCategory(place.type)}
               </div>
               <h1 className="text-3xl font-display font-extrabold text-gray-800 leading-tight">
                 {place.name}
@@ -154,22 +149,12 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
             )}
           </div>
 
-          {place.address && (
-            <div className="flex items-center text-gray-600 mb-2">
-              <svg className="w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {place.address}
-            </div>
-          )}
-          
-          {(place.district || place.neighborhood) && (
+          {place.region && (
             <div className="flex items-center text-gray-600 mb-4">
               <svg className="w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
-              {place.district}{place.neighborhood ? ` • ${place.neighborhood}` : ""}
+              {place.region}, {place.country}
             </div>
           )}
 
@@ -205,38 +190,12 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
       <div className="grid md:grid-cols-2 gap-6">
         {/* Main content */}
         <div className="space-y-6">
-          {/* Activities */}
-          {place.activities?.length ? (
-            <div className="card p-6">
-              <h3 className="heading-md mb-4">🎾 Activities</h3>
-              <ul className="space-y-3">
-                {place.activities.map((a: any) => (
-                  <li key={a.id} className="flex items-start gap-3">
-                    <span className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 text-sm font-bold flex-shrink-0 mt-0.5">
-                      🐕
-                    </span>
-                    <div>
-                      <div className="font-semibold text-gray-800">{a.type}</div>
-                      {a.attrs && (
-                        <div className="text-sm text-gray-600 mt-1">
-                          {Object.entries(a.attrs as Record<string, unknown>)
-                            .map(([k, v]) => `${k}: ${String(v)}`)
-                            .join(" • ")}
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
           {/* Description */}
-          {place.description && (
+          {place.fullDescription && (
             <div className="card p-6">
               <h3 className="heading-md mb-4">📝 About This Place</h3>
               <div className="prose prose-gray max-w-none">
-                <p className="text-gray-700 leading-relaxed">{place.description}</p>
+                <p className="text-gray-700 leading-relaxed">{place.fullDescription}</p>
               </div>
             </div>
           )}
@@ -265,7 +224,7 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
                     )}
                     {Array.isArray(r.tags) && r.tags.length ? (
                       <div className="flex flex-wrap gap-1">
-                        {(r.tags as string[]).map((tag, i) => (
+                        {r.tags.filter((tag: any): tag is string => typeof tag === 'string').map((tag: string, i: number) => (
                           <span key={i} className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">
                             {tag}
                           </span>
@@ -297,9 +256,9 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
           <div className="card p-6">
             <h3 className="heading-md mb-4">🚀 Quick Actions</h3>
             <div className="space-y-3">
-              {place.website && (
+              {place.websiteUrl && (
                 <a 
-                  href={place.website} 
+                  href={place.websiteUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn-primary w-full text-center"

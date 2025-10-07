@@ -26,15 +26,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "src/app/layout.tsx",
-    "src/app/page.tsx",
-    "src/app/[city]/**/*.tsx",
-    "src/app/api/cities/**/*.ts",
-    "src/app/api/[city]/**/*.ts",
-    "src/app/api/itinerary/**/*.ts",
-    "src/components/**/*.ts",
-    "src/components/**/*.tsx",
-    "src/lib/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules", "manus", "scripts", "tests", "dist"]
