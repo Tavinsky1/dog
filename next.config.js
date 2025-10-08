@@ -1,4 +1,9 @@
 export default {
+  // Disable development indicators (hide the "n" in the corner)
+  devIndicators: {
+    appIsrStatus: false,
+  },
+  
   // Performance optimizations
   experimental: {
     // Enable experimental features for better performance

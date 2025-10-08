@@ -1,0 +1,117 @@
+id,name,city,type,websiteUrl
+2372bace-2cc2-430f-8274-9bc05a517212,"W Barcelona",Barcelona,accommodation,https://www.marriott.com/en-us/hotels/bcnwh-w-barcelona/overview/
+26084ae5-f65b-483a-a54d-cbd982c56089,"Hotel SB Icaria Barcelona",Barcelona,accommodation,https://www.hotelicariabarcelona.com/en/
+31f8c15b-0e11-4972-a45a-e82e293dbb8c,"Hotel Claris & Spa GL",Barcelona,accommodation,https://www.hotelclaris.com/
+0406a40c-312a-484b-b175-88da45d2e8f5,"Parc Natural de la Serra de Collserola (Carretera de les Aigües)",Barcelona,parks,https://parcnaturalcollserola.cat/
+e92474cf-588b-4872-b707-4ebb9b3b678d,"Collserola – Sant Medir & Hermita Loops",Barcelona,parks,https://parcnaturalcollserola.cat/
+c833221c-e960-45cc-a5fd-b5856dbf54bf,"Parc de la Ciutadella (designated areas)",Barcelona,parks,""
+389ac7bf-10f1-48fd-b492-b623a5e1de03,"Hospital Veterinari Glòries",Barcelona,shops_services,https://hospitalveterinariglores.com/
+f7ede97d-0d27-437b-a690-dfe8f889c77e,"AniCura Ars Veterinaria Hospital Veterinari",Barcelona,shops_services,https://www.anicura.es/centros/ars-veterinaria-hospital-veterinario/
+e81c11bb-390b-4b8f-9d1e-de37b72c331d,"Hospital Veterinari Barcelona (HVB)",Barcelona,shops_services,https://hvb.es/
+3546fd79-05dd-4ea9-8349-714b72779b23,"Hospital Clínic Veterinari UAB (Bellaterra)",Barcelona,shops_services,https://hcv.uab.cat/ca/
+a29d96c6-5f74-445d-9199-1d066363d213,"Vet’s Affinity – Eixample",Barcelona,shops_services,https://vetsaffinity.com/
+3a2c698b-f07f-494a-940b-32debd714af5,"Clínica Veterinària El Putxet",Barcelona,shops_services,https://www.clinicaveterinariaelputxet.com/
+c715f04e-fc4c-42c6-bb37-2155849583a0,"Kiwoko – Diagonal Mar",Barcelona,shops_services,https://tiendas.kiwoko.com/catalunya/barcelona/barcelona/kiwoko-barcelona-diagonal-mar-142
+5a5036cc-3e17-4dd5-9842-2daebca1f6ff,"Carretera de les Aigües (Collserola)",Barcelona,walks_trails,https://www.barcelonaturisme.com/wv3/en/page/1237/carretera-de-les-aigues.html
+19893c7b-0083-4284-95f3-cc5f4ae9bde6,"Hotel Zoo Berlin",Berlin,accommodation,https://www.hotelzoo.de/
+13405f58-e876-4f63-b3ab-966f5d2aaa8d,"BRLO Brwhouse (Gleisdreieck)",Berlin,cafes_restaurants,https://brlo-brwhouse.de/
+94768543-0e18-4725-8b13-a904e07c48ec,"Silo Coffee",Berlin,cafes_restaurants,https://silocoffee.com/
+904b8390-5445-466b-bf27-dc7c969cfc98,"Großer Tiergarten",Berlin,parks,https://www.berlin.de/sehenswuerdigkeiten/3560268-3558930-tiergarten-park.html
+103cebc1-b37d-4b53-9d08-ddba3880c206,"Grunewald & Grunewaldsee",Berlin,parks,https://www.berlin.de/en/parks-gardens/3551309-3552098-grunewald.en.html
+a54f5d64-0617-44cb-ad92-e723c1af29c8,"Volkspark Friedrichshain",Berlin,parks,https://www.berlin.de/en/parks-gardens/3551297-3552098-friedrichshain-park.en.html
+60738362-f646-4952-bd11-2acb7ba6ffed,"Mauerpark & Falkplatz",Berlin,parks,https://www.berlin.de/en/parks-gardens/3560533-3552098-mauerpark.en.html
+204720ab-b3bb-457e-81ec-fc9004633a3d,"Görlitzer Park",Berlin,parks,https://www.berlin.de/en/parks-gardens/3560505-3552098-goerlitzer-park.en.html
+9cb198f6-1d05-4d4c-a2a7-7ea62431ef1d,"Volkspark Hasenheide (Dog Run)",Berlin,parks,https://www.berlin.de/en/parks-gardens/3560596-3552098-hasenheide.en.html
+6632393d-7fd3-49f2-bfce-f010316a3d35,"Park am Gleisdreieck",Berlin,parks,https://gruen-berlin.de/en/park-am-gleisdreieck
+a154aa75-2bf3-4c69-8c37-c86e8299598e,"Volkspark Humboldthain (Flak Tower View)",Berlin,parks,https://www.berlin.de/en/parks-gardens/3560592-3552098-humboldthain.en.html
+aa115c96-2dd5-4f1b-b46b-a27628250444,"Natur-Park Schöneberger Südgelände",Berlin,parks,https://gruen-berlin.de/en/suedgelaende-nature-park
+9e051b27-f96f-4027-93d3-20ef8fde8973,"Kleintierklinik der Freien Universität Berlin (Düppel)",Berlin,shops_services,https://www.vetmed.fu-berlin.de/einrichtungen/kliniken/index.html
+87b3bd2b-7e14-4bb6-87f8-105c064e1126,"AniCura Tierklinik Berlin (Lankwitz)",Berlin,shops_services,https://www.anicura.de/tierspezialisten/berlin/tierklinik-berlin/
+fbd9496e-f49a-4c9b-a29c-38e648c02e55,"Tierklinik Biesdorf (Kleintierzentrum)",Berlin,shops_services,https://www.tierklinik-biesdorf.de/
+a3b2d282-e8c6-4e92-8609-25936e031b7d,"Tierarztpraxis am Treptower Park",Berlin,shops_services,https://www.tierarzt-treptow.de/
+f108cd06-e1eb-4088-9bcd-62e3277aa57e,"Tierarztpraxis Boxhagener Straße",Berlin,shops_services,https://www.tierarzt-boxi.de/
+ba00e946-fb1c-49a6-bd82-50e0879bfce6,"Hundesalon Fellfreunde",Berlin,shops_services,https://fellfreunde-berlin.de/
+59d9e480-8a92-4854-8f03-629790767ea5,"Rudelbildung – Hundeschule & Tagesbetreuung",Berlin,shops_services,https://rudelbildung.de/
+1ee2127a-845a-45df-b15b-dbf92e685da4,"Veterinärmedizinisches Zentrum Berlin – Tierarztpraxis Rödiger (24h)",Berlin,shops_services,https://www.vetzentrum-berlin.de/
+4d19a560-53a0-4148-b3f4-1e5751380a78,"Zeit für Brot",Berlin,tips_local_info,https://zeitfuerbrot.com/
+e29d1e14-580c-4672-9beb-56450aa38b4a,"Fressnapf XXL Berlin‑Lichtenberg",Berlin,tips_local_info,https://www.fressnapf.de/maerkte/fressnapf-berlin-lichtenberg-xxl/
+37894246-a6a9-459b-8a02-af89bfc02f94,"Schlachtensee Circuit",Berlin,walks_trails,https://www.berlin.de/en/parks-gardens/3560572-3552098-schlachtensee.en.html
+c89d8a10-8e57-433c-834e-f55e94566059,"Krumme Lanke",Berlin,walks_trails,https://www.berlin.de/en/parks-gardens/3560548-3552098-krumme-lanke.en.html
+6c561d26-4a54-4ec0-b62d-53217b70916c,"Tegeler See & Greenwichpromenade",Berlin,walks_trails,https://www.berlin.de/en/parks-gardens/3560542-3552098-tegeler-see.en.html
+1323f2b2-1265-411d-88e6-56a25ab0f850,"Müggelsee (Nordufer & Müggelspree)",Berlin,walks_trails,https://www.berlin.de/en/parks-gardens/3560439-3552098-mueggelsee.en.html
+26f092f0-b5fb-46aa-b16d-504c31148756,"Weißer See (Park am Weißen See)",Berlin,walks_trails,https://www.berlin.de/en/parks-gardens/3560448-3552098-weisser-see.en.html
+b6b6cea2-4764-4d2b-8e4e-94d56e1e3777,"Grunewaldsee Hundestrand (Dog beach)",Berlin,walks_trails,""
+e228ad47-66b1-4dcb-b12e-d3f9c507abb7,"Grunewald Forest Trails",Berlin,walks_trails,""
+655f802f-6846-4300-9b23-6afd49cbf87f,"Martin Rütter Hundeschule Berlin (Inh. Sandau)",Berlin,walks_trails,https://www.martinruetter.com/berlin-inh-sandau/
+0a0aa6c0-9009-4e70-946a-c95b0f0f8123,"Le Bristol Paris",Paris,accommodation,https://www.oetkercollection.com/hotels/le-bristol-paris/
+b6e93c56-cbd1-4cf2-9bde-33dd5a029cb0,"Pension du Pont de Sèvres",Paris,accommodation,https://pensiondupontdesevres.fr/
+061d2f00-51c8-414b-ae0a-fc852938a611,"The Canine Residency",Paris,accommodation,https://thecanineresidency.com/
+1eb4b73b-b6fa-41f2-bf69-09760efce017,"Le Domaine Câlin",Paris,accommodation,https://www.ledomainecalin.com/web/
+db39c8e9-601c-45e1-a660-fc6dcd47a55b,"Pension du Pont de Sèvres (near Paris)",Paris,accommodation,https://pensiondupontdesevres.fr/
+4857140a-bb93-4874-af15-2f8e5fde9e0c,"Coutume Café",Paris,cafes_restaurants,https://www.coutumecafe.com/
+6f4aefdb-5294-4b7f-80ce-05057388de04,"La Fontaine de Belleville",Paris,cafes_restaurants,https://www.fontainebelleville.com/
+91c49e2a-a87b-43c4-8c16-8ed8043c5fa8,"Café de Flore",Paris,cafes_restaurants,https://cafedeflore.fr/
+652695a8-8500-4e94-b73b-f1167a2d40a0,"Les Deux Magots",Paris,cafes_restaurants,https://www.lesdeuxmagots.fr/
+977fc79e-8dc5-4a0b-a388-d898d4a7287e,"Angelina (Rivoli)",Paris,cafes_restaurants,https://www.angelina-paris.fr/
+666f9b10-65cd-4732-b501-a8b3335aa3ec,"Angelina Paris (Rivoli)",Paris,cafes_restaurants,https://angelina-paris.fr/
+e36538de-a76d-4906-8b14-f3f8d49066e3,"Bois de Boulogne (Lakes & Allées)",Paris,parks,https://www.paris.fr/lieux/bois-de-boulogne-1807
+386db722-cccf-437f-839d-7cf7abe5462d,"Bois de Vincennes (Lac Daumesnil)",Paris,parks,https://www.paris.fr/lieux/bois-de-vincennes-1825
+37651465-eb24-48a5-802b-aadd8d0297fa,"Parc des Buttes‑Chaumont",Paris,parks,https://www.paris.fr/lieux/parc-des-buttes-chaumont-1817
+7b056c2d-54d4-46a4-8f76-5096b6d51458,"Parc Montsouris",Paris,parks,https://www.paris.fr/lieux/parc-montsouris-1815
+837f1027-cb12-44dd-a630-c1227eeff1ce,"Parc Monceau",Paris,parks,https://www.paris.fr/lieux/parc-monceau-1812
+1e577307-b6fe-471b-8b5b-257d521484ab,"Parc Rives de Seine – Île aux Cygnes Access",Paris,parks,https://www.paris.fr/pages/les-berges-de-seine-2082
+a5fde336-0335-448c-8669-819211db26f6,"Bois de Boulogne – Allée des Chiens",Paris,parks,https://www.paris.fr/pages/bois-de-boulogne-1788
+2df130d4-6ae6-40f5-b7ba-df47b6db7176,"Bois de Vincennes – Lac Daumesnil Dog Zone",Paris,parks,https://www.paris.fr/pages/bois-de-vincennes-1787
+f18fbcf3-342c-44f7-864c-28976128795e,"Parc Montsouris (dog areas)",Paris,parks,""
+f6acfc26-0e82-452b-9c17-6a056834e7eb,"Bois de Boulogne (dogs allowed on paths)",Paris,parks,""
+d9551ced-1dcc-4c62-97e9-3be7eb5f46c5,"Bois de Vincennes (dogs allowed on paths)",Paris,parks,""
+cb917abb-34f6-41ae-8c59-e7119705cac6,"CHV Frégis (Arcueil)",Paris,shops_services,https://www.fregis.com/
+2e2fe93e-a336-41f9-bb3d-9366e324ac18,"Advetia – Hôpital Vétérinaire Paris Ouest",Paris,shops_services,https://www.advetia.fr/
+2bb1dedc-a3e0-45c5-a54c-6d1dab33bbe4,"CHV Pommery (Reims – regional)",Paris,shops_services,https://chv-pommery.fr/
+b17b3a66-a4d8-48f9-b1e5-e4897afb1308,"Clinique Vétérinaire Saint‑Martin",Paris,shops_services,https://www.cliniqueveterinairedusaintmartin.fr/
+02f8de94-b67c-4dc5-a377-b5751653b49d,"Clinique Vétérinaire du 15e – Convention",Paris,shops_services,https://www.cliniqueveterinairedu15.fr/
+5d58407b-ffb0-4fe4-b0c2-eeae87860a6e,"Waf Waf Dog Grooming (11e)",Paris,shops_services,https://wafwafdoggrooming.fr/
+b27563ea-0dc3-4344-a0e1-5ddb00e487f3,"Paris Dogs – Éducation & Balades",Paris,shops_services,https://parisdogs.fr/
+89d745e6-198d-4cc7-92a4-8592abcbb54b,"Moustaches – Archives",Paris,shops_services,https://www.moustaches.fr/
+2845efc6-66e6-4208-9b69-bcaf930465a5,"CHV Frégis",Paris,shops_services,https://www.fregis.com/
+0de8364c-2d74-4830-a37a-7a7c3ad94152,"CHV ADVETIA",Paris,shops_services,https://www.advetia.fr/
+adabcdad-e84f-49df-bc9f-d26408469e56,"Clinique Vétérinaire Paris 7",Paris,shops_services,https://vetparis7.fr/
+e22fe8f2-db01-4682-8e14-a4e36ed87c9d,"Toutou Chic",Paris,shops_services,https://www.toutouchicparis.fr/
+a3695485-425f-4abf-83b5-dc4f53a1c1e5,"Au Paradis Canin",Paris,shops_services,https://paradiscanin.com/
+20c187da-3fb4-4534-96fa-3af8b4ebdf7f,"Moustaches – Marais (Archives)",Paris,shops_services,https://www.moustaches.fr/
+4c714050-0f2a-4616-924e-4d4df9b310f0,"CHV Frégis (24h Emergency)",Paris,shops_services,https://www.fregis.com/
+246347c3-4af1-42a1-b128-45bd58cf981f,"Coulée Verte René‑Dumont (Promenade Plantée)",Paris,tips_local_info,https://www.paris.fr/lieux/la-coulee-verte-rene-dumont-6003
+7f4f9ecf-2e34-4451-bc77-055760ea2249,"Parc de Belleville",Paris,tips_local_info,https://www.paris.fr/lieux/parc-de-belleville-1790
+76a739eb-9f71-43ec-9dc0-9296e92d921f,"Du Pain et des Idées",Paris,tips_local_info,http://dupainetdesidees.com/
+ed484362-10b6-4e70-b0c2-33467f57a28f,"Marché des Enfants Rouges",Paris,tips_local_info,https://www.paris.fr/lieux/marche-des-enfants-rouges-5373
+088a425b-fc9b-40a2-b524-6af56f2e01c8,"Tom&Co Paris – Nation",Paris,tips_local_info,https://tomandco.com/fr/magasins/france/paris/paris-nation/
+a134def2-b484-424a-aec3-44ef3cfc9412,"Berges de Seine (Rive Droite & Gauche)",Paris,walks_trails,https://www.paris.fr/pages/les-berges-de-seine-2082
+a66ea333-0bab-4d60-9ffb-e415d6332ba7,"Canal Saint‑Martin Promenade",Paris,walks_trails,https://www.paris.fr/pages/les-canaux-de-paris-247
+eb797283-5d80-43f1-a339-7309e5bf8396,"Coulée Verte René‑Dumont",Paris,walks_trails,https://www.paris.fr/lieux/coulee-verte-rene-dumont-17978
+1a90d61d-a38f-473a-8e6f-adbaf4dabe1f,"Canal Saint‑Martin Riverside",Paris,walks_trails,""
+560478fb-145f-45c4-870e-57a169bd0a18,"Forêt de Fontainebleau",Paris,walks_trails,https://www.fontainebleau-tourisme.com/
+0378bf60-69f2-4f18-b7e2-5fbf7fd7171e,"Île de Loisirs de Cergy‑Pontoise",Paris,walks_trails,https://cergy-pontoise.iledeloisirs.fr/
+db537c1f-8ffe-4c4d-aae0-5509ba2ece31,"Île de Loisirs de Vaires‑Torcy",Paris,walks_trails,https://vaires-torcy.iledeloisirs.fr/
+2e4efa87-05d1-4769-a07d-bdbfa2ed9214,"Étangs de Meudon",Paris,walks_trails,""
+1d70b1f6-f562-4b63-97f5-2400213e3510,"GentleDog Éducation Canine",Paris,walks_trails,https://gentle-dog.com/
+0d293023-cc18-46f7-bc7f-4397ec8da7d2,"The Westin Excelsior, Rome",Rome,accommodation,https://www.marriott.com/en-us/hotels/romwi-the-westin-excelsior-rome/overview/
+0b0933e0-7cf2-40a1-88ac-ce2420a53095,"The St. Regis Rome",Rome,accommodation,https://www.marriott.com/en-us/hotels/romxr-the-st-regis-rome/overview/
+fdb95e8d-3bb4-4f11-abeb-15ef818cd30f,"W Rome",Rome,accommodation,https://www.marriott.com/en-us/hotels/romwv-w-rome/overview/
+5875441a-c1c2-46dd-aca1-5822f40cfa1a,"Palazzo Velabro, Design Hotels",Rome,accommodation,https://www.marriott.com/en-us/hotels/rompv-palazzo-velabro-a-member-of-design-hotels/overview/
+90b16154-4f0d-44ad-979c-06b78fa10f5e,"Family Dog Club (Asilo per cani)",Rome,accommodation,https://familydogclub.it/
+267d17a7-d35b-4c0f-8785-eeb2d3f1cda1,"Bar Locarno (pet-friendly)",Rome,cafes_restaurants,https://hotellocarno.com/en/bar-locarno/
+64102135-402f-452c-94b6-056e06c533e3,"Villa Borghese Gardens",Rome,parks,https://www.turismoroma.it/en/places/villa-borghese-gardens
+4ac1c08d-3b7d-4eb7-8e5c-349fb3db7923,"Villa Borghese Gardens (Area Cani)",Rome,parks,https://www.turismoroma.it/en/places/villa-borghese-gardens
+2d2706fc-a41d-4844-812f-ee7b669dfc7f,"Villa Doria Pamphilj",Rome,parks,https://www.turismoroma.it/en/places/villa-doria-pamphilj
+b3eea23a-2f4b-4a07-ba3e-a8c91bdf951a,"Parco degli Acquedotti (Appia Antica)",Rome,parks,https://www.parcoappiaantica.it/it/point-of-interest/parco-degli-acquedotti/
+9965a138-13fd-46f6-8df1-784dc1cf8f9b,"Parco di Monte Ciocci",Rome,parks,https://www.turismoroma.it/en/places/monte-ciocci-park
+15caf730-c5ae-40ba-8e50-2b2f2c1faec7,"Lago di Bracciano (Parco Bracciano‑Martignano)",Rome,parks,https://www.parks.it/parco.bracciano.martignano/Eindex.php
+4f875173-cb80-4efe-b9d6-50d232b5a6de,"Parco di Veio – Valle del Sorbo",Rome,parks,https://parcodiveio.it/
+38e8a0ea-2df2-4d49-ad49-aeb86b6d4152,"Villa Doria Pamphilj – Area Cani",Rome,parks,""
+ca6c7720-5eab-4d6f-9f1f-77e0b57447a5,"Clinica Veterinaria San Francesco (Montesacro)",Rome,shops_services,https://www.prontosoccorsoveterinarioroma.it/
+c686c60d-4906-429b-87c3-40e9cf622359,"Ambulatorio Tre Madonne (Parioli)",Rome,shops_services,https://www.veterinarioparioli.it/
+4ec3e59e-7158-4ed0-a5b8-8108a3bd9d08,"Ambulatorio Veterinario Dr. Giorgio Sorichetti (Balduina)",Rome,shops_services,https://www.veterinariosorichetti.it/
+28020a65-10de-42a6-8f9b-d12987c9fb6f,"Pista Ciclabile del Tevere (Riverside Greenway)",Rome,walks_trails,https://www.alltrails.com/it-it/sentiero/italy/lazio/pista-ciclabile-del-tevere
+0c6ca5af-faa1-4ca3-890b-25ed0b13ae03,"Baubeach® – Maccarese (Fiumicino)",Rome,walks_trails,https://www.baubeach.net/
+cadd6ab3-e5d1-4f90-9a13-7e1a43ae0c82,"Parco degli Acquedotti",Rome,walks_trails,""
+7a628b1d-9903-4cff-ad45-2da6a066d4be,"DK Dog Sports – Centro acquatico cinofilo (pool)",Rome,walks_trails,https://www.dkdd.it/

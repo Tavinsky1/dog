@@ -50,6 +50,32 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // Auto-create user in database on Google sign-in
+      if (account?.provider === "google" && user.email) {
+        try {
+          const existingUser = await (prisma as any).user.findUnique({
+            where: { email: user.email }
+          });
+
+          if (!existingUser) {
+            // Create new user
+            await (prisma as any).user.create({
+              data: {
+                email: user.email,
+                name: user.name || user.email.split('@')[0],
+                role: "USER",
+                emailVerified: new Date(), // Google emails are pre-verified
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error creating user:", error);
+          return false;
+        }
+      }
+      return true;
+    },
     async session({ session, token }) {
       // attach role to session
       if (session.user) {
@@ -61,6 +87,16 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         (token as any).role = (user as any).role;
+      } else if (token.email) {
+        // Fetch role from database for existing sessions
+        const dbUser = await (prisma as any).user.findUnique({
+          where: { email: token.email },
+          select: { role: true, id: true }
+        });
+        if (dbUser) {
+          (token as any).role = dbUser.role;
+          token.sub = dbUser.id;
+        }
       }
       return token;
     }

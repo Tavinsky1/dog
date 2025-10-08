@@ -20,7 +20,10 @@
     "spec:check": "specify check",
     "spec:new": "specify plan",
     "spec:tasks": "echo 'Check tasks/ directory for current tasks'",
-    "project:status": "echo 'Check specs/ and plans/ directories for project status'"
+    "project:status": "echo 'Check specs/ and plans/ directories for project status'",
+    "fetch:images": "npx tsx scripts/fetch_place_images.ts",
+    "fetch:images:download": "npx tsx scripts/fetch_place_images.ts --download",
+    "fetch:missing": "npx tsx scripts/fetch_missing_images.ts"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
@@ -50,9 +53,12 @@
     "@upstash/ratelimit": "^2.0.6",
     "@upstash/redis": "^1.35.4",
     "autoprefixer": "^10.4.21",
+    "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
+    "cheerio": "^1.1.2",
     "cors": "^2.8.5",
     "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
     "express-rate-limit": "^8.1.0",
     "fast-csv": "^5.0.5",
     "fast-glob": "^3.3.3",
@@ -64,6 +70,7 @@
     "maplibre-gl": "^5.6.2",
     "next": "^15.4.6",
     "next-auth": "^4.24.11",
+    "p-limit": "^7.1.1",
     "postcss": "^8.5.6",
     "prisma": "^6.14.0",
     "react": "^19.1.1",

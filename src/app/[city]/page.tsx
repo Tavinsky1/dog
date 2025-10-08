@@ -11,8 +11,8 @@ const FALLBACK_IMAGES: Record<string, string> = {
   parks: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
   cafes_restaurants: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
   accommodation: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-  shops_services: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
-  walks_trails: "https://images.unsplash.com/photo-1551632811-1e306?auto=format&fit=crop&w=800&q=80",
+  shops_services: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
+  walks_trails: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
   tips_local_info: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
   default: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
 };
@@ -206,103 +206,195 @@ export default async function CityPage({ params, searchParams }: { params: Promi
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               <Link
                 href={`/${citySlug}`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   !selectedCategory 
-                    ? 'border-blue-500 bg-blue-50' 
-                    : 'border-slate-200 bg-white hover:border-blue-300'
+                    ? 'border-blue-400' 
+                    : 'border-slate-200 hover:border-blue-300'
                 }`}
               >
-                <div className="text-3xl mb-2">🌍</div>
-                <div className={`text-sm font-semibold ${!selectedCategory ? 'text-blue-700' : 'text-slate-900'}`}>
-                  All
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=400&q=80"
+                  alt="All categories"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4 flex flex-col justify-end h-full">
+                  <div className="text-3xl mb-2">🌍</div>
+                  <div className="text-sm font-semibold text-white">
+                    All
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.length}
+                  </div>
                 </div>
               </Link>
               
               <Link
                 href={`/${citySlug}?category=parks`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   selectedCategory === 'parks'
-                    ? 'border-emerald-500 bg-emerald-50' 
-                    : 'border-slate-200 bg-white hover:border-emerald-300'
+                    ? 'border-emerald-400' 
+                    : 'border-slate-200 hover:border-emerald-300'
                 }`}
               >
-                <div className="text-3xl mb-2">🏞️</div>
-                <div className={`text-sm font-semibold ${selectedCategory === 'parks' ? 'text-emerald-700' : 'text-slate-900'}`}>
-                  Parks
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.filter(p => p.type === 'parks').length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?auto=format&fit=crop&w=400&q=80"
+                  alt="Parks"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-colors ${
+                  selectedCategory === 'parks'
+                    ? 'bg-emerald-600/70' 
+                    : 'bg-slate-900/50 group-hover:bg-emerald-600/60'
+                }`} />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4">
+                  <div className="text-3xl mb-2">🏞️</div>
+                  <div className="text-sm font-semibold text-white">
+                    Parks
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.filter(p => p.type === 'parks').length}
+                  </div>
                 </div>
               </Link>
               
               <Link
                 href={`/${citySlug}?category=cafes_restaurants`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   selectedCategory === 'cafes_restaurants'
-                    ? 'border-amber-500 bg-amber-50' 
-                    : 'border-slate-200 bg-white hover:border-amber-300'
+                    ? 'border-amber-400' 
+                    : 'border-slate-200 hover:border-amber-300'
                 }`}
               >
-                <div className="text-3xl mb-2">☕</div>
-                <div className={`text-sm font-semibold ${selectedCategory === 'cafes_restaurants' ? 'text-amber-700' : 'text-slate-900'}`}>
-                  Cafés
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.filter(p => p.type === 'cafes_restaurants').length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80"
+                  alt="Cafés & Restaurants"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-colors ${
+                  selectedCategory === 'cafes_restaurants'
+                    ? 'bg-amber-600/70' 
+                    : 'bg-slate-900/50 group-hover:bg-amber-600/60'
+                }`} />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4">
+                  <div className="text-3xl mb-2">☕</div>
+                  <div className="text-sm font-semibold text-white">
+                    Cafés
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.filter(p => p.type === 'cafes_restaurants').length}
+                  </div>
                 </div>
               </Link>
               
               <Link
                 href={`/${citySlug}?category=walks_trails`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   selectedCategory === 'walks_trails'
-                    ? 'border-violet-500 bg-violet-50' 
-                    : 'border-slate-200 bg-white hover:border-violet-300'
+                    ? 'border-violet-400' 
+                    : 'border-slate-200 hover:border-violet-300'
                 }`}
               >
-                <div className="text-3xl mb-2">🚶</div>
-                <div className={`text-sm font-semibold ${selectedCategory === 'walks_trails' ? 'text-violet-700' : 'text-slate-900'}`}>
-                  Trails
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.filter(p => p.type === 'walks_trails').length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=400&q=80"
+                  alt="Walks & Trails"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-colors ${
+                  selectedCategory === 'walks_trails'
+                    ? 'bg-violet-600/70' 
+                    : 'bg-slate-900/50 group-hover:bg-violet-600/60'
+                }`} />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4">
+                  <div className="text-3xl mb-2">🚶</div>
+                  <div className="text-sm font-semibold text-white">
+                    Trails
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.filter(p => p.type === 'walks_trails').length}
+                  </div>
                 </div>
               </Link>
               
               <Link
                 href={`/${citySlug}?category=shops_services`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   selectedCategory === 'shops_services'
-                    ? 'border-red-500 bg-red-50' 
-                    : 'border-slate-200 bg-white hover:border-red-300'
+                    ? 'border-red-400' 
+                    : 'border-slate-200 hover:border-red-300'
                 }`}
               >
-                <div className="text-3xl mb-2">🛍️</div>
-                <div className={`text-sm font-semibold ${selectedCategory === 'shops_services' ? 'text-red-700' : 'text-slate-900'}`}>
-                  Services
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.filter(p => p.type === 'shops_services').length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=400&q=80"
+                  alt="Services & Shops"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-colors ${
+                  selectedCategory === 'shops_services'
+                    ? 'bg-red-600/70' 
+                    : 'bg-slate-900/50 group-hover:bg-red-600/60'
+                }`} />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4">
+                  <div className="text-3xl mb-2">🛍️</div>
+                  <div className="text-sm font-semibold text-white">
+                    Services
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.filter(p => p.type === 'shops_services').length}
+                  </div>
                 </div>
               </Link>
               
               <Link
                 href={`/${citySlug}?category=accommodation`}
-                className={`group relative overflow-hidden rounded-xl border-2 p-4 text-center transition-all hover:shadow-md ${
+                className={`group relative overflow-hidden rounded-xl border-2 text-center transition-all hover:shadow-lg hover:-translate-y-1 ${
                   selectedCategory === 'accommodation'
-                    ? 'border-purple-500 bg-purple-50' 
-                    : 'border-slate-200 bg-white hover:border-purple-300'
+                    ? 'border-purple-400' 
+                    : 'border-slate-200 hover:border-purple-300'
                 }`}
               >
-                <div className="text-3xl mb-2">🏨</div>
-                <div className={`text-sm font-semibold ${selectedCategory === 'accommodation' ? 'text-purple-700' : 'text-slate-900'}`}>
-                  Hotels
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  {places.filter(p => p.type === 'accommodation').length}
+                {/* Background Image */}
+                <img 
+                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80"
+                  alt="Hotels & Accommodation"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className={`absolute inset-0 transition-colors ${
+                  selectedCategory === 'accommodation'
+                    ? 'bg-purple-600/70' 
+                    : 'bg-slate-900/50 group-hover:bg-purple-600/60'
+                }`} />
+                
+                {/* Content */}
+                <div className="relative z-10 p-4">
+                  <div className="text-3xl mb-2">🏨</div>
+                  <div className="text-sm font-semibold text-white">
+                    Hotels
+                  </div>
+                  <div className="text-xs text-white/90 mt-1">
+                    {places.filter(p => p.type === 'accommodation').length}
+                  </div>
                 </div>
               </Link>
             </div>
