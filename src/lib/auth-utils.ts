@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
  */
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
-  return session?.user;
+  return session?.user as { id: string; name?: string | null; email?: string | null; image?: string | null; role: "USER" | "EDITOR" | "ADMIN" } | undefined;
 }
 
 /**
