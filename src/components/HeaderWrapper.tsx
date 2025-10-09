@@ -125,13 +125,43 @@ export default function HeaderWrapper() {
 
           {status === "loading" ? (
             <div className="h-9 w-9 animate-pulse rounded-full bg-slate-100" />
-          ) : userRole ? (
-            <button
-              onClick={() => signOut()}
-              className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
-            >
-              Sign out
-            </button>
+          ) : session?.user ? (
+            <div className="flex items-center gap-3">
+              <Link
+                href="/favorites"
+                className="hidden sm:flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+              >
+                <span>❤️</span>
+                <span>Favorites</span>
+              </Link>
+              {userRole === "ADMIN" && (
+                <Link
+                  href="/admin/dashboard"
+                  className="hidden sm:flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-sm font-medium text-purple-700 transition-colors hover:bg-purple-100"
+                >
+                  <span>👑</span>
+                  <span>Admin</span>
+                </Link>
+              )}
+              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5">
+                {session.user.image && (
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    className="h-6 w-6 rounded-full"
+                  />
+                )}
+                <span className="text-sm font-medium text-slate-700">
+                  {session.user.name || session.user.email?.split('@')[0]}
+                </span>
+              </div>
+              <button
+                onClick={() => signOut()}
+                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700"
+              >
+                Sign out
+              </button>
+            </div>
           ) : (
             <button
               onClick={() => signIn()}
