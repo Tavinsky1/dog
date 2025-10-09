@@ -14,6 +14,9 @@ interface FormData {
   phone: string;
   amenities: string[];
   rules: string;
+  imageUrl: string;
+  latitude: string;
+  longitude: string;
 }
 
 export default function PlaceSubmissionForm() {
@@ -32,7 +35,13 @@ export default function PlaceSubmissionForm() {
     phone: "",
     amenities: [],
     rules: "",
+    imageUrl: "",
+    latitude: "",
+    longitude: "",
   });
+  
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
 
   const handleInputChange = (field: keyof FormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -44,10 +53,38 @@ export default function PlaceSubmissionForm() {
     setError("");
 
     try {
+      let imageUrl = formData.imageUrl;
+
+      // Upload image if file is selected
+      if (imageFile) {
+        const imageFormData = new FormData();
+        imageFormData.append("file", imageFile);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: imageFormData,
+        });
+
+        if (uploadResponse.ok) {
+          const { url } = await uploadResponse.json();
+          imageUrl = url;
+        } else {
+          throw new Error("Failed to upload image");
+        }
+      }
+
+      // Submit place data
+      const submitData = {
+        ...formData,
+        imageUrl,
+        lat: formData.latitude ? parseFloat(formData.latitude) : undefined,
+        lng: formData.longitude ? parseFloat(formData.longitude) : undefined,
+      };
+
       const response = await fetch("/api/places", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       });
 
       if (!response.ok) {
@@ -131,19 +168,114 @@ export default function PlaceSubmissionForm() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            City *
+          </label>
+          <input
+            type="text"
+            required
+            value={formData.city}
+            onChange={(e) => handleInputChange("city", e.target.value)}
+            className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="e.g., Berlin"
+          />
+        </div>
+
+        {/* Location Coordinates */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-slate-900">Location</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Latitude
+              </label>
+              <input
+                type="number"
+                step="any"
+                value={formData.latitude}
+                onChange={(e) => handleInputChange("latitude", e.target.value)}
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 52.5200"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Longitude
+              </label>
+              <input
+                type="number"
+                step="any"
+                value={formData.longitude}
+                onChange={(e) => handleInputChange("longitude", e.target.value)}
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 13.4050"
+              />
+            </div>
+          </div>
+          <p className="text-xs text-slate-500">
+            💡 Tip: You can find coordinates by right-clicking on Google Maps and selecting "What's here?"
+          </p>
+        </div>
+
+        {/* Image Upload */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-slate-900">Photo</h3>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
-              City *
+              Place Image
             </label>
-            <input
-              type="text"
-              required
-              value={formData.city}
-              onChange={(e) => handleInputChange("city", e.target.value)}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="e.g., Berlin"
-            />
+            <div className="space-y-3">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setImageFile(file);
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setImagePreview(reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+              {imagePreview && (
+                <div className="relative w-full h-48 rounded-xl overflow-hidden border border-slate-200">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImageFile(null);
+                      setImagePreview("");
+                      handleInputChange("imageUrl", "");
+                    }}
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+              <p className="text-xs text-slate-500">
+                Or provide an image URL below if you don't want to upload a file
+              </p>
+              <input
+                type="url"
+                value={formData.imageUrl}
+                onChange={(e) => handleInputChange("imageUrl", e.target.value)}
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
           </div>
         </div>
 

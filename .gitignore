@@ -22,6 +22,9 @@ dist/
 .env.test.local
 .env.production.local
 
+# Uploaded files
+public/uploads/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
