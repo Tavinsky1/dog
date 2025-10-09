@@ -218,17 +218,30 @@ export default async function AdminDashboard() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-green-500">✓</span>
-                Admin routes protected
+                Admin routes protected with middleware
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-yellow-500">⚠</span>
-                Rate limiting: Configure in next steps
+                <span className="text-green-500">✓</span>
+                Rate limiting: 100 req/min per IP (configured in src/lib/rate-limit.ts)
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-yellow-500">⚠</span>
-                Security headers: Configure in next steps
+                <span className="text-green-500">✓</span>
+                Security headers: XSS, HSTS, clickjacking protection (configured in next.config.js)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                PostgreSQL with parameterized queries (SQL injection protection)
               </li>
             </ul>
+            <div className="mt-4 p-3 bg-white rounded-lg border border-green-300">
+              <p className="text-sm text-gray-700 mb-2">
+                <strong>All core security measures are active!</strong>
+              </p>
+              <p className="text-xs text-gray-600">
+                To customize rate limits, edit <code className="bg-gray-100 px-1 rounded">src/lib/rate-limit.ts</code>. 
+                To adjust security headers, edit <code className="bg-gray-100 px-1 rounded">next.config.js</code>.
+              </p>
+            </div>
           </div>
         </div>
       </div>

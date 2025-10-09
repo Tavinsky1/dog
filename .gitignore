@@ -158,3 +158,4 @@ Thumbs.db
 # Local development
 .vercel
 spec-kit-repo/
+.env*.local
