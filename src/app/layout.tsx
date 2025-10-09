@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import HeaderWrapper from "@/components/HeaderWrapper";
 import { Inter, Nunito } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", weight: ["700", "800"] });
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

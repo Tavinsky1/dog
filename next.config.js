@@ -1,9 +1,4 @@
 export default {
-  // Disable development indicators (hide the "n" in the corner)
-  devIndicators: {
-    appIsrStatus: false,
-  },
-  
   // Performance optimizations
   experimental: {
     // Enable experimental features for better performance
@@ -57,6 +52,18 @@ export default {
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains',
           },
         ],
       },
