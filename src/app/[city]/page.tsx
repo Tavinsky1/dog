@@ -102,13 +102,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
           amenities: true,
           tags: true,
           openingHours: true,
-          primaryPhoto: {
-            select: {
-              url: true,
-              attribution: true,
-              source: true,
-            },
-          },
+          imageUrl: true,
         },
       },
     },
@@ -127,7 +121,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
     lng: place.lng,
     shortDescription: place.shortDescription,
     dogFriendlyLevel: place.dogFriendlyLevel,
-    imageUrl: place.primaryPhoto?.url || null,
+    imageUrl: place.imageUrl || null,
     tags: toStringArray(place.tags),
     amenities: toStringArray(place.amenities),
     openingHours: place.openingHours,
