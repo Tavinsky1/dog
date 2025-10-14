@@ -128,15 +128,26 @@ NEXTAUTH_URL="http://localhost:3000"
 ```
 
 ### 4. Database Setup
+
+⚠️ **IMPORTANT**: DogAtlas uses a two-database architecture. See [DATABASE_ARCHITECTURE.md](./DATABASE_ARCHITECTURE.md) for complete guide.
+
+- **Local Development**: SQLite (`prisma/dev.db`)
+- **Production (Vercel)**: PostgreSQL
+
 ```bash
 # Generate Prisma client
 npx prisma generate
 
-# Run database migrations
+# Run database migrations (local only)
 npx prisma migrate dev
 
 # Seed the database (optional)
 npx tsx scripts/seed.ts
+```
+
+**After modifying data locally**, you MUST sync to production:
+```bash
+PROD_DATABASE_URL="postgres://..." npx tsx scripts/sync_images_raw.ts
 ```
 
 ### 5. Start Development Server
@@ -224,13 +235,31 @@ We welcome contributions! Here's how to get started:
 ### Environment Variables
 See `.env.example` for all available configuration options.
 
+### Database Architecture
+
+**Two-Database System:**
+- **Local Development**: SQLite (`prisma/dev.db`) - Fast iteration
+- **Production (Vercel)**: PostgreSQL - Live user data
+
+**⚠️ Critical Rules:**
+1. Production PostgreSQL is the source of truth
+2. Local changes MUST be synced to production
+3. Never run destructive operations without backups
+
+**Complete Guide**: See [DATABASE_ARCHITECTURE.md](./DATABASE_ARCHITECTURE.md)
+
+**Key Scripts:**
+- `scripts/sync_images_raw.ts` - Sync local → production
+- `scripts/check_prod_db.ts` - Verify production data
+- `scripts/imageScraperV2.ts` - Scrape images (requires sync)
+
 ### Database Schema
 The project uses Prisma ORM. Key models:
 - `User` - User accounts and profiles
-- `Place` - Dog-friendly locations
+- `Place` - Dog-friendly locations (166 places, 5 cities)
 - `Review` - User reviews and ratings
 - `Photo` - Place photos
-- `PlaceFeature` - Place characteristics
+- `PlaceFeature` - Place characteristics (off-leash, parking, etc.)
 
 ## 📊 Recent Updates (August 2025)
 
