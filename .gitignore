@@ -16,11 +16,17 @@ build/
 dist/
 
 # Runtime data
-.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Database backups (keep local, sync to cloud separately)
+backups/
+
+# Local development database
+dev.db
+dev.db-journal
 
 # Uploaded files
 public/uploads/
@@ -81,7 +87,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public - REMOVED: Next.js needs public/ directory in git for static assets
 
 # Storybook build outputs
 .out
