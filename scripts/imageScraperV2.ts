@@ -1,3 +1,37 @@
+/**
+ * IMAGE SCRAPER V2 - Advanced Multi-Strategy Image Collection
+ * 
+ * TARGET DATABASE: Local SQLite (prisma/dev.db)
+ * SYNC REQUIRED: YES - After running this script, you MUST sync to production!
+ * 
+ * PURPOSE:
+ *   Scrapes real place images using 5 fallback strategies:
+ *   1. Direct website scraping
+ *   2. DuckDuckGo image search
+ *   3. Bing image search
+ *   4. Google image search
+ *   5. Keep existing image
+ *   
+ *   Collects up to 5 images per place for gallery feature.
+ * 
+ * USAGE:
+ *   npx tsx scripts/imageScraperV2.ts [city]     # Scrape specific city
+ *   npx tsx scripts/imageScraperV2.ts            # Scrape all places
+ * 
+ * AFTER SCRAPING:
+ *   1. Verify local images: ls -lh public/images/places/
+ *   2. Sync to production: PROD_DATABASE_URL="..." npx tsx scripts/sync_images_raw.ts
+ *   3. Verify production: PROD_DATABASE_URL="..." npx tsx scripts/check_prod_db.ts
+ *   4. Redeploy: git push (Vercel will pick up new images)
+ * 
+ * IMPORTANT:
+ *   This script only updates LOCAL SQLite database!
+ *   Images are saved to public/images/places/ and committed to git.
+ *   Database records MUST be synced separately to production PostgreSQL.
+ * 
+ * See DATABASE_ARCHITECTURE.md for complete workflow.
+ */
+
 import { PrismaClient } from '@prisma/client';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
@@ -615,6 +649,26 @@ async function main() {
     console.log(`  - Google: ${stats.strategies.google}`);
     console.log(`  - Existing Google Places image: ${stats.strategies.existingImage}`);
     console.log('='.repeat(60) + '\n');
+
+    // CRITICAL: Remind to sync to production
+    if (stats.success > 0) {
+      console.log('⚠️  IMPORTANT: SYNC TO PRODUCTION REQUIRED!');
+      console.log('='.repeat(60));
+      console.log('This script updated LOCAL SQLite database only.');
+      console.log('To make images visible on production site:');
+      console.log('');
+      console.log('1. Run sync script:');
+      console.log('   PROD_DATABASE_URL="postgres://..." npx tsx scripts/sync_images_raw.ts');
+      console.log('');
+      console.log('2. Verify production:');
+      console.log('   PROD_DATABASE_URL="postgres://..." npx tsx scripts/check_prod_db.ts');
+      console.log('');
+      console.log('3. Redeploy (if needed):');
+      console.log('   git commit --allow-empty -m "Update after image sync" && git push');
+      console.log('');
+      console.log('See DATABASE_ARCHITECTURE.md for details.');
+      console.log('='.repeat(60) + '\n');
+    }
   } finally {
     await browser.close();
     await prisma.$disconnect();
