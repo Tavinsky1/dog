@@ -1,22 +1,24 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getCountries, getCities } from '@/lib/data'
 
 export async function GET() {
   try {
-    const cities = await prisma.city.findMany({
-      where: {
-        active: true,
-      },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        country: true,
-      },
-      orderBy: {
-        name: 'asc',
-      },
-    })
+    // Get all countries and their cities
+    const countries = await getCountries()
+    const allCities = await Promise.all(
+      countries.map(async (country) => {
+        const cities = await getCities(country.slug)
+        return cities.map(city => ({
+          id: city.slug,
+          slug: city.slug,
+          name: city.name,
+          country: country.slug,
+        }))
+      })
+    )
+
+    // Flatten and sort by name
+    const cities = allCities.flat().sort((a, b) => a.name.localeCompare(b.name))
 
     return NextResponse.json(cities)
   } catch (error) {

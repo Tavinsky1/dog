@@ -2,9 +2,8 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import Stat from "@/components/Stat";
 import CitySelector from "@/components/CitySelector";
-import { prisma } from "@/lib/prisma";
-import { getCountries, getStats } from "@/lib/data";
-import { countryUrl } from "@/lib/routing";
+import { getCountries, getStats, getCities } from "@/lib/data";
+import { countryUrl, cityUrl } from "@/lib/routing";
 import { featureFlags } from "@/lib/featureFlags";
 // import { CATEGORY_GROUPS, getAllGroupsOrdered, getCategoriesByGroup } from "@/lib/categories";
 
@@ -40,24 +39,30 @@ const FEATURE_CARDS = [
 ];
 
 export default async function Home() {
-  const [placesCount, activeCities] = await Promise.all([
-    prisma.place.count(),
-    prisma.city.findMany({
-      where: { active: true },
-      orderBy: { name: "asc" },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        country: true,
-        _count: {
-          select: {
-            places: true,
-          },
-        },
-      },
-    }),
-  ]);
+  // Get countries and their stats
+  const countries = await getCountries();
+  const stats = await getStats();
+  
+  // Get all cities across all countries
+  const allCities = await Promise.all(
+    countries.map(async (country) => {
+      const cities = await getCities(country.slug);
+      return cities.map(city => ({
+        id: city.slug,
+        slug: city.slug,
+        name: city.name,
+        country: country.slug,
+        countryName: country.name,
+        placeCount: city.placeCount || 0,
+      }));
+    })
+  );
+  
+  // Flatten and sort cities by place count
+  const activeCities = allCities
+    .flat()
+    .filter(city => city.placeCount > 0)
+    .sort((a, b) => b.placeCount - a.placeCount);
 
   return (
     <div className="space-y-16">
@@ -155,7 +160,7 @@ export default async function Home() {
                 Dog-friendly places
               </div>
               <div className="text-6xl font-extrabold font-display text-white mb-3" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)' }}>
-                {placesCount}
+                {stats.places}
               </div>
               <div className="text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>curated spots</div>
             </div>
@@ -224,16 +229,25 @@ export default async function Home() {
             {activeCities.map((city) => {
               // Map city landmarks
               const cityImages: Record<string, string> = {
+                // Legacy European cities
                 'rome': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80', // Colosseum
                 'paris': 'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80', // Eiffel Tower
                 'berlin': 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=800&q=80', // TV Tower
                 'barcelona': 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=80', // Sagrada Familia
+                // New cities
+                'new-york': 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80', // NYC Skyline
+                'los-angeles': 'https://images.unsplash.com/photo-1534190239940-9ba8944ea261?auto=format&fit=crop&w=800&q=80', // LA Skyline
+                'sydney': 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80', // Sydney Opera House
+                'melbourne': 'https://images.unsplash.com/photo-1514395462725-fb4566210144?auto=format&fit=crop&w=800&q=80', // Melbourne
+                'buenos-aires': 'https://images.unsplash.com/photo-1589909202802-8f4aadce1849?auto=format&fit=crop&w=800&q=80', // Buenos Aires
+                'cordoba': 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80', // Córdoba
+                'tokyo': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80', // Tokyo
               };
               
               return (
                 <Link
                   key={city.id}
-                  href={`/${city.slug}`}
+                  href={cityUrl(city.country, city.slug)}
                   className="group relative overflow-hidden rounded-3xl border border-slate-200 shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 >
                   {/* Background Image */}
@@ -247,10 +261,10 @@ export default async function Home() {
                     
                     {/* Content Overlay */}
                     <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">{city.country}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">{city.countryName}</p>
                       <h3 className="mt-2 text-3xl font-display font-bold text-white">{city.name}</h3>
                       <p className="mt-3 text-sm text-white/90">
-                        {city._count.places} dog-friendly spots shared by locals
+                        {city.placeCount} dog-friendly spots shared by locals
                       </p>
                       
                       {/* Arrow Button */}
