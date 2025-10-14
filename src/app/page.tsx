@@ -3,6 +3,9 @@ import Hero from "@/components/Hero";
 import Stat from "@/components/Stat";
 import CitySelector from "@/components/CitySelector";
 import { prisma } from "@/lib/prisma";
+import { getCountries, getStats } from "@/lib/data";
+import { countryUrl } from "@/lib/routing";
+import { featureFlags } from "@/lib/featureFlags";
 // import { CATEGORY_GROUPS, getAllGroupsOrdered, getCategoriesByGroup } from "@/lib/categories";
 
 const FEATURE_CARDS = [
@@ -157,6 +160,47 @@ export default async function Home() {
               <div className="text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>curated spots</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* NEW: Browse by Country Section */}
+      <section id="countries" className="space-y-6">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-100/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-orange-700 backdrop-blur-sm mb-4">
+            <span>🌍</span>
+            Global Coverage
+          </div>
+          <h2 className="text-4xl font-display font-extrabold text-slate-900 sm:text-5xl">Explore by Country</h2>
+          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+            DogAtlas is expanding worldwide. Discover dog-friendly places across continents.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+          {getCountries().map((country) => {
+            const totalPlaces = country.cities.reduce((sum, city) => sum + city.placeCount, 0);
+            return (
+              <Link
+                key={country.slug}
+                href={countryUrl(country.slug)}
+                className="group bg-white rounded-xl border-2 border-gray-200 hover:border-orange-400 shadow-sm hover:shadow-lg transition-all duration-300 p-6 text-center"
+              >
+                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">
+                  {country.flag}
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">
+                  {country.name}
+                </h3>
+                <p className="text-xs text-gray-500 mb-2">{country.continent}</p>
+                <div className="text-sm text-gray-600">
+                  <div>{country.cities.length} {country.cities.length === 1 ? 'city' : 'cities'}</div>
+                  {totalPlaces > 0 && (
+                    <div className="text-orange-600 font-semibold">{totalPlaces} places</div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
