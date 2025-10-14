@@ -1,4 +1,15 @@
+// Load generated redirects for legacy city routes
+// Run `node scripts/generate-redirects.cjs` to regenerate redirects.generated.cjs
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const redirectsFromGenerated = require('./redirects.generated.cjs');
+
 export default {
+  // Legacy city redirects (e.g., /berlin → /countries/germany/berlin)
+  async redirects() {
+    return redirectsFromGenerated;
+  },
+
   // Performance optimizations
   experimental: {
     // Enable experimental features for better performance

@@ -9,14 +9,14 @@
  * Build URL for country page
  */
 export function countryUrl(countrySlug: string): string {
-  return `/${countrySlug}`;
+  return `/countries/${countrySlug}`;
 }
 
 /**
  * Build URL for city page
  */
 export function cityUrl(countrySlug: string, citySlug: string): string {
-  return `/${countrySlug}/${citySlug}`;
+  return `/countries/${countrySlug}/${citySlug}`;
 }
 
 /**
@@ -27,7 +27,7 @@ export function placeUrl(
   citySlug: string,
   placeSlug: string
 ): string {
-  return `/${countrySlug}/${citySlug}/p/${placeSlug}`;
+  return `/countries/${countrySlug}/${citySlug}/p/${placeSlug}`;
 }
 
 /**
@@ -38,7 +38,7 @@ export function categoryUrl(
   citySlug: string,
   category: string
 ): string {
-  return `/${countrySlug}/${citySlug}?category=${category}`;
+  return `/countries/${countrySlug}/${citySlug}?category=${category}`;
 }
 
 /**
@@ -46,10 +46,10 @@ export function categoryUrl(
  */
 export function mapUrl(countrySlug?: string, citySlug?: string): string {
   if (citySlug && countrySlug) {
-    return `/${countrySlug}/${citySlug}/map`;
+    return `/countries/${countrySlug}/${citySlug}/map`;
   }
   if (countrySlug) {
-    return `/${countrySlug}/map`;
+    return `/countries/${countrySlug}/map`;
   }
   return '/map';
 }
@@ -69,6 +69,30 @@ export function parseUrl(pathname: string): {
     return {};
   }
 
+  // Handle new /countries/... structure
+  if (parts[0] === 'countries') {
+    const result: ReturnType<typeof parseUrl> = {
+      countrySlug: parts[1],
+    };
+
+    if (parts[2]) {
+      if (parts[2] === 'map') {
+        result.isMap = true;
+      } else {
+        result.citySlug = parts[2];
+      }
+    }
+
+    if (parts[3] === 'p' && parts[4]) {
+      result.placeSlug = parts[4];
+    } else if (parts[3] === 'map') {
+      result.isMap = true;
+    }
+
+    return result;
+  }
+
+  // Legacy format (for backward compatibility parsing)
   const result: ReturnType<typeof parseUrl> = {
     countrySlug: parts[0],
   };

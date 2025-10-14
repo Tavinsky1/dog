@@ -173,7 +173,7 @@ export default async function CountryPage({ params }: PageProps) {
   );
 }
 
-// Generate metadata
+// Generate metadata with canonical URL
 export async function generateMetadata({ params }: PageProps) {
   const { country: countrySlug } = await params;
   const country = getCountry(countrySlug);
@@ -185,13 +185,19 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   const totalPlaces = country.cities.reduce((sum, city) => sum + city.placeCount, 0);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dog-atlas.com';
+  const canonical = `${baseUrl}/countries/${countrySlug}`;
 
   return {
     title: `${country.flag} ${country.name} - Dog-Friendly Places | DogAtlas`,
     description: `Discover ${totalPlaces}+ dog-friendly places across ${country.cities.length} cities in ${country.name}. Find parks, cafés, trails, and more for you and your pup.`,
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title: `Dog-Friendly ${country.name}`,
       description: `${country.cities.length} cities • ${totalPlaces} places`,
+      url: canonical,
       images: [{
         url: `/api/og?title=${encodeURIComponent(country.name)}&type=country`,
         width: 1200,

@@ -253,7 +253,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   );
 }
 
-// Generate metadata
+// Generate metadata with canonical URL
 export async function generateMetadata({ params, searchParams }: PageProps) {
   const { country: countrySlug, city: citySlug } = await params;
   const { category } = await searchParams;
@@ -269,13 +269,20 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 
   const places = await getPlaces(countrySlug, citySlug, category, featureFlags.useDatabase);
   const categoryLabel = category ? getCategoryLabel(category) : 'places';
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dog-atlas.com';
+  const canonical = `${baseUrl}/countries/${countrySlug}/${citySlug}`;
 
   return {
     title: `${city.name}, ${country.name} - ${places.length} Dog-Friendly ${categoryLabel} | DogAtlas`,
     description: city.description || `Discover ${places.length} dog-friendly ${categoryLabel.toLowerCase()} in ${city.name}, ${country.name}. Parks, cafés, trails, and more for you and your pup.`,
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title: `Dog-Friendly ${city.name}`,
       description: `${places.length} ${categoryLabel.toLowerCase()} in ${country.name}`,
+      url: canonical,
       images: [{
         url: `/api/og?title=${encodeURIComponent(city.name)}&type=city`,
         width: 1200,

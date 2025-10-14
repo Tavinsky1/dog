@@ -515,3 +515,34 @@ export default async function CityPage({ params, searchParams }: { params: Promi
     </div>
   );
 }
+
+// Generate metadata with canonical URL pointing to new /countries/... structure
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }) {
+  const { city: citySlug } = await params;
+  
+  // Legacy city mapping to country/city for canonical URLs
+  const legacyCityMap: Record<string, { country: string; city: string }> = {
+    berlin: { country: 'germany', city: 'berlin' },
+    paris: { country: 'france', city: 'paris' },
+    rome: { country: 'italy', city: 'rome' },
+    barcelona: { country: 'spain', city: 'barcelona' },
+  };
+
+  const mapping = legacyCityMap[citySlug] || { country: 'unknown', city: citySlug };
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dog-atlas.com';
+  const canonical = `${baseUrl}/countries/${mapping.country}/${mapping.city}`;
+
+  const cityName = citySlug.charAt(0).toUpperCase() + citySlug.slice(1);
+
+  return {
+    title: `${cityName} - Dog-Friendly Places | DogAtlas`,
+    description: `Discover dog-friendly places in ${cityName}. Find parks, cafés, trails, and more for you and your pup.`,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title: `Dog-Friendly ${cityName}`,
+      url: canonical,
+    },
+  };
+}
