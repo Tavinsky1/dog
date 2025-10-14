@@ -13,6 +13,12 @@ export default {
     },
   },
 
+  // Webpack configuration for custom paths
+  webpack: (config) => {
+    config.resolve.alias['@/lib'] = './lib';
+    return config;
+  },
+
   // Image optimization
   images: {
     remotePatterns: [

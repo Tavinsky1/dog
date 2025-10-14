@@ -21,29 +21,18 @@ type PlaceMarker = {
 const createCustomIcon = (type: string) => {
   const getIcon = () => {
     switch (type) {
-      case 'park_offleash_area':
-      case 'park_onleash_area':
+      case 'parks':
         return '🏞️';
-      case 'cafe_dog_friendly':
-      case 'restaurant_dog_friendly':
-      case 'brewery_dog_friendly':
+      case 'cafes_restaurants':
         return '🍽️';
-      case 'vet_clinic':
-      case 'vet_emergency':
-        return '🏥';
-      case 'grooming_salon':
-      case 'grooming_mobile':
-        return '✂️';
-      case 'pet_store':
-        return '🏪';
-      case 'hotel_pet_friendly':
-      case 'hostel_pet_friendly':
-        return '🏨';
-      case 'beach_dog_friendly':
-        return '🏖️';
-      case 'trail_hiking':
-      case 'trail_walking':
+      case 'accommodation':
+        return '�';
+      case 'shops_services':
+        return '�';
+      case 'walks_trails':
         return '🥾';
+      case 'tips_local_info':
+        return '💡';
       default:
         return '📍';
     }

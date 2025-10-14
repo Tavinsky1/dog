@@ -6,17 +6,6 @@ import SearchInput from "@/components/SearchInput";
 import CategoryFilter from "@/components/CategoryFilter";
 import { prisma } from "@/lib/prisma";
 
-const FALLBACK_IMAGES: Record<string, string> = {
-  // Consolidated categories
-  parks: "https://images.unsplash.com/photo-1544717684-7ad52a7bf8e1?auto=format&fit=crop&w=800&q=80",
-  cafes_restaurants: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
-  accommodation: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-  shops_services: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  walks_trails: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
-  tips_local_info: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-  default: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
-};
-
 type NormalizedPlace = {
   id: string;
   slug: string;
@@ -26,7 +15,7 @@ type NormalizedPlace = {
   lng: number | null;
   shortDescription: string | null;
   dogFriendlyLevel: number | null;
-  imageUrl: string;
+  imageUrl: string | null;
   tags: string[];
   amenities: string[];
   openingHours: string | null;
@@ -110,10 +99,16 @@ export default async function CityPage({ params, searchParams }: { params: Promi
           lng: true,
           shortDescription: true,
           dogFriendlyLevel: true,
-          imageUrl: true,
           amenities: true,
           tags: true,
           openingHours: true,
+          primaryPhoto: {
+            select: {
+              url: true,
+              attribution: true,
+              source: true,
+            },
+          },
         },
       },
     },
@@ -132,7 +127,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
     lng: place.lng,
     shortDescription: place.shortDescription,
     dogFriendlyLevel: place.dogFriendlyLevel,
-    imageUrl: place.imageUrl || FALLBACK_IMAGES[place.type] || FALLBACK_IMAGES.default,
+    imageUrl: place.primaryPhoto?.url || null,
     tags: toStringArray(place.tags),
     amenities: toStringArray(place.amenities),
     openingHours: place.openingHours,
@@ -458,7 +453,21 @@ export default async function CityPage({ params, searchParams }: { params: Promi
               </div>
               
               <div className="space-y-4">
-                {categoryPlaces.map((place) => (
+                {categoryPlaces.map((place) => {
+                  // Get category-specific placeholder image
+                  const getPlaceholderImage = (type: string): string => {
+                    const placeholders: Record<string, string> = {
+                      'parks': 'https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?auto=format&fit=crop&w=400&q=80',
+                      'cafes_restaurants': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80',
+                      'accommodation': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80',
+                      'shops_services': 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80',
+                      'walks_trails': 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=400&q=80',
+                      'tips_local_info': 'https://images.unsplash.com/photo-1516192518150-0d8fee5425e3?auto=format&fit=crop&w=400&q=80'
+                    };
+                    return placeholders[type] || 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=400&q=80';
+                  };
+                  
+                  return (
                   <Link
                     key={place.id}
                     href={`/${citySlug}/p/${place.slug}`}
@@ -466,7 +475,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
                   >
                     <div className="h-48 w-full sm:h-full sm:w-48">
                       <img
-                        src={place.imageUrl}
+                        src={place.imageUrl || getPlaceholderImage(place.type)}
                         alt={place.name}
                         className="h-full w-full object-cover"
                         loading="lazy"
@@ -503,7 +512,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
                       </div>
                     </div>
                   </Link>
-                ))}
+                )})}
               </div>
             </section>
           ))}

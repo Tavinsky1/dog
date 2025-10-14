@@ -117,6 +117,15 @@ async function importPlaces() {
       // Map old category to new consolidated category
       const mappedCategory = mapCategory(placeData.category)
 
+      // Build external URLs from external_ids
+      const externalUrls: Record<string, string> = {}
+      if (placeData.external_ids?.facebook_url) {
+        externalUrls.facebook = placeData.external_ids.facebook_url
+      }
+      if (placeData.external_ids?.instagram_url) {
+        externalUrls.instagram = placeData.external_ids.instagram_url
+      }
+
       // Clean up null values
       const cleanExternalUrls = Object.fromEntries(
         Object.entries(externalUrls).filter(([, value]) => value !== null && value !== undefined)
@@ -139,14 +148,16 @@ async function importPlaces() {
           neighborhood: placeData.neighborhood || null,
           lat: placeData.lat || null,
           lng: placeData.lng || null,
-          website: placeData.website || null,
+          websiteUrl: placeData.website || null,
+          instagramUrl: placeData.external_ids?.instagram_url || null,
+          facebookUrl: placeData.external_ids?.facebook_url || null,
           phone: placeData.phone || null,
           priceLevel: placeData.priceLevel || null,
           rating: placeData.rating || 0,
           ratingCount: placeData.ratingCount || 0,
           status: placeData.status,
-          googlePlaceId: placeData.external_ids.google_place_id || null,
-          osmId: placeData.external_ids.osm_id || null,
+          googlePlaceId: placeData.external_ids?.google_place_id || null,
+          osmId: placeData.external_ids?.osm_id || null,
           externalUrls: Object.keys(cleanExternalUrls).length > 0 ? cleanExternalUrls : null,
           updatedAt: new Date()
         },
@@ -161,14 +172,16 @@ async function importPlaces() {
           neighborhood: placeData.neighborhood || null,
           lat: placeData.lat || null,
           lng: placeData.lng || null,
-          website: placeData.website || null,
+          websiteUrl: placeData.website || null,
+          instagramUrl: placeData.external_ids?.instagram_url || null,
+          facebookUrl: placeData.external_ids?.facebook_url || null,
           phone: placeData.phone || null,
           priceLevel: placeData.priceLevel || null,
           rating: placeData.rating || 0,
           ratingCount: placeData.ratingCount || 0,
           status: placeData.status,
-          googlePlaceId: placeData.external_ids.google_place_id || null,
-          osmId: placeData.external_ids.osm_id || null,
+          googlePlaceId: placeData.external_ids?.google_place_id || null,
+          osmId: placeData.external_ids?.osm_id || null,
           externalUrls: Object.keys(cleanExternalUrls).length > 0 ? cleanExternalUrls : null
         }
       })
