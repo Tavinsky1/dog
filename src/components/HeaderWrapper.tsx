@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
+import GlobalSearch from "./GlobalSearch";
 
 type City = {
   id: string;
@@ -110,7 +111,12 @@ export default function HeaderWrapper() {
           )}
         </nav>
 
-        <div className="ml-auto flex items-center gap-3">
+        {/* Global Search */}
+        <div className="hidden md:flex flex-1 max-w-md mx-4">
+          <GlobalSearch />
+        </div>
+
+        <div className="ml-auto md:ml-0 flex items-center gap-3">
           {isLoadingCities ? (
             <div className="h-9 w-40 animate-pulse rounded-full bg-slate-100" />
           ) : (
