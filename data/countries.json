@@ -203,16 +203,216 @@
           }
         }
       ]
+    },
+    {
+      "iso": "US",
+      "name": "United States",
+      "slug": "united-states",
+      "flag": "🇺🇸",
+      "continent": "North America",
+      "coordinates": [37.0902, -95.7129],
+      "timezone": "America/New_York",
+      "currency": "USD",
+      "language": "English",
+      "cities": [
+        {
+          "id": "new-york",
+          "name": "New York",
+          "slug": "new-york",
+          "coordinates": [40.7128, -74.0060],
+          "timezone": "America/New_York",
+          "population": 8336000,
+          "description": "The Big Apple with Central Park, dog-friendly cafés, and urban dog culture",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        },
+        {
+          "id": "los-angeles",
+          "name": "Los Angeles",
+          "slug": "los-angeles",
+          "coordinates": [34.0522, -118.2437],
+          "timezone": "America/Los_Angeles",
+          "population": 3979000,
+          "description": "Sunny California city with beaches, hiking trails, and pet-friendly culture",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        }
+      ]
+    },
+    {
+      "iso": "AU",
+      "name": "Australia",
+      "slug": "australia",
+      "flag": "🇦🇺",
+      "continent": "Oceania",
+      "coordinates": [-25.2744, 133.7751],
+      "timezone": "Australia/Sydney",
+      "currency": "AUD",
+      "language": "English",
+      "cities": [
+        {
+          "id": "sydney",
+          "name": "Sydney",
+          "slug": "sydney",
+          "coordinates": [-33.8688, 151.2093],
+          "timezone": "Australia/Sydney",
+          "population": 5312000,
+          "description": "Harbour city with dog-friendly beaches, coastal walks, and outdoor lifestyle",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        },
+        {
+          "id": "melbourne",
+          "name": "Melbourne",
+          "slug": "melbourne",
+          "coordinates": [-37.8136, 144.9631],
+          "timezone": "Australia/Melbourne",
+          "population": 5078000,
+          "description": "Cultural capital with laneway cafés, parks, and dog-friendly venues",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        }
+      ]
+    },
+    {
+      "iso": "AR",
+      "name": "Argentina",
+      "slug": "argentina",
+      "flag": "🇦🇷",
+      "continent": "South America",
+      "coordinates": [-38.4161, -63.6167],
+      "timezone": "America/Argentina/Buenos_Aires",
+      "currency": "ARS",
+      "language": "Spanish",
+      "cities": [
+        {
+          "id": "buenos-aires",
+          "name": "Buenos Aires",
+          "slug": "buenos-aires",
+          "coordinates": [-34.6037, -58.3816],
+          "timezone": "America/Argentina/Buenos_Aires",
+          "population": 3075000,
+          "description": "Vibrant capital with parks, plazas, and dog-loving culture",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        },
+        {
+          "id": "cordoba",
+          "name": "Córdoba",
+          "slug": "cordoba",
+          "coordinates": [-31.4201, -64.1888],
+          "timezone": "America/Argentina/Cordoba",
+          "population": 1391000,
+          "description": "University city surrounded by mountains and natural parks",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        }
+      ]
+    },
+    {
+      "iso": "JP",
+      "name": "Japan",
+      "slug": "japan",
+      "flag": "🇯🇵",
+      "continent": "Asia",
+      "coordinates": [36.2048, 138.2529],
+      "timezone": "Asia/Tokyo",
+      "currency": "JPY",
+      "language": "Japanese",
+      "cities": [
+        {
+          "id": "tokyo",
+          "name": "Tokyo",
+          "slug": "tokyo",
+          "coordinates": [35.6762, 139.6503],
+          "timezone": "Asia/Tokyo",
+          "population": 13960000,
+          "description": "Modern metropolis with pet cafés, dog parks, and pet-friendly culture",
+          "placeCount": 0,
+          "categories": {
+            "cafes_restaurants": 0,
+            "parks": 0,
+            "trails": 0,
+            "hotels": 0,
+            "vets": 0,
+            "shops": 0,
+            "groomers": 0,
+            "trainers": 0,
+            "beaches": 0
+          }
+        }
+      ]
     }
   ],
   "metadata": {
-    "version": "1.0.0",
-    "lastUpdated": "2025-10-14T00:00:00Z",
-    "totalCountries": 6,
-    "totalCities": 6,
+    "version": "1.1.0",
+    "lastUpdated": "2025-10-14T12:00:00Z",
+    "totalCountries": 10,
+    "totalCities": 13,
     "totalPlaces": 166,
     "generatedBy": "manual",
-    "dataSource": "DogAtlas Database"
+    "dataSource": "DogAtlas Database",
+    "notes": "New cities have placeCount: 0 until places are added via admin or scraping"
   },
   "categoryMap": {
     "cafes_restaurants": {
