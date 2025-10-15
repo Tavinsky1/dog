@@ -5,6 +5,7 @@ import ItineraryGenerator from "@/components/ItineraryGenerator";
 import SearchInput from "@/components/SearchInput";
 import CategoryFilter from "@/components/CategoryFilter";
 import { prisma } from "@/lib/prisma";
+import { getCountries } from "@/lib/data";
 
 type NormalizedPlace = {
   id: string;
@@ -169,6 +170,18 @@ export default async function CityPage({ params, searchParams }: { params: Promi
       lng: place.lng as number,
     }));
 
+  // Get dog rules from countries.json
+  const countries = getCountries();
+  let dogRules: string[] = [];
+  
+  for (const country of countries) {
+    const cityData = country.cities.find(c => c.slug === citySlug);
+    if (cityData && cityData.dogRules) {
+      dogRules = cityData.dogRules as any;
+      break;
+    }
+  }
+
   return (
     <div className="space-y-12">
       <section className="space-y-4">
@@ -186,6 +199,30 @@ export default async function CityPage({ params, searchParams }: { params: Promi
             Explore curated places loved by the DogAtlas community. Find parks, cafés, services, and unique spots to enjoy with your companion.
           </p>
         </div>
+
+        {/* Dog Rules Section */}
+        {dogRules.length > 0 && (
+          <div className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl">🐕</span>
+              <h2 className="text-2xl font-display font-bold text-slate-900">Dog Rules in {city.name}</h2>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {dogRules.map((rule, index) => (
+                <div
+                  key={index}
+                  className="flex items-start gap-3 rounded-lg bg-white p-4 shadow-sm transition-transform hover:scale-[1.02]"
+                >
+                  <span className="text-2xl flex-shrink-0">{rule.split(' ')[0]}</span>
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    {rule.substring(rule.indexOf(' ') + 1)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="space-y-4">
           <SearchInput placeholder={`Search ${city.name} places...`} initial={searchQuery || ""} />
           

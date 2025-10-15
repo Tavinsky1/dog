@@ -119,6 +119,29 @@ export default async function CityPage({ params, searchParams }: PageProps) {
               </div>
             </div>
           </div>
+
+          {/* Dog Rules Section */}
+          {city.dogRules && Array.isArray(city.dogRules) && city.dogRules.length > 0 && (
+            <div className="mt-8 rounded-2xl border-2 border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl">🐕</span>
+                <h2 className="text-2xl font-bold text-gray-900">Dog Rules in {city.name}</h2>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {city.dogRules.map((rule: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 rounded-lg bg-white p-4 shadow-sm transition-transform hover:scale-[1.02]"
+                  >
+                    <span className="text-2xl flex-shrink-0">{rule.split(' ')[0]}</span>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {rule.substring(rule.indexOf(' ') + 1)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           
           {/* Search Input */}
           <div className="mt-6">
