@@ -4,6 +4,8 @@ import { getCountry, getCity, getPlaces } from '@/lib/data';
 import { cityUrl, getCategoryLabel, getCategoryIcon } from '@/lib/routing';
 import { featureFlags } from '@/lib/featureFlags';
 import Map from "@/components/Map";
+import ReviewForm from "@/components/ReviewForm";
+import ReviewsList from "@/components/ReviewsList";
 
 // ISR: Revalidate every hour
 export const revalidate = featureFlags.isrRevalidate;
@@ -136,6 +138,22 @@ export default async function PlaceDetailPage({ params }: PageProps) {
               </div>
               <div className="h-[400px]">
                 <Map places={mapPlaces} />
+              </div>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 mt-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Reviews & Ratings</h2>
+              
+              {/* Reviews List */}
+              <div className="mb-8">
+                <ReviewsList placeId={place.id} />
+              </div>
+
+              {/* Review Form */}
+              <div className="border-t border-gray-200 pt-8">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Share Your Experience</h3>
+                <ReviewForm placeId={place.id} />
               </div>
             </div>
           </div>
