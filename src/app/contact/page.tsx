@@ -298,42 +298,9 @@ export default function ContactPage() {
             </summary>
             <p className="mt-4 text-sm text-slate-600">
               Not yet, but it's on our roadmap! For now, our website is fully mobile-responsive and
-              works great on all devices. Follow us on social media or subscribe to our newsletter
-              for updates on the mobile app launch.
+              works great on all devices. Subscribe to our newsletter for updates on the mobile app launch.
             </p>
           </details>
-        </div>
-      </section>
-
-      {/* Social Media */}
-      <section className="text-center space-y-4 py-8">
-        <h3 className="text-2xl font-bold text-slate-900">Follow Our Adventures 🌍</h3>
-        <p className="text-slate-600">Stay connected with the DogAtlas community</p>
-        <div className="flex justify-center gap-4">
-          <a
-            href="https://instagram.com/dogatlas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:shadow-lg transition-shadow"
-          >
-            📸 Instagram
-          </a>
-          <a
-            href="https://twitter.com/dogatlas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-lg hover:shadow-lg transition-shadow"
-          >
-            🐦 Twitter
-          </a>
-          <a
-            href="https://facebook.com/dogatlas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-shadow"
-          >
-            👍 Facebook
-          </a>
         </div>
       </section>
     </div>
