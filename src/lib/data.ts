@@ -36,6 +36,8 @@ export interface City {
   population?: number;
   description: string;
   placeCount: number;
+  image?: string; // Emblematic city landmark image
+  dogRules?: string; // Local dog regulations and rules
   categories: {
     cafes_restaurants: number;
     parks: number;

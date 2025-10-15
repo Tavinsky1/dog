@@ -79,15 +79,31 @@ export default async function CountryPage({ params }: PageProps) {
               href={cityUrl(country.slug, city.slug)}
               className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
             >
-              {/* City Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-orange-400 to-orange-600 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
-                <div className="absolute inset-0 flex items-center justify-center text-white">
-                  <div className="text-center">
-                    <div className="text-6xl mb-2">🏙️</div>
-                    <h3 className="text-2xl font-bold">{city.name}</h3>
-                  </div>
-                </div>
+              {/* City Image */}
+              <div className="h-48 relative overflow-hidden">
+                {city.image ? (
+                  <>
+                    <img
+                      src={city.image}
+                      alt={`${city.name} landmark`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <div className="absolute inset-0 flex items-end justify-start p-6">
+                      <h3 className="text-3xl font-bold text-white drop-shadow-lg">{city.name}</h3>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="h-full bg-gradient-to-br from-orange-400 to-orange-600" />
+                    <div className="absolute inset-0 flex items-center justify-center text-white">
+                      <div className="text-center">
+                        <div className="text-6xl mb-2">🏙️</div>
+                        <h3 className="text-2xl font-bold">{city.name}</h3>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* City Info */}
