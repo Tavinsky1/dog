@@ -142,6 +142,14 @@ function getPlacesSeed(): Place[] {
  * @param category - Optional category filter
  * @param useDatabase - If true, query Prisma instead of seed file
  */
+/**
+ * Map country slug to full country name (for database queries)
+ */
+function getCountryNameFromSlug(slug: string): string {
+  const country = getCountries().find(c => c.slug === slug);
+  return country?.name || slug;
+}
+
 export async function getPlaces(
   countrySlug: string,
   citySlug: string,
@@ -150,11 +158,14 @@ export async function getPlaces(
 ): Promise<Place[]> {
   if (useDatabase) {
     // Query Prisma database (for production)
+    // Note: Database stores full country names (e.g., "Spain"), not slugs (e.g., "spain")
+    const countryName = getCountryNameFromSlug(countrySlug);
+    
     const places = await prisma.place.findMany({
       where: {
+        country: countryName,
         city: {
           slug: citySlug,
-          country: countrySlug,
         },
         ...(category && { type: category as any }),
       },
@@ -162,6 +173,7 @@ export async function getPlaces(
         id: true,
         name: true,
         type: true,
+        country: true,
         lat: true,
         lng: true,
         websiteUrl: true,
@@ -171,7 +183,6 @@ export async function getPlaces(
         city: {
           select: {
             slug: true,
-            country: true,
           },
         },
       },
@@ -179,7 +190,7 @@ export async function getPlaces(
 
     return places.map(p => ({
       id: p.id,
-      country: p.city.country,
+      country: countrySlug, // Use the slug for consistency with frontend
       city: p.city.slug,
       name: p.name,
       category: p.type,
@@ -286,14 +297,15 @@ export async function searchPlaces(
     const places = await prisma.place.findMany({
       where: {
         OR: [
-          { name: { contains: query, mode: 'insensitive' } },
-          { shortDescription: { contains: query, mode: 'insensitive' } },
+          { name: { contains: query } },
+          { shortDescription: { contains: query } },
         ],
       },
       include: {
         city: {
           select: {
             slug: true,
+            name: true,
             country: true,
           },
         },
@@ -301,20 +313,25 @@ export async function searchPlaces(
       take: 50,
     });
 
-    return places.map(p => ({
-      id: p.id,
-      country: p.city.country,
-      city: p.city.slug,
-      name: p.name,
-      category: p.type,
-      lat: p.lat,
-      lon: p.lng,
-      website: p.websiteUrl || undefined,
-      phone: p.phone || undefined,
-      description: p.shortDescription || undefined,
-      photos: p.imageUrl ? [p.imageUrl] : [],
-      verified: true,
-    }));
+    return places.map(p => {
+      // Find the country slug from the country name
+      const countryObj = getCountries().find(c => c.name === p.country);
+      
+      return {
+        id: p.id,
+        country: countryObj?.slug || p.country.toLowerCase(),
+        city: p.city.slug,
+        name: p.name,
+        category: p.type,
+        lat: p.lat,
+        lon: p.lng,
+        website: p.websiteUrl || undefined,
+        phone: p.phone || undefined,
+        description: p.shortDescription || undefined,
+        photos: p.imageUrl ? [p.imageUrl] : [],
+        verified: true,
+      };
+    });
   }
 
   // Search seed file
