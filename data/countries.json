@@ -25,7 +25,7 @@
           "timezone": "Europe/Berlin",
           "population": 3645000,
           "description": "Germany's vibrant capital with extensive parks, cafés, and dog-friendly culture",
-          "placeCount": 45,
+          "placeCount": 39,
           "categories": {
             "cafes_restaurants": 12,
             "parks": 15,
@@ -75,7 +75,7 @@
           "timezone": "Europe/Madrid",
           "population": 1620000,
           "description": "Mediterranean coastal city with dog-friendly beaches, parks, and outdoor culture",
-          "placeCount": 38,
+          "placeCount": 31,
           "categories": {
             "cafes_restaurants": 10,
             "parks": 8,
@@ -125,7 +125,7 @@
           "timezone": "Europe/Paris",
           "population": 2161000,
           "description": "The City of Light welcomes dogs in cafés, parks, and along the Seine",
-          "placeCount": 32,
+          "placeCount": 60,
           "categories": {
             "cafes_restaurants": 14,
             "parks": 9,
@@ -175,7 +175,7 @@
           "timezone": "Europe/Rome",
           "population": 2873000,
           "description": "Ancient city with historic parks, piazzas, and dog-friendly trattorias",
-          "placeCount": 28,
+          "placeCount": 36,
           "categories": {
             "cafes_restaurants": 11,
             "parks": 7,
@@ -325,7 +325,7 @@
           "timezone": "America/New_York",
           "population": 8336000,
           "description": "The Big Apple with Central Park, dog-friendly cafés, and urban dog culture",
-          "placeCount": 0,
+          "placeCount": 12,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -359,7 +359,7 @@
           "timezone": "America/Los_Angeles",
           "population": 3979000,
           "description": "Sunny California city with beaches, hiking trails, and pet-friendly culture",
-          "placeCount": 0,
+          "placeCount": 12,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -409,7 +409,7 @@
           "timezone": "Australia/Sydney",
           "population": 5312000,
           "description": "Harbour city with dog-friendly beaches, coastal walks, and outdoor lifestyle",
-          "placeCount": 0,
+          "placeCount": 13,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -443,7 +443,7 @@
           "timezone": "Australia/Melbourne",
           "population": 5078000,
           "description": "Cultural capital with laneway cafés, parks, and dog-friendly venues",
-          "placeCount": 0,
+          "placeCount": 13,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -493,7 +493,7 @@
           "timezone": "America/Argentina/Buenos_Aires",
           "population": 3075000,
           "description": "Vibrant capital with parks, plazas, and dog-loving culture",
-          "placeCount": 0,
+          "placeCount": 12,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -527,7 +527,7 @@
           "timezone": "America/Argentina/Cordoba",
           "population": 1391000,
           "description": "University city surrounded by mountains and natural parks",
-          "placeCount": 0,
+          "placeCount": 7,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -577,7 +577,7 @@
           "timezone": "Asia/Tokyo",
           "population": 13960000,
           "description": "Modern metropolis with pet cafés, dog parks, and pet-friendly culture",
-          "placeCount": 0,
+          "placeCount": 11,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,

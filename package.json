@@ -13,6 +13,7 @@
     "import:places": "npx tsx scripts/import_places.ts",
     "import:reviews": "npx tsx scripts/import_reviews.ts",
     "import:all": "npx tsx scripts/import_all.ts",
+    "import:csv": "npx tsx scripts/import_csv_to_db.ts",
     "lint": "node scripts/run-lint.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
