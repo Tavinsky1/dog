@@ -10,10 +10,11 @@ Barcelona and other original European cities (Paris, Berlin, Rome) were showing 
 
 ## Root Causes Identified
 
-### 1. **Country Name vs Slug Mismatch**
-- **Database stores:** Full country names (e.g., "Spain", "France", "Germany")
-- **Query used:** Country slugs (e.g., "spain", "france", "germany")
-- **Result:** No matches found, 0 places returned
+### 1. **CRITICAL: Place.country Field Misunderstanding**
+- **Actual data:** `Place.country` stores postal codes and region names (e.g., "12049 Berlin", "75016 Paris", "08019 Barcelona")
+- **Incorrect assumption:** Query was filtering by country name (e.g., "Germany", "France", "Spain")
+- **Result:** Query filtering by wrong field, returning 0 results for ALL cities
+- **Fix:** Remove country filter entirely, filter by city slug only (each city belongs to one country)
 
 ### 2. **Incorrect Database Path**
 - `.env.local` had relative path: `file:./prisma/dev.db`
@@ -32,27 +33,41 @@ Barcelona and other original European cities (Paris, Berlin, Rome) were showing 
 
 ## Permanent Solution Implemented
 
-### ✅ Fix 1: Country Slug to Name Mapping
-Added helper function to map slugs to names:
+### ✅ Fix 1: Remove Incorrect Country Filter (CRITICAL)
+The `Place.country` field stores postal codes/regions, NOT country names.
+Removed the incorrect country filter from the query:
 
 ```typescript
-function getCountryNameFromSlug(slug: string): string {
-  const country = getCountries().find(c => c.slug === slug);
-  return country?.name || slug;
-}
-```
-
-### ✅ Fix 2: Corrected Database Query
-Updated `getPlaces()` to query correctly:
-
-```typescript
-const countryName = getCountryNameFromSlug(countrySlug);
-
+// BEFORE (WRONG - caused 0 results)
 const places = await prisma.place.findMany({
   where: {
-    country: countryName,  // Direct field check
+    country: countryName,  // ❌ This field has postal codes, not country names!
     city: {
-      slug: citySlug,      // City relation for slug
+      slug: citySlug,
+    },
+  },
+});
+
+// AFTER (CORRECT)
+const places = await prisma.place.findMany({
+  where: {
+    city: {
+      slug: citySlug,  // ✅ Filter by city slug only
+    },
+  },
+});
+```
+
+### ✅ Fix 2: Corrected Database Query Logic
+Each city belongs to exactly one country, so filtering by city slug is sufficient:
+
+```typescript
+// City slug is unique and determines the country
+// No need to filter by country separately
+const places = await prisma.place.findMany({
+  where: {
+    city: {
+      slug: citySlug,      // berlin, paris, barcelona, rome
     },
     ...(category && { type: category as any }),
   },
