@@ -158,12 +158,11 @@ export async function getPlaces(
 ): Promise<Place[]> {
   if (useDatabase) {
     // Query Prisma database (for production)
-    // Note: Database stores full country names (e.g., "Spain"), not slugs (e.g., "spain")
-    const countryName = getCountryNameFromSlug(countrySlug);
+    // Note: Place.country field stores postal codes/regions, not country names
+    // We filter by city slug only, since each city belongs to one country
     
     const places = await prisma.place.findMany({
       where: {
-        country: countryName,
         city: {
           slug: citySlug,
         },
