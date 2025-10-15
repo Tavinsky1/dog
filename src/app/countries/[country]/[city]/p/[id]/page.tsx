@@ -126,9 +126,9 @@ export default async function PlaceDetailPage({ params }: PageProps) {
             {/* Description */}
             <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">About this place</h2>
-              <p className="text-gray-700 leading-relaxed">
-                {place.description || 'No description available for this place yet.'}
-              </p>
+              <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                {place.fullDescription || place.description || 'No description available for this place yet.'}
+              </div>
             </div>
 
             {/* Map */}

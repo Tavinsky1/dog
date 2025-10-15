@@ -63,6 +63,7 @@ export interface Place {
   website?: string;
   phone?: string;
   description?: string;
+  fullDescription?: string;
   photos: string[];
   verified: boolean;
   rating?: number;
@@ -178,6 +179,7 @@ export async function getPlaces(
         websiteUrl: true,
         phone: true,
         shortDescription: true,
+        fullDescription: true,
         imageUrl: true,
         city: {
           select: {
@@ -198,6 +200,7 @@ export async function getPlaces(
       website: p.websiteUrl || undefined,
       phone: p.phone || undefined,
       description: p.shortDescription || undefined,
+      fullDescription: p.fullDescription || undefined,
       photos: p.imageUrl ? [p.imageUrl] : [],
       verified: true,
     }));
@@ -246,6 +249,7 @@ export async function getPlace(
       website: place.websiteUrl || undefined,
       phone: place.phone || undefined,
       description: place.shortDescription || undefined,
+      fullDescription: place.fullDescription || undefined,
       photos: place.imageUrl ? [place.imageUrl] : [],
       verified: true,
     };
