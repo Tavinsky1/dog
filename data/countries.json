@@ -6,7 +6,10 @@
       "slug": "germany",
       "flag": "🇩🇪",
       "continent": "Europe",
-      "coordinates": [51.1657, 10.4515],
+      "coordinates": [
+        51.1657,
+        10.4515
+      ],
       "timezone": "Europe/Berlin",
       "currency": "EUR",
       "language": "German",
@@ -15,7 +18,10 @@
           "id": "berlin",
           "name": "Berlin",
           "slug": "berlin",
-          "coordinates": [52.5200, 13.4050],
+          "coordinates": [
+            52.52,
+            13.405
+          ],
           "timezone": "Europe/Berlin",
           "population": 3645000,
           "description": "Germany's vibrant capital with extensive parks, cafés, and dog-friendly culture",
@@ -30,7 +36,17 @@
             "groomers": 1,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs allowed off-leash in designated dog zones",
+            "🔴 Must be on leash in public spaces and transport",
+            "📝 Dog tax (Hundesteuer) required - register within 2 weeks",
+            "💰 Annual fee: €120/year (first dog), €180 (additional dogs)",
+            "🧹 Always carry waste bags - fines up to €35",
+            "🚇 Dogs allowed on public transport with reduced ticket",
+            "⏰ Quiet hours 22:00-06:00 in residential areas"
+          ]
         }
       ]
     },
@@ -40,7 +56,10 @@
       "slug": "spain",
       "flag": "🇪🇸",
       "continent": "Europe",
-      "coordinates": [40.4637, -3.7492],
+      "coordinates": [
+        40.4637,
+        -3.7492
+      ],
       "timezone": "Europe/Madrid",
       "currency": "EUR",
       "language": "Spanish",
@@ -49,7 +68,10 @@
           "id": "barcelona",
           "name": "Barcelona",
           "slug": "barcelona",
-          "coordinates": [41.3874, 2.1686],
+          "coordinates": [
+            41.3874,
+            2.1686
+          ],
           "timezone": "Europe/Madrid",
           "population": 1620000,
           "description": "Mediterranean coastal city with dog-friendly beaches, parks, and outdoor culture",
@@ -64,7 +86,17 @@
             "groomers": 1,
             "trainers": 1,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs allowed in most parks with leash",
+            "🔴 Banned from beaches May-September (except designated zones)",
+            "📝 Microchip and registration required",
+            "🧹 Clean up waste immediately - fines up to €750",
+            "🚇 Small dogs allowed on metro in carrier/bag",
+            "🏖️ 4 official dog beaches open year-round",
+            "⏰ Off-leash zones: 22:00-08:00 in some parks"
+          ]
         }
       ]
     },
@@ -74,7 +106,10 @@
       "slug": "france",
       "flag": "🇫🇷",
       "continent": "Europe",
-      "coordinates": [46.2276, 2.2137],
+      "coordinates": [
+        46.2276,
+        2.2137
+      ],
       "timezone": "Europe/Paris",
       "currency": "EUR",
       "language": "French",
@@ -83,7 +118,10 @@
           "id": "paris",
           "name": "Paris",
           "slug": "paris",
-          "coordinates": [48.8566, 2.3522],
+          "coordinates": [
+            48.8566,
+            2.3522
+          ],
           "timezone": "Europe/Paris",
           "population": 2161000,
           "description": "The City of Light welcomes dogs in cafés, parks, and along the Seine",
@@ -98,7 +136,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs welcome in cafés and restaurants (owner's discretion)",
+            "🔴 Banned from children's play areas and most public gardens",
+            "📝 Vaccination certificate and identification required",
+            "🧹 Must clean up waste - fines up to €450",
+            "🚇 Small dogs in carrier/bag on metro, large dogs muzzled off-peak",
+            "🏞️ Bois de Vincennes & Bois de Boulogne allow off-leash",
+            "⚠️ Dangerous dogs (category 1 & 2) must be muzzled"
+          ]
         }
       ]
     },
@@ -108,7 +156,10 @@
       "slug": "italy",
       "flag": "🇮🇹",
       "continent": "Europe",
-      "coordinates": [41.8719, 12.5674],
+      "coordinates": [
+        41.8719,
+        12.5674
+      ],
       "timezone": "Europe/Rome",
       "currency": "EUR",
       "language": "Italian",
@@ -117,7 +168,10 @@
           "id": "rome",
           "name": "Rome",
           "slug": "rome",
-          "coordinates": [41.9028, 12.4964],
+          "coordinates": [
+            41.9028,
+            12.4964
+          ],
           "timezone": "Europe/Rome",
           "population": 2873000,
           "description": "Ancient city with historic parks, piazzas, and dog-friendly trattorias",
@@ -132,7 +186,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs allowed in most restaurants with outdoor seating",
+            "🔴 Banned from archaeological sites and monuments",
+            "📝 Microchip and health certificate required",
+            "🧹 Clean up waste - fines up to €500",
+            "🚇 Dogs allowed on metro if muzzled or in carrier",
+            "🏖️ Many beaches ban dogs June-September",
+            "🏞️ Villa Borghese has designated off-leash areas"
+          ]
         }
       ]
     },
@@ -142,7 +206,10 @@
       "slug": "austria",
       "flag": "🇦🇹",
       "continent": "Europe",
-      "coordinates": [47.5162, 14.5501],
+      "coordinates": [
+        47.5162,
+        14.5501
+      ],
       "timezone": "Europe/Vienna",
       "currency": "EUR",
       "language": "German",
@@ -151,7 +218,10 @@
           "id": "vienna",
           "name": "Vienna",
           "slug": "vienna",
-          "coordinates": [48.2082, 16.3738],
+          "coordinates": [
+            48.2082,
+            16.3738
+          ],
           "timezone": "Europe/Vienna",
           "population": 1911000,
           "description": "Imperial city with elegant cafés, parks, and dog-friendly culture",
@@ -166,7 +236,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs welcome in most parks and cafés",
+            "🔴 Must be on leash in city center and public transport",
+            "📝 Dog tax (Hundeabgabe) required",
+            "💰 Annual fee: €72/year",
+            "🧹 Clean up waste - fines up to €36",
+            "🚇 Dogs free on public transport if muzzled or in carrier",
+            "🏞️ Prater and Donauinsel have off-leash zones"
+          ]
         }
       ]
     },
@@ -176,7 +256,10 @@
       "slug": "netherlands",
       "flag": "🇳🇱",
       "continent": "Europe",
-      "coordinates": [52.1326, 5.2913],
+      "coordinates": [
+        52.1326,
+        5.2913
+      ],
       "timezone": "Europe/Amsterdam",
       "currency": "EUR",
       "language": "Dutch",
@@ -185,7 +268,10 @@
           "id": "amsterdam",
           "name": "Amsterdam",
           "slug": "amsterdam",
-          "coordinates": [52.3676, 4.9041],
+          "coordinates": [
+            52.3676,
+            4.9041
+          ],
           "timezone": "Europe/Amsterdam",
           "population": 821000,
           "description": "Canal city with dog-friendly cafés, parks, and cycling culture",
@@ -200,7 +286,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Very dog-friendly city - welcome almost everywhere",
+            "🔴 Must be on leash in Vondelpark and city center",
+            "📝 Microchip and registration required",
+            "🧹 Clean up waste - fines up to €140",
+            "🚇 Dogs allowed on public transport with dog ticket",
+            "🏖️ Designated dog beaches at Blijburg and Zandvoort",
+            "🚴 Dogs can ride in bike baskets if comfortable"
+          ]
         }
       ]
     },
@@ -210,7 +306,10 @@
       "slug": "united-states",
       "flag": "🇺🇸",
       "continent": "North America",
-      "coordinates": [37.0902, -95.7129],
+      "coordinates": [
+        37.0902,
+        -95.7129
+      ],
       "timezone": "America/New_York",
       "currency": "USD",
       "language": "English",
@@ -219,7 +318,10 @@
           "id": "new-york",
           "name": "New York",
           "slug": "new-york",
-          "coordinates": [40.7128, -74.0060],
+          "coordinates": [
+            40.7128,
+            -74.006
+          ],
           "timezone": "America/New_York",
           "population": 8336000,
           "description": "The Big Apple with Central Park, dog-friendly cafés, and urban dog culture",
@@ -234,13 +336,26 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs allowed in most outdoor restaurants",
+            "🔴 Must be on leash (max 6 ft) except in dog runs",
+            "📝 License required - renew annually ($8.50-$34)",
+            "🧹 Scoop the poop law - fines up to $250",
+            "🚇 Dogs allowed on subway if in carrier",
+            "🏞️ 70+ off-leash dog parks throughout the 5 boroughs",
+            "⏰ Morning off-leash hours: 9PM-9AM in some parks"
+          ]
         },
         {
           "id": "los-angeles",
           "name": "Los Angeles",
           "slug": "los-angeles",
-          "coordinates": [34.0522, -118.2437],
+          "coordinates": [
+            34.0522,
+            -118.2437
+          ],
           "timezone": "America/Los_Angeles",
           "population": 3979000,
           "description": "Sunny California city with beaches, hiking trails, and pet-friendly culture",
@@ -255,7 +370,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Very pet-friendly - dogs welcome in most outdoor spaces",
+            "🔴 Must be on leash except in designated dog parks",
+            "📝 License required - $20/year (spayed/neutered), $60 (intact)",
+            "🧹 Clean up waste or face fines up to $500",
+            "🏖️ Leo Carrillo & Rosie's Dog Beach allow off-leash",
+            "🚗 Never leave dog in parked car - up to $500 fine",
+            "🏞️ 100+ dog parks including off-leash areas"
+          ]
         }
       ]
     },
@@ -265,7 +390,10 @@
       "slug": "australia",
       "flag": "🇦🇺",
       "continent": "Oceania",
-      "coordinates": [-25.2744, 133.7751],
+      "coordinates": [
+        -25.2744,
+        133.7751
+      ],
       "timezone": "Australia/Sydney",
       "currency": "AUD",
       "language": "English",
@@ -274,7 +402,10 @@
           "id": "sydney",
           "name": "Sydney",
           "slug": "sydney",
-          "coordinates": [-33.8688, 151.2093],
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ],
           "timezone": "Australia/Sydney",
           "population": 5312000,
           "description": "Harbour city with dog-friendly beaches, coastal walks, and outdoor lifestyle",
@@ -289,13 +420,26 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Dogs allowed in most parks during off-leash hours",
+            "🔴 Must be on leash in public areas",
+            "📝 Registration and microchip mandatory",
+            "💰 Annual registration: $52-$267 depending on status",
+            "🧹 Clean up waste - fines up to $880",
+            "🏖️ Several beaches allow dogs outside peak hours",
+            "⏰ Check local council for specific off-leash times"
+          ]
         },
         {
           "id": "melbourne",
           "name": "Melbourne",
           "slug": "melbourne",
-          "coordinates": [-37.8136, 144.9631],
+          "coordinates": [
+            -37.8136,
+            144.9631
+          ],
           "timezone": "Australia/Melbourne",
           "population": 5078000,
           "description": "Cultural capital with laneway cafés, parks, and dog-friendly venues",
@@ -310,7 +454,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1514395462725-fb4566210144?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 One of Australia's most dog-friendly cities",
+            "🔴 On-leash required except in off-leash parks",
+            "📝 Registration and microchip required",
+            "💰 Annual fee: $52-$267 based on desexed status",
+            "🧹 Scoop waste or face fines up to $466",
+            "🏖️ St Kilda Dog Beach open year-round",
+            "🚇 Small dogs in carriers on public transport"
+          ]
         }
       ]
     },
@@ -320,7 +474,10 @@
       "slug": "argentina",
       "flag": "🇦🇷",
       "continent": "South America",
-      "coordinates": [-38.4161, -63.6167],
+      "coordinates": [
+        -38.4161,
+        -63.6167
+      ],
       "timezone": "America/Argentina/Buenos_Aires",
       "currency": "ARS",
       "language": "Spanish",
@@ -329,7 +486,10 @@
           "id": "buenos-aires",
           "name": "Buenos Aires",
           "slug": "buenos-aires",
-          "coordinates": [-34.6037, -58.3816],
+          "coordinates": [
+            -34.6037,
+            -58.3816
+          ],
           "timezone": "America/Argentina/Buenos_Aires",
           "population": 3075000,
           "description": "Vibrant capital with parks, plazas, and dog-loving culture",
@@ -344,13 +504,26 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1589909202802-8f4aadce1849?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Very dog-friendly culture - dogs everywhere",
+            "🔴 Technically must be on leash, but loosely enforced",
+            "📝 Registration recommended but not strictly enforced",
+            "🧹 Clean up waste in public spaces",
+            "🏞️ Palermo parks very popular with dog owners",
+            "🍽️ Most outdoor cafés welcome dogs",
+            "🚇 Dogs allowed on Subte (metro) outside peak hours"
+          ]
         },
         {
           "id": "cordoba",
           "name": "Córdoba",
           "slug": "cordoba",
-          "coordinates": [-31.4201, -64.1888],
+          "coordinates": [
+            -31.4201,
+            -64.1888
+          ],
           "timezone": "America/Argentina/Cordoba",
           "population": 1391000,
           "description": "University city surrounded by mountains and natural parks",
@@ -365,7 +538,17 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Relaxed attitude toward dogs in public spaces",
+            "🔴 Leash required in city center",
+            "📝 Registration through municipal system",
+            "🧹 Clean up waste in parks and public areas",
+            "🏞️ Parque Sarmiento has designated dog areas",
+            "🍽️ Many cafés in Nueva Córdoba welcome dogs",
+            "🏔️ Mountain trails around city are dog-friendly"
+          ]
         }
       ]
     },
@@ -375,7 +558,10 @@
       "slug": "japan",
       "flag": "🇯🇵",
       "continent": "Asia",
-      "coordinates": [36.2048, 138.2529],
+      "coordinates": [
+        36.2048,
+        138.2529
+      ],
       "timezone": "Asia/Tokyo",
       "currency": "JPY",
       "language": "Japanese",
@@ -384,7 +570,10 @@
           "id": "tokyo",
           "name": "Tokyo",
           "slug": "tokyo",
-          "coordinates": [35.6762, 139.6503],
+          "coordinates": [
+            35.6762,
+            139.6503
+          ],
           "timezone": "Asia/Tokyo",
           "population": 13960000,
           "description": "Modern metropolis with pet cafés, dog parks, and pet-friendly culture",
@@ -399,14 +588,24 @@
             "groomers": 0,
             "trainers": 0,
             "beaches": 0
-          }
+          },
+          "image": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
+          "dogRules": [
+            "🟢 Growing pet-friendly culture, especially in cafés",
+            "🔴 Must be on leash in all public spaces",
+            "📝 Registration required within 30 days of ownership",
+            "💰 Annual fee: ¥3,000 (~$20)",
+            "🧹 Always clean up waste - carry bags",
+            "🚇 Dogs allowed on trains in carriers/bags only",
+            "🏞️ Designated dog runs in Yoyogi and other major parks"
+          ]
         }
       ]
     }
   ],
   "metadata": {
-    "version": "1.1.0",
-    "lastUpdated": "2025-10-14T12:00:00Z",
+    "version": "1.2.0",
+    "lastUpdated": "2025-10-14T19:34:13.601Z",
     "totalCountries": 10,
     "totalCities": 13,
     "totalPlaces": 166,

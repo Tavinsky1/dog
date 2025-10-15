@@ -1,0 +1,11 @@
+country,city,name,category,lat,lon,description,address,website,phone,photo_url,verified
+argentina,cordoba,Parque Sarmiento Dog Area,parks,-31.4201,-64.1888,"Large urban park with designated dog areas and walking paths","Av. García Lorca, Córdoba",https://www.cordoba.gob.ar,,https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?auto=format&fit=crop&w=800&q=80,true
+argentina,cordoba,Café des Arts,cafes_restaurants,-31.4173,-64.1889,"Dog-friendly café in Nueva Córdoba with outdoor seating","Obispo Trejo 165, Córdoba",https://www.cafedesarts.com.ar,+54-351-422-3344,https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80,true
+argentina,cordoba,Parque de las Tejas,parks,-31.3985,-64.2247,"Hilltop park with scenic views and dog-friendly trails","Las Tejas, Córdoba",https://www.cordoba.gob.ar,,https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80,true
+argentina,cordoba,Veterinaria San Martín,shops_services,-31.4201,-64.1877,"Full-service veterinary clinic in city center","Av. Hipólito Yrigoyen 456, Córdoba",https://www.vetsanmartin.com.ar,+54-351-421-7788,,true
+argentina,cordoba,Parque Las Heras,parks,-31.4088,-64.1814,"Neighborhood park with morning off-leash hours","Bv. Las Heras, Córdoba",https://www.cordoba.gob.ar,,,true
+argentina,cordoba,El Refugio Pet Shop,shops_services,-31.4235,-64.1892,"Pet supplies and grooming services in Nueva Córdoba","Av. Vélez Sársfield 567, Córdoba",https://www.elrefugiocba.com.ar,+54-351-426-5544,,true
+argentina,cordoba,Parque San Vicente,parks,-31.3915,-64.2198,"Large park with open spaces for dogs in Cerro de las Rosas","San Vicente, Córdoba",https://www.cordoba.gob.ar,,,true
+argentina,cordoba,Verde Que Te Quiero Verde,cafes_restaurants,-31.4165,-64.1895,"Organic dog-friendly café with vegetarian options","Obispo Trejo 329, Córdoba",https://www.verdequetequieroverde.com.ar,+54-351-422-6677,,true
+argentina,cordoba,Bosque Alegre Dog Trail,parks,-31.5997,-64.5478,"Mountain trails with dog-friendly hiking paths","Ruta E-57, Córdoba",https://www.cordoba.gob.ar,,,true
+argentina,cordoba,Superpet Córdoba,shops_services,-31.3922,-64.2445,"Large pet store chain with grooming and veterinary services","Av. Rafael Núñez 4567, Córdoba",https://www.superpet.com.ar,+54-351-481-2233,,true
