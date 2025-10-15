@@ -104,6 +104,9 @@ export default function HeaderWrapper() {
           <Link className="transition-colors hover:text-blue-600" href="/leaderboard">
             Leaderboard
           </Link>
+          <Link className="transition-colors hover:text-blue-600" href="/contact">
+            Contact
+          </Link>
           {(userRole === "ADMIN" || userRole === "EDITOR") && (
             <Link className="transition-colors hover:text-blue-600" href="/mod">
               Moderation
