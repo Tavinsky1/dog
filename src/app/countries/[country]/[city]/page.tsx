@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { getCountry, getCity, getPlaces, getCountries } from '@/lib/data';
 import { cityUrl, placeUrl, getCategoryLabel, getCategoryIcon, CATEGORY_LABELS } from '@/lib/routing';
 import { featureFlags } from '@/lib/featureFlags';
+import Map from "@/components/Map";
+import ItineraryGenerator from "@/components/ItineraryGenerator";
+import SearchInput from "@/components/SearchInput";
 
 // Generate static params for all cities
 export async function generateStaticParams() {
@@ -26,12 +29,12 @@ export const revalidate = featureFlags.isrRevalidate;
 
 interface PageProps {
   params: Promise<{ country: string; city: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }
 
 export default async function CityPage({ params, searchParams }: PageProps) {
   const { country: countrySlug, city: citySlug } = await params;
-  const { category } = await searchParams;
+  const { category, q: searchQuery } = await searchParams;
 
   const country = getCountry(countrySlug);
   const city = getCity(countrySlug, citySlug);
@@ -42,9 +45,40 @@ export default async function CityPage({ params, searchParams }: PageProps) {
 
   // Get places (from seed file or database)
   const allPlaces = await getPlaces(countrySlug, citySlug, undefined, featureFlags.useDatabase);
-  const filteredPlaces = category
-    ? allPlaces.filter(p => p.category === category)
-    : allPlaces;
+  
+  // Filter places based on category and search query
+  const filteredPlaces = allPlaces.filter((place) => {
+    // Category filter
+    if (category && place.category !== category) {
+      return false;
+    }
+    
+    // Search filter
+    if (searchQuery) {
+      return (
+        place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    return true;
+  });
+  
+  // Prepare places for map with coordinate validation
+  const mapPlaces = filteredPlaces
+    .filter((place) => {
+      const lat = typeof place.lat === 'number' ? place.lat : parseFloat(place.lat);
+      const lon = typeof place.lon === 'number' ? place.lon : parseFloat(place.lon);
+      return !isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+    })
+    .map((place) => ({
+      id: place.id,
+      name: place.name,
+      type: place.category,
+      lat: typeof place.lat === 'number' ? place.lat : parseFloat(place.lat),
+      lng: typeof place.lon === 'number' ? place.lon : parseFloat(place.lon),
+    }));
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -67,65 +101,191 @@ export default async function CityPage({ params, searchParams }: PageProps) {
             </ol>
           </nav>
 
-          <div className="flex items-start justify-between">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                {city.name}
-              </h1>
-              <p className="text-xl text-gray-600 mb-6">
-                {city.description}
-              </p>
-              <div className="flex items-center gap-6 text-sm text-gray-500">
-                <div className="flex items-center gap-2">
-                  <span>{country.flag}</span>
-                  <span>{country.name}</span>
-                </div>
-                {city.population && (
-                  <div className="flex items-center gap-2">
-                    <span>👥</span>
-                    <span>{(city.population / 1_000_000).toFixed(1)}M people</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-2">
-                  <span>📍</span>
-                  <span>{filteredPlaces.length} {category ? getCategoryLabel(category).toLowerCase() : 'places'}</span>
-                </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Dog-friendly {city.name}
+            </h1>
+            <p className="text-xl text-gray-600 mb-6">
+              {city.description || `Explore curated dog-friendly places in ${city.name}. Find parks, cafés, services, and unique spots to enjoy with your companion.`}
+            </p>
+            <div className="flex items-center gap-6 text-sm text-gray-500">
+              <div className="flex items-center gap-2">
+                <span>{country.flag}</span>
+                <span>{country.name}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>�</span>
+                <span>{filteredPlaces.length} {category ? getCategoryLabel(category).toLowerCase() : 'places'}</span>
               </div>
             </div>
           </div>
+          
+          {/* Search Input */}
+          <div className="mt-6">
+            <SearchInput placeholder={`Search ${city.name} places...`} initial={searchQuery || ""} />
+          </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="mb-8 overflow-x-auto">
-          <div className="flex gap-3 min-w-max">
+        {/* Category Cards with Images */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">Browse by category</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {/* All Categories */}
             <Link
               href={cityUrl(countrySlug, citySlug)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
-                !category
-                  ? 'bg-orange-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                !category ? 'border-orange-400' : 'border-gray-200 hover:border-orange-300'
               }`}
             >
-              All Places ({allPlaces.length})
+              <img 
+                src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=400&q=80"
+                alt="All categories"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+              <div className="relative z-10 p-4 flex flex-col justify-end h-full min-h-[120px]">
+                <div className="text-3xl mb-2">🌍</div>
+                <div className="text-sm font-semibold text-white">All</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.length}</div>
+              </div>
             </Link>
-            {Object.entries(CATEGORY_LABELS).map(([cat, label]) => {
-              const count = allPlaces.filter(p => p.category === cat).length;
-              if (count === 0) return null;
-              
-              return (
-                <Link
-                  key={cat}
-                  href={`${cityUrl(countrySlug, citySlug)}?category=${cat}`}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
-                    category === cat
-                      ? 'bg-orange-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                  }`}
-                >
-                  {getCategoryIcon(cat)} {label} ({count})
-                </Link>
-              );
-            })}
+            
+            {/* Parks */}
+            <Link
+              href={`${cityUrl(countrySlug, citySlug)}?category=parks`}
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                category === 'parks' ? 'border-emerald-400' : 'border-gray-200 hover:border-emerald-300'
+              }`}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?auto=format&fit=crop&w=400&q=80"
+                alt="Parks"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className={`absolute inset-0 transition-colors ${
+                category === 'parks' ? 'bg-emerald-600/70' : 'bg-slate-900/50 group-hover:bg-emerald-600/60'
+              }`} />
+              <div className="relative z-10 p-4 min-h-[120px] flex flex-col justify-end">
+                <div className="text-3xl mb-2">🏞️</div>
+                <div className="text-sm font-semibold text-white">Parks</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.filter(p => p.category === 'parks').length}</div>
+              </div>
+            </Link>
+            
+            {/* Cafés */}
+            <Link
+              href={`${cityUrl(countrySlug, citySlug)}?category=cafes_restaurants`}
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                category === 'cafes_restaurants' ? 'border-amber-400' : 'border-gray-200 hover:border-amber-300'
+              }`}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80"
+                alt="Cafés & Restaurants"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className={`absolute inset-0 transition-colors ${
+                category === 'cafes_restaurants' ? 'bg-amber-600/70' : 'bg-slate-900/50 group-hover:bg-amber-600/60'
+              }`} />
+              <div className="relative z-10 p-4 min-h-[120px] flex flex-col justify-end">
+                <div className="text-3xl mb-2">☕</div>
+                <div className="text-sm font-semibold text-white">Cafés</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.filter(p => p.category === 'cafes_restaurants').length}</div>
+              </div>
+            </Link>
+            
+            {/* Trails */}
+            <Link
+              href={`${cityUrl(countrySlug, citySlug)}?category=walks_trails`}
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                category === 'walks_trails' ? 'border-violet-400' : 'border-gray-200 hover:border-violet-300'
+              }`}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=400&q=80"
+                alt="Walks & Trails"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className={`absolute inset-0 transition-colors ${
+                category === 'walks_trails' ? 'bg-violet-600/70' : 'bg-slate-900/50 group-hover:bg-violet-600/60'
+              }`} />
+              <div className="relative z-10 p-4 min-h-[120px] flex flex-col justify-end">
+                <div className="text-3xl mb-2">🚶</div>
+                <div className="text-sm font-semibold text-white">Trails</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.filter(p => p.category === 'walks_trails').length}</div>
+              </div>
+            </Link>
+            
+            {/* Services */}
+            <Link
+              href={`${cityUrl(countrySlug, citySlug)}?category=shops_services`}
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                category === 'shops_services' ? 'border-rose-400' : 'border-gray-200 hover:border-rose-300'
+              }`}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80"
+                alt="Shops & Services"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className={`absolute inset-0 transition-colors ${
+                category === 'shops_services' ? 'bg-rose-600/70' : 'bg-slate-900/50 group-hover:bg-rose-600/60'
+              }`} />
+              <div className="relative z-10 p-4 min-h-[120px] flex flex-col justify-end">
+                <div className="text-3xl mb-2">🛍️</div>
+                <div className="text-sm font-semibold text-white">Services</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.filter(p => p.category === 'shops_services').length}</div>
+              </div>
+            </Link>
+            
+            {/* Hotels */}
+            <Link
+              href={`${cityUrl(countrySlug, citySlug)}?category=accommodation`}
+              className={`group relative overflow-hidden rounded-xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${
+                category === 'accommodation' ? 'border-purple-400' : 'border-gray-200 hover:border-purple-300'
+              }`}
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80"
+                alt="Hotels & Accommodation"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className={`absolute inset-0 transition-colors ${
+                category === 'accommodation' ? 'bg-purple-600/70' : 'bg-slate-900/50 group-hover:bg-purple-600/60'
+              }`} />
+              <div className="relative z-10 p-4 min-h-[120px] flex flex-col justify-end">
+                <div className="text-3xl mb-2">🏨</div>
+                <div className="text-sm font-semibold text-white">Hotels</div>
+                <div className="text-xs text-white/90 mt-1">{allPlaces.filter(p => p.category === 'accommodation').length}</div>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Map and Itinerary Section */}
+        <div className="mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Map */}
+          <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+            <Map places={mapPlaces} />
+          </div>
+          
+          {/* Itinerary Generator */}
+          <div>
+            {filteredPlaces.length > 0 ? (
+              <ItineraryGenerator
+                city={{ name: city.name, slug: citySlug }}
+                places={filteredPlaces.map((place) => ({
+                  id: place.id,
+                  name: place.name,
+                  type: place.category,
+                  shortDescription: place.description || undefined,
+                }))}
+              />
+            ) : (
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 text-sm text-gray-500">
+                Add your first place in {city.name} to unlock itinerary ideas.
+              </div>
+            )}
           </div>
         </div>
 
