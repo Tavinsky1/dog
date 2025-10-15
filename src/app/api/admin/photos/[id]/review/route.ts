@@ -42,15 +42,8 @@ export async function POST(
       }
     });
 
-    // If approved and place has no primary photo, set this as primary
-    if (approved && !photo.place.primaryPhotoId) {
-      await prisma.place.update({
-        where: { id: photo.placeId },
-        data: {
-          primaryPhotoId: photo.id
-        }
-      });
-    }
+    // Note: primaryPhotoId field removed from schema
+    // If needed in future, add it back to Place model in schema.prisma
 
     return NextResponse.json({ success: true, photo });
   } catch (error) {
