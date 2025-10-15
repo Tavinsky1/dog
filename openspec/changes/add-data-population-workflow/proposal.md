@@ -1,5 +1,23 @@
 # Data Population Workflow Proposal
 
+## ⚠️ CRITICAL REQUIREMENTS FOR ALL NEW CITIES
+
+**EVERY new country and city added to DogAtlas MUST include:**
+
+1. 🏳️ **Country Flag** - Emoji or Unicode flag (e.g., 🇺🇸 🇦🇺 🇯🇵)
+2. 🏙️ **City Landmark Image** - High-quality photo of iconic landmark (1600x900px minimum)
+3. 🐕 **Dog Rules** - 7-10 local regulations covering leash laws, off-leash areas, transport, cleanup, etc.
+
+**These are displayed on:**
+- Homepage city cards (image + country name)
+- Country overview pages (all cities with images)
+- City detail pages (rules section)
+- Search results (city context)
+
+**No city should go live without these three elements!**
+
+---
+
 ## Problem Statement
 
 DogAtlas has expanded from 6 European cities to 13 cities across 5 continents. Each new city needs to be populated with dog-friendly places (parks, cafés, trails, services). This requires a standardized, repeatable workflow for:
@@ -7,7 +25,7 @@ DogAtlas has expanded from 6 European cities to 13 cities across 5 continents. E
 1. Creating high-quality CSV templates with proper data structure
 2. Importing place data into the system (seed files initially, then database)
 3. Scraping and adding place photos from licensed sources  
-4. Adding city metadata (images, dog rules/regulations)
+4. **Adding city metadata (FLAG + IMAGE + DOG RULES) - MANDATORY**
 5. Testing and validating the data across all UI components
 
 ## Current State
@@ -47,28 +65,84 @@ country,city,name,category,lat,lon,description,address,website,phone,photo_url,v
 - **Photo URL**: Uns plash/Wikimedia URL with proper attribution
 - **Verified**: `true` for confirmed places, `false` for user-submitted
 
-### Phase 2: City Metadata Addition
+### Phase 2: City Metadata Addition ⚠️ MANDATORY
 **Tool**: `scripts/add-city-metadata.cjs`
 
-**Process**:
-1. Define city image (emblematic landmark from Unsplash)
-2. Research and document local dog regulations
-3. Run script to update `data/countries.json`
+**⚠️ CRITICAL REQUIREMENT**: Every new country and city MUST include:
+1. 🏳️ **Country Flag** (emoji or Unicode)
+2. 🏙️ **City Image** (emblematic landmark photo)
+3. 🐕 **Dog Rules** (local regulations)
 
-**Dog Rules Format** (7-10 rules per city):
+These are NOT optional - they are displayed on:
+- Homepage city cards
+- Country overview pages
+- City detail pages
+- Search results
+
+**Process**:
+1. ✅ Add country to `data/countries.json` with flag emoji
+2. ✅ Define city with iconic landmark image URL (must be added!)
+3. ✅ Research and document local dog regulations (required!)
+4. ✅ Run script to update `data/countries.json`
+
+**City Image Requirements** (MANDATORY):
+- Source: Unsplash or Wikimedia Commons
+- Resolution: Minimum 1600x900px (landscape orientation)
+- Quality: High-resolution, well-composed photo
+- Subject: Iconic landmark that instantly identifies the city
+- Examples:
+  * New York: Brooklyn Bridge & Manhattan skyline
+  * Sydney: Opera House & Harbour Bridge
+  * Tokyo: Cityscape with Mount Fuji
+  * Buenos Aires: Obelisco & 9 de Julio Avenue
+- Format: HTTPS URL from trusted source
+- Attribution: Must be properly licensed (CC0, CC-BY, or similar)
+
+**Dog Rules Format** (MANDATORY - 7-10 rules per city):
+Every city must document local dog regulations in this format:
 ```javascript
 dogRules: [
-  '🟢 Allowed: Description of permitted activities',
-  '🔴 Prohibited: Description of restrictions',
-  '📝 Registration: Requirements and process',
-  '💰 Fees: Annual costs and payment details',
-  '🧹 Waste: Cleanup requirements and fines',
-  '🚇 Transport: Public transit rules',
-  '⏰ Hours: Time restrictions and schedules'
+  '🟢 Leash laws: [Required/Optional in what areas]',
+  '🟢 Off-leash areas: [Available parks/beaches and hours]',
+  '🔴 Restrictions: [Prohibited areas, breed restrictions]',
+  '🚇 Public transport: [Rules for dogs on buses/trains/metro]',
+  '🏖️ Beaches/Parks: [Seasonal rules, time restrictions]',
+  '🧹 Cleanup: [Required bags, fine amounts]',
+  '📝 Registration: [Local requirements, tags, microchips]'
 ]
 ```
 
-**City Image**: High-quality Unsplash photo (1600x900+, landscape) of iconic landmark
+**Example - Complete City Entry**:
+```json
+{
+  "id": "new-york",
+  "name": "New York",
+  "slug": "new-york",
+  "coordinates": [40.7128, -74.0060],
+  "timezone": "America/New_York",
+  "population": 8336817,
+  "description": "The city that never sleeps welcomes dogs in parks, cafes, and more",
+  "image": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80",
+  "dogRules": [
+    "🟢 Leash required in most public areas (6 feet maximum)",
+    "🟢 Off-leash hours: 9 PM-9 AM in designated dog runs",
+    "🚇 Dogs allowed on subway in carriers or on leash during off-peak hours",
+    "🏞️ Over 1,700 acres of off-leash dog parks available",
+    "🔴 Dogs prohibited on playgrounds and sports fields",
+    "🧹 Strict cleanup laws with $250 fine for violations",
+    "📝 All dogs must be licensed annually ($8.50-$34)"
+  ]
+}
+```
+
+**Validation Checklist**:
+- [ ] Country has flag emoji
+- [ ] City has high-quality landmark image URL
+- [ ] Image loads correctly and displays iconic view
+- [ ] Dog rules array has 7-10 entries
+- [ ] Rules cover: leash laws, off-leash, transport, cleanup, registration
+- [ ] Emojis used for visual clarity (🟢 allowed, 🔴 prohibited)
+- [ ] Information is accurate and up-to-date
 
 ### Phase 3: CSV Import to Seed Files
 **Tool**: `scripts/csv-to-seed.js`
@@ -204,10 +278,48 @@ dog-atlas/
 - ✅ Dog rules display correctly on all cities
 - ✅ Page load time < 2 seconds
 - ✅ Mobile usability score > 90
+- ✅ **Every city has flag, image, and dog rules** ⚠️ MANDATORY
+
+## Pre-Launch Checklist for New Cities
+
+Before deploying any new city, verify:
+
+### Country Level
+- [ ] Country exists in `data/countries.json`
+- [ ] Country has flag emoji (🇺🇸 🇦🇺 etc.)
+- [ ] Country has language, continent, and timezone defined
+
+### City Level
+- [ ] City added to country's cities array
+- [ ] ✅ **City has `image` field with iconic landmark photo URL**
+- [ ] ✅ **City has `dogRules` array with 7-10 regulations**
+- [ ] City image loads correctly (test URL in browser)
+- [ ] City image is high-resolution (1600x900px minimum)
+- [ ] City image is properly attributed (Unsplash/Wikimedia)
+- [ ] Dog rules are accurate and up-to-date
+- [ ] Dog rules use emojis for clarity (🟢 🔴 🚇 🏞️ etc.)
+- [ ] Dog rules cover: leash laws, off-leash areas, transport, cleanup
+
+### Visual Verification
+- [ ] Homepage displays city card with landmark image
+- [ ] Country page shows city with image (not placeholder emoji)
+- [ ] City detail page shows dog rules section
+- [ ] Image scales properly on mobile devices
+- [ ] No broken image links or 404 errors
+
+### Data Quality
+- [ ] CSV template created with 10-20 sample places
+- [ ] All places have valid coordinates
+- [ ] All places have category assigned
+- [ ] At least 2-3 places per major category (parks, cafes, trails)
+- [ ] Photos properly attributed
+
+**⚠️ DO NOT DEPLOY without completing this checklist!**
 
 ## Next Steps
 
 1. Review and approve this proposal
 2. Create implementation tasks in `tasks.md`
 3. Execute Phase 1-5 sequentially
-4. Document lessons learned for future city additions
+4. **Always verify flag + image + dog rules before committing**
+5. Document lessons learned for future city additions
