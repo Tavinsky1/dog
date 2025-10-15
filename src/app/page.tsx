@@ -72,15 +72,17 @@ export default async function Home() {
         cta={
           <>
             <Link 
-              href="#cities" 
+              href="#countries" 
               className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-blue-900 bg-white rounded-full hover:bg-amber-50 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
             >
-              Explore Cities
-              <span className="ml-2">→</span>
+              Explore Countries
             </Link>
-            <div className="hidden sm:block">
-              <CitySelector />
-            </div>
+            <Link 
+              href="#cities" 
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
+            >
+              Choose a City
+            </Link>
           </>
         }
       />
