@@ -2,8 +2,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCountry, getCountries } from '@/lib/data';
 import { cityUrl } from '@/lib/routing';
-import { featureFlags } from '@/lib/featureFlags';
-
 // Generate static params for all countries
 export async function generateStaticParams() {
   const countries = getCountries();
@@ -13,7 +11,7 @@ export async function generateStaticParams() {
 }
 
 // ISR: Revalidate every hour
-export const revalidate = featureFlags.isrRevalidate;
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ country: string }>;

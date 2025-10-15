@@ -8,7 +8,7 @@ import ReviewForm from "@/components/ReviewForm";
 import ReviewsList from "@/components/ReviewsList";
 
 // ISR: Revalidate every hour
-export const revalidate = featureFlags.isrRevalidate;
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ country: string; city: string; id: string }>;
