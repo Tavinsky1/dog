@@ -1,0 +1,24 @@
+{
+  "name": "Dog Atlas - Dog-Friendly Places Worldwide",
+  "short_name": "Dog Atlas",
+  "description": "Discover the best dog-friendly places worldwide. Find parks, cafés, trails, hotels, and services for you and your furry companion.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": [
+    "travel",
+    "lifestyle",
+    "navigation"
+  ],
+  "lang": "en-US",
+  "dir": "ltr"
+}

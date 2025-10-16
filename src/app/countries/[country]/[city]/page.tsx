@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getCountry, getCity, getPlaces, getCountries } from '@/lib/data';
 import { cityUrl, placeUrl, getCategoryLabel, getCategoryIcon, CATEGORY_LABELS } from '@/lib/routing';
 import { featureFlags } from '@/lib/featureFlags';
+import { generateSEOMetadata, siteConfig } from '@/lib/seo';
 import Map from "@/components/Map";
 import ItineraryGenerator from "@/components/ItineraryGenerator";
 import SearchInput from "@/components/SearchInput";
@@ -80,8 +81,55 @@ export default async function CityPage({ params, searchParams }: PageProps) {
       lng: typeof place.lon === 'number' ? place.lon : parseFloat(place.lon),
     }));
 
+  // Generate structured data for SEO
+  const citySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'City',
+    name: city.name,
+    description: city.description,
+    containedInPlace: {
+      '@type': 'Country',
+      name: country.name,
+    },
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: country.name,
+        item: `${siteConfig.url}/countries/${countrySlug}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: city.name,
+        item: `${siteConfig.url}/countries/${countrySlug}/${citySlug}`,
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(citySchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         {/* City Header */}
         <div className="mb-12">
@@ -436,7 +484,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
   );
 }
 
-// Generate metadata with canonical URL
+// Generate metadata with canonical URL and enhanced SEO
 export async function generateMetadata({ params, searchParams }: PageProps) {
   const { country: countrySlug, city: citySlug } = await params;
   const { category } = await searchParams;
@@ -452,25 +500,21 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 
   const places = await getPlaces(countrySlug, citySlug, category, featureFlags.useDatabase);
   const categoryLabel = category ? getCategoryLabel(category) : 'places';
-  
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dog-atlas.com';
-  const canonical = `${baseUrl}/countries/${countrySlug}/${citySlug}`;
 
-  return {
-    title: `${city.name}, ${country.name} - ${places.length} Dog-Friendly ${categoryLabel} | DogAtlas`,
-    description: city.description || `Discover ${places.length} dog-friendly ${categoryLabel.toLowerCase()} in ${city.name}, ${country.name}. Parks, cafés, trails, and more for you and your pup.`,
-    alternates: {
-      canonical,
-    },
-    openGraph: {
-      title: `Dog-Friendly ${city.name}`,
-      description: `${places.length} ${categoryLabel.toLowerCase()} in ${country.name}`,
-      url: canonical,
-      images: [{
-        url: `/api/og?title=${encodeURIComponent(city.name)}&type=city`,
-        width: 1200,
-        height: 630,
-      }],
-    },
-  };
+  return generateSEOMetadata({
+    title: `Dog-Friendly ${city.name} Guide - ${country.flag} ${country.name}`,
+    description: `Discover ${places.length} dog-friendly ${categoryLabel.toLowerCase()} in ${city.name}, ${country.name}. Find parks, cafés, restaurants, trails, hotels, and pet services. ${city.description || ''}`,
+    keywords: [
+      `dog friendly ${city.name}`,
+      `pet friendly ${city.name}`,
+      `${city.name} dog parks`,
+      `${city.name} dog cafes`,
+      `${city.name} pet services`,
+      `dog friendly restaurants ${city.name}`,
+      `dog hotels ${city.name}`,
+      `${city.name} ${categoryLabel}`,
+    ],
+    url: `${siteConfig.url}/countries/${countrySlug}/${citySlug}${category ? `?category=${category}` : ''}`,
+    image: city.image,
+  });
 }
