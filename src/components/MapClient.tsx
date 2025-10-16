@@ -78,16 +78,18 @@ interface MapClientProps {
   places: PlaceMarker[];
   loading?: boolean;
   error?: string | null;
+  cityCenter?: [number, number];
 }
 
-export default function MapClient({ places, loading = false, error = null }: MapClientProps) {
+export default function MapClient({ places, loading = false, error = null, cityCenter }: MapClientProps) {
   const markers = places ?? [];
   const center = useMemo<[number, number]>(() => {
     if (markers.length) {
       return [markers[0].lat, markers[0].lng];
     }
-    return [48.8566, 2.3522];
-  }, [markers]);
+    // Use city center if provided, otherwise default to Paris
+    return cityCenter || [48.8566, 2.3522];
+  }, [markers, cityCenter]);
 
   const formatPlaceType = (type: string) => {
     return type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());

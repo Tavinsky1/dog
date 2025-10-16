@@ -443,7 +443,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,6fr)]">
         <div className="space-y-6">
-          <Map places={mapPlaces} />
+          <Map places={mapPlaces} cityCenter={city.lat && city.lng ? [city.lat, city.lng] : undefined} />
           {filteredPlaces.length > 0 ? (
             <ItineraryGenerator
               city={{ name: city.name, slug: citySlug }}

@@ -289,7 +289,7 @@ export default async function CityPage({ params, searchParams }: PageProps) {
         <div className="mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Map */}
           <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
-            <Map places={mapPlaces} />
+            <Map places={mapPlaces} cityCenter={city.coordinates as [number, number]} />
           </div>
           
           {/* Itinerary Generator */}

@@ -137,7 +137,7 @@ export default async function PlaceDetailPage({ params }: PageProps) {
                 <h2 className="text-2xl font-bold text-gray-900">Location</h2>
               </div>
               <div className="h-[400px]">
-                <Map places={mapPlaces} />
+                <Map places={mapPlaces} cityCenter={city.coordinates as [number, number]} />
               </div>
             </div>
 
