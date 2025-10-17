@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export-seed": "node scripts/export-seed.js",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
     "seed": "ts-node --transpile-only scripts/seed.ts",

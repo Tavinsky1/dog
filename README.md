@@ -129,26 +129,124 @@ NEXTAUTH_URL="http://localhost:3000"
 
 ### 4. Database Setup
 
-⚠️ **IMPORTANT**: DogAtlas uses a two-database architecture. See [DATABASE_ARCHITECTURE.md](./DATABASE_ARCHITECTURE.md) for complete guide.
+⚠️ **IMPORTANT**: Production uses seed files, NOT the database directly.
 
-- **Local Development**: SQLite (`prisma/dev.db`)
-- **Production (Vercel)**: PostgreSQL
+**Data Architecture:**
+- **Local Development**: SQLite database (`prisma/dev.db`)
+- **Production (Vercel)**: Seed files (`data/places.seed.json`)
+- **Postgres on Vercel**: Exists but not currently used for places
 
 ```bash
 # Generate Prisma client
 npx prisma generate
 
-# Run database migrations (local only)
-npx prisma migrate dev
+# Push schema to local SQLite (no migrations needed)
+npx prisma db push
 
-# Seed the database (optional)
-npx tsx scripts/seed.ts
+# Open database browser (optional)
+npx prisma studio
 ```
 
-**After modifying data locally**, you MUST sync to production:
+### 5. Updating Places Data
+
+**Whenever you add/edit places in local database:**
+
 ```bash
-PROD_DATABASE_URL="postgres://..." npx tsx scripts/sync_images_raw.ts
+# 1. Export database to seed file
+npm run export-seed
+
+# 2. Commit the changes
+git add data/places.seed.json
+git commit -m "Update places data"
+git push origin master
+
+# 3. Deploy to production
+vercel --prod
 ```
+
+⚠️ **CRITICAL**: Always run `npm run export-seed` after database changes!
+
+### 6. Start Development Server
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to see your DogAtlas instance!
+
+## 🚀 Deployment
+
+### Production Deployment to Vercel
+
+```bash
+# Build and test locally first
+npm run build
+
+# Deploy to production
+vercel --prod
+```
+
+### ⚠️ Deployment Checklist
+
+Before every production deployment:
+
+- [ ] Local build succeeds: `npm run build`
+- [ ] All cities show data locally
+- [ ] If database changed, run: `npm run export-seed`
+- [ ] Commit seed file: `git add data/places.seed.json && git commit`
+- [ ] **DO NOT** modify Vercel environment variables without testing
+- [ ] Use preview deployments for risky changes: `vercel` (without --prod)
+
+### Environment Variables on Vercel
+
+**Current Production Setup:**
+- `NEXT_PUBLIC_SITE_URL`: https://dog-atlas.com
+- `NEXT_PUBLIC_USE_DATABASE`: **NOT SET** (uses seed files)
+
+⚠️ **NEVER add `NEXT_PUBLIC_USE_DATABASE=true` to production unless Postgres has data!**
+
+See [DEPLOYMENT_SAFEGUARDS.md](./DEPLOYMENT_SAFEGUARDS.md) for complete deployment guidelines.
+
+## 📁 Project Structure
+
+```
+dogatlas/
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── api/               # API routes
+│   │   ├── countries/[country]/[city]/  # City pages
+│   │   ├── places/[id]/       # Individual place pages
+│   │   ├── leaderboard/       # User leaderboard
+│   │   ├── mod/               # Moderation interface
+│   │   ├── layout.tsx         # Root layout with SEO
+│   │   ├── page.tsx           # Homepage
+│   │   ├── sitemap.ts         # Dynamic sitemap
+│   │   ├── robots.ts          # Robots.txt
+│   │   └── globals.css        # Global styles
+│   ├── components/            # React components
+│   │   ├── HeaderWrapper.tsx  # Modern header with locations dropdown
+│   │   ├── LocationsDropdown.tsx # Scalable city selection
+│   │   ├── Hero.tsx           # Manus-styled hero component
+│   │   ├── CategoryCard.tsx   # Enhanced category cards
+│   │   └── ...                # Other components
+│   └── lib/                   # Utility libraries
+│       ├── data.ts            # Data access layer
+│       └── seo.ts             # SEO utilities (NEW)
+├── data/                      # Data files
+│   ├── places.seed.json       # 269 places (PRODUCTION DATA SOURCE)
+│   ├── countries.json         # City metadata
+│   └── ...                    # CSV imports
+├── prisma/                    # Database schema
+│   ├── dev.db                 # Local SQLite (source of truth)
+│   └── schema.prisma          # Database schema
+├── scripts/                   # Utility scripts
+│   ├── export-seed.js         # Export DB to seed JSON (NEW)
+│   └── ...                    # Other scripts
+├── public/                    # Static assets
+│   └── manifest.json          # PWA manifest (NEW)
+├── DEPLOYMENT_SAFEGUARDS.md   # Deployment guidelines (NEW)
+├── SEO_GUIDE.md              # SEO documentation (NEW)
+└── ...
+````
 
 ### 5. Start Development Server
 ```bash
