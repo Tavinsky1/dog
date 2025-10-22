@@ -20,6 +20,26 @@ export default function ContactPage() {
         </p>
       </section>
 
+      {/* About Section */}
+      <section className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-8 space-y-4">
+        <h2 className="text-2xl font-bold text-slate-900">About Dog Atlas</h2>
+        <p className="text-slate-700 leading-relaxed">
+          Dog Atlas is operated by <strong>Gustavo Del Prato</strong>, dedicated to helping dog owners 
+          discover the best dog-friendly places around the world. From cozy cafés with outdoor seating 
+          to off-leash parks and swimming spots, we make it easy to find places where both you and your 
+          furry friend are welcome.
+        </p>
+        <div className="flex items-center gap-2 text-slate-700">
+          <span className="font-semibold">Contact:</span>
+          <a 
+            href="mailto:inksky11@gmail.com" 
+            className="text-blue-600 hover:text-blue-700 underline font-medium"
+          >
+            inksky11@gmail.com
+          </a>
+        </div>
+      </section>
+
       {/* Contact Cards */}
       <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* General Inquiries */}
@@ -30,10 +50,10 @@ export default function ContactPage() {
             Questions about DogAtlas, suggestions for new cities, or general feedback?
           </p>
           <a
-            href="mailto:hello@dogatlas.com"
+            href="mailto:inksky11@gmail.com"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            hello@dogatlas.com
+            inksky11@gmail.com
             <span>→</span>
           </a>
         </div>
@@ -46,10 +66,10 @@ export default function ContactPage() {
             Interested in collaborating with DogAtlas? We work with dog-friendly businesses and brands.
           </p>
           <a
-            href="mailto:partnerships@dogatlas.com"
+            href="mailto:inksky11@gmail.com"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            partnerships@dogatlas.com
+            inksky11@gmail.com
             <span>→</span>
           </a>
         </div>
@@ -62,10 +82,10 @@ export default function ContactPage() {
             Reach our engaged community of dog lovers. Let's discuss advertising opportunities.
           </p>
           <a
-            href="mailto:ads@dogatlas.com"
+            href="mailto:inksky11@gmail.com"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            ads@dogatlas.com
+            inksky11@gmail.com
             <span>→</span>
           </a>
         </div>
@@ -78,10 +98,10 @@ export default function ContactPage() {
             Own a dog-friendly café, hotel, or service? Get your business listed on DogAtlas.
           </p>
           <a
-            href="mailto:listings@dogatlas.com"
+            href="mailto:inksky11@gmail.com"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            listings@dogatlas.com
+            inksky11@gmail.com
             <span>→</span>
           </a>
         </div>
@@ -94,10 +114,10 @@ export default function ContactPage() {
             Experiencing technical issues? Found a bug? We're here to help!
           </p>
           <a
-            href="mailto:support@dogatlas.com"
+            href="mailto:inksky11@gmail.com"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
           >
-            support@dogatlas.com
+            inksky11@gmail.com
             <span>→</span>
           </a>
         </div>
