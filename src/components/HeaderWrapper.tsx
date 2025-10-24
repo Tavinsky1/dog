@@ -166,7 +166,7 @@ export default function HeaderWrapper() {
               </div>
               <button
                 onClick={() => signOut()}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700"
+                className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md"
               >
                 Sign out
               </button>
@@ -174,7 +174,7 @@ export default function HeaderWrapper() {
           ) : (
             <button
               onClick={() => signIn()}
-              className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+              className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 shadow-sm hover:shadow-md"
             >
               Sign in
             </button>
