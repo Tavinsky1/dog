@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { requireRole } from '@/lib/auth-utils';
+import { requireAdmin } from '@/lib/auth-utils';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -42,7 +42,7 @@ async function getUsers() {
 }
 
 export default async function UsersPage() {
-  await requireRole('ADMIN');
+  await requireAdmin();
   
   const users = await getUsers();
   const onlineUsers = users.filter(u => u.isOnline);
