@@ -11,7 +11,7 @@ const categories = [
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || "https://dog-atlas.vercel.app";
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://dog-atlas.com";
 
   // Core pages
   const core: MetadataRoute.Sitemap = [

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 export const siteConfig = {
   name: 'Dog Atlas',
   description: 'Discover the best dog-friendly places worldwide. Find parks, cafés, trails, hotels, and services for you and your furry companion.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dog-atlas.vercel.app',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dog-atlas.com',
   ogImage: '/images/og-image.jpg',
   keywords: [
     'dog friendly',
