@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import { requireRole } from '@/lib/auth-utils';
 import Link from 'next/link';
 
@@ -109,9 +109,9 @@ export default async function UsersPage() {
               ⭐
             </div>
             <div>
-              <p className="text-sm text-slate-600">Moderators</p>
+              <p className="text-sm text-slate-600">Editors</p>
               <p className="text-2xl font-bold text-orange-600">
-                {users.filter(u => u.role === 'MOD').length}
+                {users.filter(u => u.role === 'EDITOR').length}
               </p>
             </div>
           </div>
@@ -221,12 +221,12 @@ export default async function UsersPage() {
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       user.role === 'ADMIN' 
                         ? 'bg-purple-100 text-purple-800'
-                        : user.role === 'MOD'
+                        : user.role === 'EDITOR'
                         ? 'bg-orange-100 text-orange-800'
                         : 'bg-blue-100 text-blue-800'
                     }`}>
                       {user.role === 'ADMIN' && '👑 '}
-                      {user.role === 'MOD' && '⭐ '}
+                      {user.role === 'EDITOR' && '⭐ '}
                       {user.role}
                     </span>
                   </td>
