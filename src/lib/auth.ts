@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Email or Username", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
@@ -26,33 +26,39 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          // Normalize email (lowercase and trim) to match signup
-          const email = credentials.email.toLowerCase().trim();
+          // Normalize input (lowercase and trim)
+          const identifier = credentials.email.toLowerCase().trim();
           
-          console.log("[Auth] Attempting login for email:", email);
+          console.log("[Auth] Attempting login for:", identifier);
           
-          const user = await (prisma as any).user.findUnique({
-            where: { email }
+          // Try to find user by email OR name (username)
+          const user = await (prisma as any).user.findFirst({
+            where: {
+              OR: [
+                { email: identifier },
+                { name: identifier }
+              ]
+            }
           });
 
           if (!user) {
-            console.error("[Auth] User not found:", email);
+            console.error("[Auth] User not found:", identifier);
             return null;
           }
 
           if (!user.passwordHash) {
-            console.error("[Auth] User has no password hash (likely Google OAuth user):", email);
+            console.error("[Auth] User has no password hash (likely Google OAuth user):", identifier);
             return null;
           }
 
           const isPasswordValid = await compare(credentials.password, user.passwordHash);
 
           if (!isPasswordValid) {
-            console.error("[Auth] Invalid password for user:", email);
+            console.error("[Auth] Invalid password for user:", identifier);
             return null;
           }
 
-          console.log("[Auth] Login successful for user:", email);
+          console.log("[Auth] Login successful for user:", user.email);
           
           return {
             id: user.id,
@@ -68,12 +74,13 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   session: { 
-    strategy: "database",
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   pages: {
     signIn: "/login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user, account }) {
       // Auto-create user in database on Google sign-in
@@ -101,13 +108,32 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
-    async session({ session, user }) {
-      // attach user ID and role to session (database strategy)
-      if (session.user && user) {
-        (session.user as any).id = user.id;
-        (session.user as any).role = (user as any).role;
+    async session({ session, token }) {
+      // attach user ID and role to session from JWT token
+      if (session.user) {
+        (session.user as any).id = token.sub;
+        (session.user as any).role = (token as any).role;
       }
       return session;
+    },
+    async jwt({ token, user, account }) {
+      // Initial sign in
+      if (user) {
+        token.role = (user as any).role;
+        token.id = user.id;
+      }
+      // Subsequent requests - fetch fresh role from DB
+      else if (token.email) {
+        const dbUser = await (prisma as any).user.findUnique({
+          where: { email: token.email },
+          select: { role: true, id: true }
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.sub = dbUser.id;
+        }
+      }
+      return token;
     }
   }
 };
