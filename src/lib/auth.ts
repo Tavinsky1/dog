@@ -21,27 +21,39 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          console.error("Missing credentials");
+          console.error("[Auth] Missing credentials");
           return null;
         }
 
         try {
+          // Normalize email (lowercase and trim) to match signup
+          const email = credentials.email.toLowerCase().trim();
+          
+          console.log("[Auth] Attempting login for email:", email);
+          
           const user = await (prisma as any).user.findUnique({
-            where: { email: credentials.email }
+            where: { email }
           });
 
-          if (!user || !user.passwordHash) {
-            console.error("User not found or no password hash");
+          if (!user) {
+            console.error("[Auth] User not found:", email);
+            return null;
+          }
+
+          if (!user.passwordHash) {
+            console.error("[Auth] User has no password hash (likely Google OAuth user):", email);
             return null;
           }
 
           const isPasswordValid = await compare(credentials.password, user.passwordHash);
 
           if (!isPasswordValid) {
-            console.error("Invalid password");
+            console.error("[Auth] Invalid password for user:", email);
             return null;
           }
 
+          console.log("[Auth] Login successful for user:", email);
+          
           return {
             id: user.id,
             email: user.email,
@@ -49,7 +61,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role,
           };
         } catch (error) {
-          console.error("Authorization error:", error);
+          console.error("[Auth] Authorization error:", error);
           return null;
         }
       }
