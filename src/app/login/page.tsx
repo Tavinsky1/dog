@@ -20,21 +20,17 @@ export default function LoginPage() {
       const result = await signIn("credentials", {
         email: form.email,
         password: form.password,
-        redirect: false,
+        callbackUrl: "/",
+        redirect: true,
       });
 
+      // If we get here without redirect, there was an error
       if (result?.error) {
         setError("Invalid email or password");
-      } else {
-        // Check session to confirm login
-        const session = await getSession();
-        if (session) {
-          router.push("/");
-        }
+        setLoading(false);
       }
     } catch (error) {
       setError("An error occurred during login");
-    } finally {
       setLoading(false);
     }
   }
