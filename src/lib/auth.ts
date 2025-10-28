@@ -60,6 +60,7 @@ export const authOptions: NextAuthOptions = {
   
   callbacks: {
     async jwt({ token, user }) {
+      console.log("JWT CALLBACK", { token, user });
       if (user) {
         token.sub = user.id;
         token.id = user.id;
@@ -69,6 +70,7 @@ export const authOptions: NextAuthOptions = {
     },
     
     async session({ session, token }) {
+      console.log("SESSION CALLBACK", { session, token });
       if (session.user) {
         (session.user as any).id = token.id;
         (session.user as any).role = token.role;
@@ -77,6 +79,7 @@ export const authOptions: NextAuthOptions = {
     },
     
     async signIn({ user, account }) {
+      console.log("SIGNIN CALLBACK", { user, account });
       if (account?.provider === "google") {
         await prisma.user.upsert({
           where: { email: user.email! },
