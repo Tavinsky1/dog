@@ -27,6 +27,7 @@ export default function HeaderWrapper() {
   const [cities, setCities] = useState<City[]>([]);
   const [selected, setSelected] = useState("home");
   const [isLoadingCities, setIsLoadingCities] = useState(true);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -165,10 +166,15 @@ export default function HeaderWrapper() {
                 </span>
               </div>
               <button
-                onClick={() => signOut({ callbackUrl: '/' })}
-                className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md"
+                onClick={async () => {
+                  if (isSigningOut) return;
+                  setIsSigningOut(true);
+                  await signOut({ callbackUrl: '/' });
+                }}
+                disabled={isSigningOut}
+                className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Sign out
+                {isSigningOut ? 'Signing out...' : 'Sign out'}
               </button>
             </div>
           ) : (
