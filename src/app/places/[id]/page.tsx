@@ -26,6 +26,7 @@ import PlaceAnalytics from "@/components/PlaceAnalytics";
 import StarRating from "@/components/StarRating";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewsList from "@/components/ReviewsList";
+import { ShareAddressButtons } from "@/components/ShareAddressButtons";
 
 const placeInclude = {
   favorites: true,
@@ -256,6 +257,13 @@ export default async function PlacePage({ params }: { params: Promise<{ id: stri
           <div className="card p-6">
             <h3 className="heading-md mb-4">🚀 Quick Actions</h3>
             <div className="space-y-3">
+              {/* Share and Copy Address */}
+              <ShareAddressButtons
+                address={`${place.name}, ${place.region || place.country}`}
+                placeName={place.name}
+                placeId={place.id}
+              />
+
               {place.websiteUrl && (
                 <a 
                   href={place.websiteUrl} 
