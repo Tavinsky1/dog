@@ -81,6 +81,11 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  events: {
+    async signOut({ token }) {
+      console.log("[Auth] User signed out:", token?.email);
+    }
+  },
   callbacks: {
     async signIn({ user, account }) {
       // Auto-create user in database on Google sign-in
@@ -116,14 +121,14 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user, account }) {
-      // Initial sign in
+    async jwt({ token, user, account, trigger }) {
+      // Initial sign in - user object is available
       if (user) {
         token.role = (user as any).role;
         token.id = user.id;
       }
-      // Subsequent requests - fetch fresh role from DB
-      else if (token.email) {
+      // On update trigger, refresh user data from DB
+      else if (trigger === "update" && token.email) {
         const dbUser = await (prisma as any).user.findUnique({
           where: { email: token.email },
           select: { role: true, id: true }
@@ -133,6 +138,7 @@ export const authOptions: NextAuthOptions = {
           token.sub = dbUser.id;
         }
       }
+      // For subsequent requests, token already has role - no DB query needed
       return token;
     }
   }
