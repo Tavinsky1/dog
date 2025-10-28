@@ -1,6 +1,17 @@
 // Client-side analytics tracking for DogAtlas
 'use client'
 
+// Extend Window interface for Google Analytics
+declare global {
+  interface Window {
+    gtag?: (
+      command: string,
+      targetId: string,
+      config?: Record<string, any>
+    ) => void;
+  }
+}
+
 interface AnalyticsEvent {
   eventType: string
   eventData?: Record<string, any>
@@ -265,5 +276,35 @@ export const disableAnalytics = () => {
 export const enableAnalytics = () => {
   analytics?.enable()
 }
+
+/**
+ * Google Analytics helper functions
+ * These work alongside our custom analytics system
+ */
+export const ga = {
+  /**
+   * Track a custom event in Google Analytics
+   */
+  event: (action: string, category: string, label?: string, value?: number) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', action, {
+        event_category: category,
+        event_label: label,
+        value: value,
+      });
+    }
+  },
+
+  /**
+   * Track page view in Google Analytics
+   */
+  pageView: (url: string) => {
+    if (typeof window !== 'undefined' && window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
+      window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+        page_path: url,
+      });
+    }
+  },
+};
 
 export default analytics

@@ -1,11 +1,13 @@
 import type { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
-  // adapter: PrismaAdapter(prisma), // Temporarily disabled due to type issues
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -19,29 +21,37 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.error("Missing credentials");
           return null;
         }
 
-        const user = await (prisma as any).user.findUnique({
-          where: { email: credentials.email }
-        });
+        try {
+          const user = await (prisma as any).user.findUnique({
+            where: { email: credentials.email }
+          });
 
-        if (!user || !user.passwordHash) {
+          if (!user || !user.passwordHash) {
+            console.error("User not found or no password hash");
+            return null;
+          }
+
+          const isPasswordValid = await compare(credentials.password, user.passwordHash);
+
+          if (!isPasswordValid) {
+            console.error("Invalid password");
+            return null;
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Authorization error:", error);
           return null;
         }
-
-        const isPasswordValid = await compare(credentials.password, user.passwordHash);
-
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        };
       }
     })
   ],

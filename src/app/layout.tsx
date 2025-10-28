@@ -2,6 +2,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import HeaderWrapper from "@/components/HeaderWrapper";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Inter, Nunito } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { generateSEOMetadata } from "@/lib/seo";
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${nunito.variable} scroll-smooth`}>
       <body className="min-h-screen bg-gray-50">
+        <GoogleAnalytics />
         <Providers>
           <HeaderWrapper />
           <main className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 space-y-16">
