@@ -55,7 +55,10 @@ export const authOptions: NextAuthOptions = {
       }
     })
   ],
-  session: { strategy: "jwt" },
+  session: { 
+    strategy: "database",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   pages: {
     signIn: "/login",
   },
@@ -86,29 +89,13 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
-    async session({ session, token }) {
-      // attach role to session
-      if (session.user) {
-        (session.user as any).id = token.sub;
-        (session.user as any).role = (token as any).role;
+    async session({ session, user }) {
+      // attach user ID and role to session (database strategy)
+      if (session.user && user) {
+        (session.user as any).id = user.id;
+        (session.user as any).role = (user as any).role;
       }
       return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        (token as any).role = (user as any).role;
-      } else if (token.email) {
-        // Fetch role from database for existing sessions
-        const dbUser = await (prisma as any).user.findUnique({
-          where: { email: token.email },
-          select: { role: true, id: true }
-        });
-        if (dbUser) {
-          (token as any).role = dbUser.role;
-          token.sub = dbUser.id;
-        }
-      }
-      return token;
     }
   }
 };
