@@ -325,7 +325,7 @@
           "timezone": "America/New_York",
           "population": 8336000,
           "description": "The Big Apple with Central Park, dog-friendly cafés, and urban dog culture",
-          "placeCount": 12,
+          "placeCount": 23,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
@@ -359,7 +359,7 @@
           "timezone": "America/Los_Angeles",
           "population": 3979000,
           "description": "Sunny California city with beaches, hiking trails, and pet-friendly culture",
-          "placeCount": 12,
+          "placeCount": 21,
           "categories": {
             "cafes_restaurants": 0,
             "parks": 0,
