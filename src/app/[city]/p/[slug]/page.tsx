@@ -9,6 +9,7 @@ import ReviewsList from "@/components/ReviewsList";
 import ReviewForm from "@/components/ReviewForm";
 import PlaceHeader from "@/components/PlaceHeader";
 import PlaceMap from "@/components/PlaceMap";
+import PlaceBadges from "@/components/PlaceBadges";
 
 function toStringArray(value: unknown): string[] {
   if (Array.isArray(value)) {
@@ -239,6 +240,23 @@ export default async function PlaceDetailPage({
                 )}
               </dl>
             </div>
+
+            {/* Dog-Specific Information */}
+            {(place.dogSizeAllowed || place.hasWaterBowl || place.offLeashAllowed || 
+              place.hasOutdoorSeating || place.petFee || place.maxDogsAllowed) && (
+              <div className="space-y-3 border-t border-slate-200 pt-6">
+                <h2 className="text-lg font-semibold text-slate-900">🐕 Dog Info</h2>
+                <PlaceBadges
+                  dogSizeAllowed={place.dogSizeAllowed}
+                  hasWaterBowl={place.hasWaterBowl}
+                  offLeashAllowed={place.offLeashAllowed}
+                  hasOutdoorSeating={place.hasOutdoorSeating}
+                  petFee={place.petFee}
+                  maxDogsAllowed={place.maxDogsAllowed}
+                  variant="full"
+                />
+              </div>
+            )}
 
             <div className="space-y-3 text-sm text-slate-600">
               <p>Share your experience to help other dog guardians.</p>

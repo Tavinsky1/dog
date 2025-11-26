@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import FavoriteButton from "./FavoriteButton";
+import PlaceBadges from "./PlaceBadges";
+
+type DogSizeAllowed = "all" | "small_only" | "small_medium" | "large_ok";
 
 type Place = {
   id: string;
@@ -15,6 +18,13 @@ type Place = {
   city: {
     slug: string;
   };
+  // New dog-specific attributes
+  dogSizeAllowed?: DogSizeAllowed | null;
+  hasWaterBowl?: boolean | null;
+  offLeashAllowed?: boolean | null;
+  hasOutdoorSeating?: boolean | null;
+  petFee?: string | null;
+  maxDogsAllowed?: number | null;
 };
 
 interface PlaceCardProps {
@@ -61,6 +71,16 @@ export default function PlaceCard({ place, showFavoriteButton = false, isFavorit
             </span>
           )}
         </div>
+
+        {/* Dog-specific attribute badges */}
+        <PlaceBadges
+          dogSizeAllowed={place.dogSizeAllowed}
+          hasWaterBowl={place.hasWaterBowl}
+          offLeashAllowed={place.offLeashAllowed}
+          hasOutdoorSeating={place.hasOutdoorSeating}
+          petFee={place.petFee}
+          variant="compact"
+        />
 
         {place.shortDescription && (
           <p className="text-sm text-slate-600 line-clamp-2">{place.shortDescription}</p>

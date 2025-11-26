@@ -7,6 +7,8 @@ import CategoryFilter from "@/components/CategoryFilter";
 import { prisma } from "@/lib/prisma";
 import { getCountries } from "@/lib/data";
 
+type DogSizeAllowed = "all" | "small_only" | "small_medium" | "large_ok";
+
 type NormalizedPlace = {
   id: string;
   slug: string;
@@ -20,6 +22,13 @@ type NormalizedPlace = {
   tags: string[];
   amenities: string[];
   openingHours: string | null;
+  // Dog-specific attributes
+  dogSizeAllowed: DogSizeAllowed | null;
+  hasWaterBowl: boolean | null;
+  offLeashAllowed: boolean | null;
+  hasOutdoorSeating: boolean | null;
+  petFee: string | null;
+  maxDogsAllowed: number | null;
 };
 
 function toStringArray(value: unknown): string[] {
@@ -104,6 +113,13 @@ export default async function CityPage({ params, searchParams }: { params: Promi
           tags: true,
           openingHours: true,
           imageUrl: true,
+          // Dog-specific attributes
+          dogSizeAllowed: true,
+          hasWaterBowl: true,
+          offLeashAllowed: true,
+          hasOutdoorSeating: true,
+          petFee: true,
+          maxDogsAllowed: true,
         },
       },
     },
@@ -126,6 +142,13 @@ export default async function CityPage({ params, searchParams }: { params: Promi
     tags: toStringArray(place.tags),
     amenities: toStringArray(place.amenities),
     openingHours: place.openingHours,
+    // Dog-specific attributes
+    dogSizeAllowed: place.dogSizeAllowed,
+    hasWaterBowl: place.hasWaterBowl,
+    offLeashAllowed: place.offLeashAllowed,
+    hasOutdoorSeating: place.hasOutdoorSeating,
+    petFee: place.petFee,
+    maxDogsAllowed: place.maxDogsAllowed,
   }));
 
   // Filter places based on search query and category

@@ -25,6 +25,13 @@ enum Role {
   ADMIN
 }
 
+enum DogSizeAllowed {
+  all           // All dog sizes welcome
+  small_only    // Small dogs only (typically < 10kg)
+  small_medium  // Small and medium dogs (typically < 25kg)
+  large_ok      // Large dogs explicitly welcome
+}
+
 model City {
   id        String   @id @default(uuid())
   slug      String   @unique
@@ -68,6 +75,15 @@ model Place {
   rating            Float?
   tags              Json?      // Array of tags
   source            String?
+  
+  // Dog-specific attributes (essential info for dog owners)
+  dogSizeAllowed    DogSizeAllowed?  // Size restrictions
+  hasWaterBowl      Boolean?         // Water provided for dogs
+  offLeashAllowed   Boolean?         // Dogs can be off-leash
+  hasOutdoorSeating Boolean?         // Outdoor/patio area (for cafes/restaurants)
+  petFee            String?          // Fee info like "€15/night" or "Free"
+  maxDogsAllowed    Int?             // Maximum number of dogs permitted
+  
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
   favorites         Favorite[]
@@ -79,6 +95,8 @@ model Place {
   @@index([slug])
   @@index([rating])
   @@index([lat, lng])
+  @@index([dogSizeAllowed])
+  @@index([offLeashAllowed])
 }
 
 model User {
