@@ -370,6 +370,75 @@ export async function searchPlaces(
 }
 
 /**
+ * Get recent reviews across all places
+ */
+export interface ReviewWithPlace {
+  id: string;
+  rating: number;
+  body: string | null;
+  createdAt: Date;
+  userName: string | null;
+  placeName: string;
+  placeSlug: string;
+  citySlug: string;
+  cityName: string;
+  countrySlug: string;
+}
+
+export async function getRecentReviews(limit: number = 5): Promise<ReviewWithPlace[]> {
+  const reviews = await prisma.review.findMany({
+    where: {
+      status: 'published',
+      body: {
+        not: null,
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: limit,
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
+      place: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          city: {
+            select: {
+              slug: true,
+              name: true,
+              country: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // Map country names to slugs
+  const countries = getCountries();
+  const countryNameToSlug = new Map(countries.map(c => [c.name.toLowerCase(), c.slug]));
+
+  return reviews.map(r => ({
+    id: r.id,
+    rating: r.rating,
+    body: r.body,
+    createdAt: r.createdAt,
+    userName: r.user?.name || null,
+    placeName: r.place.name,
+    placeSlug: r.place.slug,
+    citySlug: r.place.city.slug,
+    cityName: r.place.city.name,
+    countrySlug: countryNameToSlug.get(r.place.city.country.toLowerCase()) || 'unknown',
+  }));
+}
+
+/**
  * Clear caches (useful for development)
  */
 export function clearCaches() {

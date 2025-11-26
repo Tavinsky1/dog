@@ -105,6 +105,12 @@ export default function HeaderWrapper() {
           <Link className="transition-colors hover:text-blue-600" href="/leaderboard">
             Leaderboard
           </Link>
+          <Link className="transition-colors hover:text-blue-600" href="/shop">
+            <span className="flex items-center gap-1">
+              Shop
+              <span className="text-[10px] bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded-full font-medium">Soon</span>
+            </span>
+          </Link>
           <Link className="transition-colors hover:text-blue-600" href="/contact">
             Contact
           </Link>

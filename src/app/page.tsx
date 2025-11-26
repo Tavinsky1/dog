@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import Stat from "@/components/Stat";
 import CitySelector from "@/components/CitySelector";
-import { getCountries, getStats, getCities } from "@/lib/data";
-import { countryUrl, cityUrl } from "@/lib/routing";
+import { getCountries, getStats, getCities, getRecentReviews } from "@/lib/data";
+import { countryUrl, cityUrl, placeUrl } from "@/lib/routing";
 import { featureFlags } from "@/lib/featureFlags";
+import NewsletterSignup from "@/components/NewsletterSignup";
 // import { CATEGORY_GROUPS, getAllGroupsOrdered, getCategoriesByGroup } from "@/lib/categories";
 
 const FEATURE_CARDS = [
@@ -42,6 +42,9 @@ export default async function Home() {
   // Get countries and their stats
   const countries = await getCountries();
   const stats = await getStats();
+  
+  // Get recent reviews
+  const recentReviews = await getRecentReviews(4);
   
   // Get all cities across all countries
   const allCities = await Promise.all(
@@ -288,6 +291,113 @@ export default async function Home() {
             })}
           </div>
         )}
+      </section>
+
+      {/* Recent Reviews Section */}
+      {recentReviews.length > 0 && (
+        <section className="space-y-6">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-100/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-green-700 backdrop-blur-sm mb-4">
+              <span>⭐</span>
+              Community Reviews
+            </div>
+            <h2 className="text-4xl font-display font-extrabold text-slate-900 sm:text-5xl">What Dog Owners Say</h2>
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              Real reviews from dog parents exploring the world
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {recentReviews.map((review) => (
+              <Link
+                key={review.id}
+                href={placeUrl(review.countrySlug, review.citySlug, review.placeSlug)}
+                className="group bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-lg hover:border-green-300 transition-all duration-300"
+              >
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={`text-lg ${i < review.rating ? 'text-amber-400' : 'text-slate-200'}`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <p className="text-slate-700 text-sm line-clamp-3 mb-4">
+                  "{review.body}"
+                </p>
+                <div className="pt-4 border-t border-slate-100">
+                  <p className="font-semibold text-slate-900 group-hover:text-green-600 transition-colors">
+                    {review.placeName}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    📍 {review.cityName} • {review.userName || 'Anonymous'}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Shop Teaser Section */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-100 via-amber-50 to-orange-50 border-2 border-amber-200">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgZmlsbD0iI2Y5NzMxNiIgb3BhY2l0eT0iMC4wNSIgY3g9IjMwIiBjeT0iMzAiIHI9IjQiLz48L2c+PC9zdmc+')] opacity-50" />
+        <div className="relative px-8 py-12 md:py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="text-center md:text-left max-w-xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-amber-200/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-amber-800 mb-4">
+              <span>🛍️</span>
+              Coming Soon
+            </div>
+            <h2 className="text-3xl md:text-4xl font-display font-extrabold text-slate-900">
+              Dog Atlas Merch
+            </h2>
+            <p className="mt-4 text-slate-600">
+              T-shirts, mugs, dog collars, and accessories for adventurous pups and their humans. 
+              Be the first to shop when we launch!
+            </p>
+            <Link
+              href="/shop"
+              className="inline-flex items-center justify-center mt-6 px-6 py-3 text-sm font-bold text-white bg-amber-600 rounded-full hover:bg-amber-700 hover:scale-105 transition-all shadow-md hover:shadow-lg"
+            >
+              Get Notified →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-4 text-5xl md:text-6xl">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              👕
+            </div>
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              ☕
+            </div>
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              🐕
+            </div>
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              🎒
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl border border-blue-200 p-8 md:p-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-100/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-blue-700 backdrop-blur-sm mb-4">
+            <span>📬</span>
+            Stay Updated
+          </div>
+          <h2 className="text-3xl md:text-4xl font-display font-extrabold text-slate-900">
+            Join the Pack
+          </h2>
+          <p className="mt-4 text-slate-600 max-w-lg mx-auto">
+            Get notified about new dog-friendly spots, city guides, and exclusive offers for Dog Atlas members.
+          </p>
+          <div className="mt-8">
+            <NewsletterSignup source="homepage" />
+          </div>
+        </div>
       </section>
     </div>
   );

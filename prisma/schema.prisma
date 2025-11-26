@@ -235,3 +235,16 @@ model Submission {
   @@index([status])
   @@index([submittedBy])
 }
+
+// Newsletter subscribers for shop launch, updates, etc.
+model NewsletterSubscriber {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  sources     Json     @default("[]") // Array of sources: ['shop_launch', 'general', 'updates']
+  confirmed   Boolean  @default(false)
+  unsubscribed Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([email])
+}
