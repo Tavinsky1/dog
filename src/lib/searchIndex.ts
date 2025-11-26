@@ -11,6 +11,11 @@
 
 import { getCountries, getCities, getPlaces } from './data';
 
+// Cache the index to avoid rebuilding on every search
+let indexCache: SearchIndex | null = null;
+let lastBuildTime: number = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 export interface SearchablePlace {
   id: string;
   name: string;
@@ -80,9 +85,15 @@ function fuzzyMatchScore(query: string, text: string): number {
 }
 
 /**
- * Build the complete search index
+ * Build the complete search index (with caching)
  */
 export async function buildSearchIndex(): Promise<SearchIndex> {
+  // Return cached index if valid
+  const now = Date.now();
+  if (indexCache && (now - lastBuildTime) < CACHE_TTL) {
+    return indexCache;
+  }
+  
   console.log('🔍 Building search index...');
   
   const countries = await getCountries();
@@ -162,6 +173,10 @@ export async function buildSearchIndex(): Promise<SearchIndex> {
     version: '1.0.0',
     updatedAt: new Date().toISOString(),
   };
+  
+  // Cache the index
+  indexCache = index;
+  lastBuildTime = Date.now();
   
   console.log(`✅ Search index built: ${index.places.length} places, ${index.cities.length} cities, ${index.countries.length} countries`);
   
