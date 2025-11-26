@@ -9,6 +9,7 @@ interface Review {
   body?: string
   tags: string[]
   source?: string
+  helpfulCount?: number
   createdAt: string
   publishedAt?: string
   user: {
@@ -28,6 +29,7 @@ export default function ReviewsList({ placeId, newReview }: ReviewsListProps) {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
   const [loadingMore, setLoadingMore] = useState(false)
+  const [votingReviewId, setVotingReviewId] = useState<string | null>(null)
 
   const fetchReviews = async (pageNum: number = 1) => {
     try {
@@ -70,6 +72,32 @@ export default function ReviewsList({ placeId, newReview }: ReviewsListProps) {
   const loadMore = async () => {
     setLoadingMore(true)
     await fetchReviews(page + 1)
+  }
+
+  const handleHelpfulVote = async (reviewId: string) => {
+    setVotingReviewId(reviewId)
+    try {
+      const response = await fetch(`/api/reviews/${reviewId}/helpful`, {
+        method: 'POST',
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        // Update the review's helpful count in local state
+        setReviews(prev => prev.map(r => 
+          r.id === reviewId 
+            ? { ...r, helpfulCount: data.helpfulCount }
+            : r
+        ))
+      } else {
+        const data = await response.json()
+        alert(data.error || 'Failed to vote')
+      }
+    } catch (err) {
+      console.error('Vote error:', err)
+    } finally {
+      setVotingReviewId(null)
+    }
   }
 
   const formatDate = (dateString: string) => {
@@ -157,7 +185,7 @@ export default function ReviewsList({ placeId, newReview }: ReviewsListProps) {
           )}
 
           {review.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
               {review.tags.map((tag, index) => (
                 <span
                   key={index}
@@ -168,6 +196,25 @@ export default function ReviewsList({ placeId, newReview }: ReviewsListProps) {
               ))}
             </div>
           )}
+
+          {/* Helpful vote button */}
+          <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+            <button
+              onClick={() => handleHelpfulVote(review.id)}
+              disabled={votingReviewId === review.id}
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors disabled:opacity-50"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+              </svg>
+              {votingReviewId === review.id ? 'Voting...' : 'Helpful'}
+            </button>
+            {(review.helpfulCount ?? 0) > 0 && (
+              <span className="text-xs text-gray-400">
+                {review.helpfulCount} {review.helpfulCount === 1 ? 'person' : 'people'} found this helpful
+              </span>
+            )}
+          </div>
         </div>
       ))}
 

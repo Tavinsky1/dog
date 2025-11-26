@@ -26,6 +26,16 @@ export async function POST(request: NextRequest) {
       phone,
       amenities,
       rules,
+      imageUrl,
+      lat,
+      lng,
+      // Dog-specific attributes
+      dogSizeAllowed,
+      hasWaterBowl,
+      offLeashAllowed,
+      hasOutdoorSeating,
+      petFee,
+      maxDogsAllowed,
     } = body;
 
     // Validate required fields
@@ -71,15 +81,23 @@ export async function POST(request: NextRequest) {
         cityId: cityRecord.id,
         region: cityRecord.name,
         country: cityRecord.country,
-        lat: 0, // Default coordinates - would need geocoding in real app
-        lng: 0, // Default coordinates - would need geocoding in real app
+        lat: lat || 0, // Use provided coords or default
+        lng: lng || 0, // Use provided coords or default
         shortDescription: shortDescription.trim(),
         fullDescription: fullDescription?.trim(),
+        imageUrl: imageUrl?.trim(),
         websiteUrl: websiteUrl?.trim(),
         phone: phone?.trim(),
         amenities: amenities || [],
         rules: rules?.trim(),
         source: "user_submission",
+        // Dog-specific attributes
+        dogSizeAllowed: dogSizeAllowed || null,
+        hasWaterBowl: hasWaterBowl || null,
+        offLeashAllowed: offLeashAllowed || null,
+        hasOutdoorSeating: hasOutdoorSeating || null,
+        petFee: petFee || null,
+        maxDogsAllowed: maxDogsAllowed || null,
       },
     });
 

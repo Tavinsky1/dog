@@ -160,17 +160,20 @@ model Favorite {
 }
 
 model Review {
-  id        String   @id @default(uuid())
-  place     Place    @relation(fields: [placeId], references: [id])
-  placeId   String
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
-  rating    Int
-  body      String?
-  tags      Json?    // Array of tag strings
-  status    String   @default("published")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  place        Place    @relation(fields: [placeId], references: [id])
+  placeId      String
+  user         User?    @relation(fields: [userId], references: [id])
+  userId       String?
+  rating       Int
+  body         String?
+  tags         Json?    // Array of tag strings
+  status       String   @default("published")
+  helpfulCount Int      @default(0) // Number of users who found this helpful
+  source       String?  // 'dogatlas_user', 'google', 'reddit', etc.
+  publishedAt  DateTime? // Original publication date for external reviews
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([placeId])
   @@index([userId])

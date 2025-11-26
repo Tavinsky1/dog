@@ -17,6 +17,13 @@ interface FormData {
   imageUrl: string;
   latitude: string;
   longitude: string;
+  // Dog-specific attributes
+  dogSizeAllowed: string;
+  hasWaterBowl: boolean;
+  offLeashAllowed: boolean;
+  hasOutdoorSeating: boolean;
+  petFee: string;
+  maxDogsAllowed: string;
 }
 
 export default function PlaceSubmissionForm() {
@@ -38,6 +45,13 @@ export default function PlaceSubmissionForm() {
     imageUrl: "",
     latitude: "",
     longitude: "",
+    // Dog-specific attributes
+    dogSizeAllowed: "",
+    hasWaterBowl: false,
+    offLeashAllowed: false,
+    hasOutdoorSeating: false,
+    petFee: "",
+    maxDogsAllowed: "",
   });
   
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -79,6 +93,13 @@ export default function PlaceSubmissionForm() {
         imageUrl,
         lat: formData.latitude ? parseFloat(formData.latitude) : undefined,
         lng: formData.longitude ? parseFloat(formData.longitude) : undefined,
+        // Dog-specific attributes - only include if set
+        dogSizeAllowed: formData.dogSizeAllowed || undefined,
+        hasWaterBowl: formData.hasWaterBowl || undefined,
+        offLeashAllowed: formData.offLeashAllowed || undefined,
+        hasOutdoorSeating: formData.hasOutdoorSeating || undefined,
+        petFee: formData.petFee || undefined,
+        maxDogsAllowed: formData.maxDogsAllowed ? parseInt(formData.maxDogsAllowed) : undefined,
       };
 
       const response = await fetch("/api/places", {
@@ -357,6 +378,98 @@ export default function PlaceSubmissionForm() {
             rows={3}
             placeholder="Any special rules or notes about dog access?"
           />
+        </div>
+      </div>
+
+      {/* Dog-Specific Information */}
+      <div className="space-y-6">
+        <h2 className="text-xl font-semibold text-slate-900 flex items-center gap-2">
+          🐕 Dog-Specific Details
+        </h2>
+        <p className="text-sm text-slate-600">
+          Help dog owners know what to expect. Only fill in what you know for certain.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Dog Size Allowed
+            </label>
+            <select
+              value={formData.dogSizeAllowed}
+              onChange={(e) => handleInputChange("dogSizeAllowed", e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Unknown / Not sure</option>
+              <option value="all">All sizes welcome</option>
+              <option value="small_only">Small dogs only (under 10kg)</option>
+              <option value="small_medium">Small to medium dogs</option>
+              <option value="large_ok">Large dogs OK</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Max Dogs Allowed
+            </label>
+            <input
+              type="number"
+              min="1"
+              max="10"
+              value={formData.maxDogsAllowed}
+              onChange={(e) => handleInputChange("maxDogsAllowed", e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., 2"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.hasWaterBowl}
+              onChange={(e) => handleInputChange("hasWaterBowl", e.target.checked)}
+              className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span className="text-slate-700">💧 Water bowl provided for dogs</span>
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.offLeashAllowed}
+              onChange={(e) => handleInputChange("offLeashAllowed", e.target.checked)}
+              className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span className="text-slate-700">🐕 Off-leash allowed (in designated areas)</span>
+          </label>
+
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.hasOutdoorSeating}
+              onChange={(e) => handleInputChange("hasOutdoorSeating", e.target.checked)}
+              className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span className="text-slate-700">🌳 Outdoor/patio seating available</span>
+          </label>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Pet Fee (if applicable)
+          </label>
+          <input
+            type="text"
+            value={formData.petFee}
+            onChange={(e) => handleInputChange("petFee", e.target.value)}
+            className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="e.g., €15/night, Free, Included"
+          />
+          <p className="text-xs text-slate-500 mt-1">
+            For hotels, cafes, or places that charge for dogs
+          </p>
         </div>
       </div>
 
