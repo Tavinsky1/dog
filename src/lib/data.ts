@@ -68,6 +68,13 @@ export interface Place {
   verified: boolean;
   rating?: number;
   reviewCount?: number;
+  // Dog-specific attributes
+  dogSizeAllowed?: string | null;
+  hasWaterBowl?: boolean | null;
+  offLeashAllowed?: boolean | null;
+  hasOutdoorSeating?: boolean | null;
+  petFee?: string | null;
+  maxDogsAllowed?: number | null;
 }
 
 export interface CountriesData {
@@ -181,6 +188,13 @@ export async function getPlaces(
         shortDescription: true,
         fullDescription: true,
         imageUrl: true,
+        // Dog-specific attributes
+        dogSizeAllowed: true,
+        hasWaterBowl: true,
+        offLeashAllowed: true,
+        hasOutdoorSeating: true,
+        petFee: true,
+        maxDogsAllowed: true,
         city: {
           select: {
             slug: true,
@@ -203,6 +217,13 @@ export async function getPlaces(
       fullDescription: p.fullDescription || undefined,
       photos: p.imageUrl ? [p.imageUrl] : [],
       verified: true,
+      // Dog-specific attributes
+      dogSizeAllowed: p.dogSizeAllowed,
+      hasWaterBowl: p.hasWaterBowl,
+      offLeashAllowed: p.offLeashAllowed,
+      hasOutdoorSeating: p.hasOutdoorSeating,
+      petFee: p.petFee,
+      maxDogsAllowed: p.maxDogsAllowed,
     }));
   }
 

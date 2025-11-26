@@ -7,6 +7,7 @@ import { generateSEOMetadata, siteConfig } from '@/lib/seo';
 import Map from "@/components/Map";
 import ItineraryGenerator from "@/components/ItineraryGenerator";
 import SearchInput from "@/components/SearchInput";
+import PlaceBadges from "@/components/PlaceBadges";
 
 // Generate static params for all cities
 export async function generateStaticParams() {
@@ -437,6 +438,18 @@ export default async function CityPage({ params, searchParams }: PageProps) {
                       )}
                     </div>
                   )}
+
+                  {/* Dog-specific badges */}
+                  <PlaceBadges
+                    dogSizeAllowed={place.dogSizeAllowed as any}
+                    hasWaterBowl={place.hasWaterBowl}
+                    offLeashAllowed={place.offLeashAllowed}
+                    hasOutdoorSeating={place.hasOutdoorSeating}
+                    petFee={place.petFee}
+                    maxDogsAllowed={place.maxDogsAllowed}
+                    variant="compact"
+                    className="mt-3"
+                  />
                 </div>
               </Link>
             ))}
