@@ -1,9 +1,11 @@
 # Proposal: Add Essential Place Attributes
 
 **Change ID:** `add-essential-place-attributes`  
-**Status:** Draft  
+**Status:** Implemented  
 **Created:** 2025-11-26  
+**Completed:** 2025-11-26  
 **Author:** AI Assistant  
+**Branch:** `feature/enhance-place-details`  
 
 ---
 
