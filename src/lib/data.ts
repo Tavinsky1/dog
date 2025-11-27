@@ -96,10 +96,16 @@ let placesCache: Place[] | null = null;
  */
 export function getCountries(): Country[] {
   if (!countriesCache) {
-    const countriesPath = path.join(process.cwd(), 'data', 'countries.json');
-    countriesCache = JSON.parse(fs.readFileSync(countriesPath, 'utf-8'));
+    try {
+      const countriesPath = path.join(process.cwd(), 'data', 'countries.json');
+      countriesCache = JSON.parse(fs.readFileSync(countriesPath, 'utf-8'));
+    } catch (error) {
+      console.error('Error reading countries.json:', error);
+      // Return empty data structure to prevent build failures
+      return [];
+    }
   }
-  return countriesCache!.countries;
+  return countriesCache!.countries || [];
 }
 
 /**
@@ -130,14 +136,19 @@ export function getCity(countrySlug: string, citySlug: string): City | undefined
  */
 function getPlacesSeed(): Place[] {
   if (!placesCache) {
-    const placesPath = path.join(process.cwd(), 'data', 'places.seed.json');
-    
-    // Return empty array if seed file doesn't exist yet
-    if (!fs.existsSync(placesPath)) {
+    try {
+      const placesPath = path.join(process.cwd(), 'data', 'places.seed.json');
+      
+      // Return empty array if seed file doesn't exist yet
+      if (!fs.existsSync(placesPath)) {
+        return [];
+      }
+      
+      placesCache = JSON.parse(fs.readFileSync(placesPath, 'utf-8'));
+    } catch (error) {
+      console.error('Error reading places.seed.json:', error);
       return [];
     }
-    
-    placesCache = JSON.parse(fs.readFileSync(placesPath, 'utf-8'));
   }
   return placesCache || [];
 }
