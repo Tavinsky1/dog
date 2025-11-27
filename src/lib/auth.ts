@@ -4,14 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
-const useSecureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
-const cookiePrefix = useSecureCookies ? "__Secure-" : "";
-
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
     CredentialsProvider({
       name: "credentials",
@@ -24,9 +21,8 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const identifier = credentials.email.toLowerCase().trim();
-
         try {
+          const identifier = credentials.email.toLowerCase().trim();
           const user = await prisma.user.findFirst({
             where: {
               OR: [
@@ -41,7 +37,6 @@ export const authOptions: NextAuthOptions = {
           }
 
           const isValid = await compare(credentials.password, user.passwordHash);
-          
           if (!isValid) {
             return null;
           }
@@ -53,7 +48,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role
           };
         } catch (error) {
-          console.error("Credentials auth error:", error);
+          console.error("Auth error:", error);
           return null;
         }
       }
@@ -62,47 +57,56 @@ export const authOptions: NextAuthOptions = {
   
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
-  
-  cookies: {
-    sessionToken: {
-      name: `${cookiePrefix}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-      },
-    },
+    maxAge: 30 * 24 * 60 * 60,
   },
   
   secret: process.env.NEXTAUTH_SECRET,
   
   callbacks: {
-    async jwt({ token, user, account }) {
-      // On initial sign in, user object is available
-      if (user) {
-        token.sub = user.id;
-        token.id = user.id;
-        token.role = (user as any).role;
-        
-        // For Google OAuth, fetch role from database
-        if (account?.provider === "google" && user.email) {
-          try {
-            const dbUser = await prisma.user.findUnique({
-              where: { email: user.email },
-              select: { id: true, role: true }
-            });
-            if (dbUser) {
-              token.id = dbUser.id;
-              token.role = dbUser.role;
+    async signIn({ user, account }) {
+      if (account?.provider === "google" && user.email) {
+        try {
+          await prisma.user.upsert({
+            where: { email: user.email },
+            update: { 
+              name: user.name || undefined,
+              image: user.image || undefined,
+            },
+            create: {
+              email: user.email,
+              name: user.name,
+              image: user.image,
+              role: "USER"
             }
-          } catch (error) {
-            console.error("Error fetching user role:", error);
-          }
+          });
+        } catch (error) {
+          console.error("Failed to upsert user:", error);
         }
       }
+      return true;
+    },
+    
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
+        token.role = (user as any).role || "USER";
+      }
+      
+      if (account?.provider === "google" && token.email) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { email: token.email as string },
+            select: { id: true, role: true }
+          });
+          if (dbUser) {
+            token.id = dbUser.id;
+            token.role = dbUser.role;
+          }
+        } catch (error) {
+          console.error("Failed to fetch user:", error);
+        }
+      }
+      
       return token;
     },
     
@@ -113,53 +117,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    
-    async signIn({ user, account }) {
-      if (account?.provider === "google") {
-        try {
-          const existingUser = await prisma.user.findUnique({
-            where: { email: user.email! }
-          });
-          
-          if (existingUser) {
-            await prisma.user.update({
-              where: { email: user.email! },
-              data: { 
-                name: user.name,
-                image: user.image
-              }
-            });
-          } else {
-            await prisma.user.create({
-              data: {
-                email: user.email!,
-                name: user.name,
-                image: user.image,
-                role: "USER"
-              }
-            });
-          }
-        } catch (error) {
-          console.error("Error upserting user:", error);
-          // Still allow sign in even if DB fails
-        }
-      }
-      return true;
-    },
-    
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
-    }
   },
   
   pages: {
     signIn: "/login",
-    signOut: "/",
   },
-  
-  debug: process.env.NODE_ENV === "development"
 };
