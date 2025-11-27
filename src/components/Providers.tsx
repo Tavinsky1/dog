@@ -9,7 +9,7 @@ interface ProvidersProps {
 
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={true} refetchInterval={0}>
       <ToastProvider>
         {children}
         <ToastContainer />

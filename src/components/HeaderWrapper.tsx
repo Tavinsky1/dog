@@ -19,15 +19,24 @@ function deriveSelectedCity(pathname: string, cities: City[]): string {
 }
 
 export default function HeaderWrapper() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const userRole = (session?.user as { role?: string } | undefined)?.role;
   const router = useRouter();
   const pathname = usePathname();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [prevSession, setPrevSession] = useState(session);
 
   const [cities, setCities] = useState<City[]>([]);
   const [selected, setSelected] = useState("home");
   const [isLoadingCities, setIsLoadingCities] = useState(true);
+
+  // Refresh the page when session changes (after sign in/out)
+  useEffect(() => {
+    if (prevSession !== session && status !== "loading") {
+      setPrevSession(session);
+      router.refresh();
+    }
+  }, [session, status, prevSession, router]);
 
   useEffect(() => {
     let isMounted = true;
