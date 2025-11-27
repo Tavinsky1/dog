@@ -4,6 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
+const useSecureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
+const cookiePrefix = useSecureCookies ? "__Secure-" : "";
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -23,37 +26,55 @@ export const authOptions: NextAuthOptions = {
 
         const identifier = credentials.email.toLowerCase().trim();
 
-        const user = await prisma.user.findFirst({
-          where: {
-            OR: [
-              { email: identifier },
-              { name: identifier }
-            ]
+        try {
+          const user = await prisma.user.findFirst({
+            where: {
+              OR: [
+                { email: identifier },
+                { name: identifier }
+              ]
+            }
+          });
+
+          if (!user?.passwordHash) {
+            return null;
           }
-        });
 
-        if (!user?.passwordHash) {
+          const isValid = await compare(credentials.password, user.passwordHash);
+          
+          if (!isValid) {
+            return null;
+          }
+          
+          return {
+            id: user.id,
+            email: user.email!,
+            name: user.name,
+            role: user.role
+          };
+        } catch (error) {
+          console.error("Credentials auth error:", error);
           return null;
         }
-
-        const isValid = await compare(credentials.password, user.passwordHash);
-        
-        if (!isValid) {
-          return null;
-        }
-        
-        return {
-          id: user.id,
-          email: user.email!,
-          name: user.name,
-          role: user.role
-        };
       }
     })
   ],
   
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+      },
+    },
   },
   
   secret: process.env.NEXTAUTH_SECRET,
@@ -124,11 +145,20 @@ export const authOptions: NextAuthOptions = {
         }
       }
       return true;
+    },
+    
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     }
   },
   
   pages: {
-    signIn: "/login"
+    signIn: "/login",
+    signOut: "/",
   },
   
   debug: process.env.NODE_ENV === "development"

@@ -1,24 +1,25 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 import { generateId } from '@/lib/accessibility';
 
-type Me = { id: string; role: string; username: string } | null;
-
 export default function Header() {
-  const [me, setMe] = useState<Me>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navId = generateId('main-nav');
 
-  useEffect(() => {
-    fetch("/api/me").then(r => r.ok ? r.json() : null).then(setMe).finally(()=>setLoading(false));
-  }, []);
+  // Extract user info from session
+  const me = session?.user ? {
+    id: (session.user as any).id || "",
+    role: (session.user as any).role || "USER",
+    username: session.user.name || session.user.email || "User"
+  } : null;
 
   async function logout() {
-    await fetch("/api/auth/logout", { method: "POST" });
-    location.reload();
+    await signOut({ callbackUrl: "/" });
   }
 
   return (
