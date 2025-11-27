@@ -59,11 +59,28 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
+      // On initial sign in, user object is available
       if (user) {
         token.sub = user.id;
         token.id = user.id;
         token.role = (user as any).role;
+        
+        // For Google OAuth, fetch role from database
+        if (account?.provider === "google" && user.email) {
+          try {
+            const dbUser = await prisma.user.findUnique({
+              where: { email: user.email },
+              select: { id: true, role: true }
+            });
+            if (dbUser) {
+              token.id = dbUser.id;
+              token.role = dbUser.role;
+            }
+          } catch (error) {
+            console.error("Error fetching user role:", error);
+          }
+        }
       }
       return token;
     },
@@ -78,19 +95,33 @@ export const authOptions: NextAuthOptions = {
     
     async signIn({ user, account }) {
       if (account?.provider === "google") {
-        await prisma.user.upsert({
-          where: { email: user.email! },
-          update: { 
-            name: user.name,
-            image: user.image
-          },
-          create: {
-            email: user.email!,
-            name: user.name,
-            image: user.image,
-            role: "USER"
+        try {
+          const existingUser = await prisma.user.findUnique({
+            where: { email: user.email! }
+          });
+          
+          if (existingUser) {
+            await prisma.user.update({
+              where: { email: user.email! },
+              data: { 
+                name: user.name,
+                image: user.image
+              }
+            });
+          } else {
+            await prisma.user.create({
+              data: {
+                email: user.email!,
+                name: user.name,
+                image: user.image,
+                role: "USER"
+              }
+            });
           }
-        });
+        } catch (error) {
+          console.error("Error upserting user:", error);
+          // Still allow sign in even if DB fails
+        }
       }
       return true;
     }
@@ -98,5 +129,7 @@ export const authOptions: NextAuthOptions = {
   
   pages: {
     signIn: "/login"
-  }
+  },
+  
+  debug: process.env.NODE_ENV === "development"
 };
