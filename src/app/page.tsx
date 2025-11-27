@@ -39,18 +39,29 @@ const FEATURE_CARDS = [
 ];
 
 export default async function Home() {
-  // Get countries and their stats
-  const countries = await getCountries();
-  const stats = await getStats();
+  // Get countries and their stats - with fallback for build errors
+  let countries: Awaited<ReturnType<typeof getCountries>> = [];
+  let stats = { countries: 0, cities: 0, places: 0, verified: 0 };
+  let recentReviews: Awaited<ReturnType<typeof getRecentReviews>> = [];
   
-  // Get recent reviews
-  const recentReviews = await getRecentReviews(4);
+  try {
+    countries = await getCountries();
+    stats = await getStats();
+  } catch (error) {
+    console.error('Error loading countries/stats:', error);
+  }
+  
+  try {
+    recentReviews = await getRecentReviews(4);
+  } catch (error) {
+    console.error('Error loading reviews:', error);
+  }
   
   // Get all cities across all countries
   const allCities = await Promise.all(
-    countries.map(async (country) => {
+    (countries || []).map(async (country) => {
       const cities = await getCities(country.slug);
-      return cities.map(city => ({
+      return (cities || []).map(city => ({
         id: city.slug,
         slug: city.slug,
         name: city.name,
@@ -62,7 +73,7 @@ export default async function Home() {
   );
   
   // Flatten and sort cities by place count
-  const activeCities = allCities
+  const activeCities = (allCities || [])
     .flat()
     .filter(city => city.placeCount > 0)
     .sort((a, b) => b.placeCount - a.placeCount);
