@@ -41,6 +41,7 @@ model City {
   lat       Float
   lng       Float
   bbox      Json?    // GeoJSON bbox
+  image     String?  // City banner image URL
   active    Boolean  @default(true)
   places    Place[]
   createdAt DateTime @default(now())
