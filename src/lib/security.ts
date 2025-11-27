@@ -186,6 +186,24 @@ export function addSecurityHeaders(response: NextResponse): NextResponse {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
 
+  // Content Security Policy
+  // In development, we need 'unsafe-eval' for Next.js hot reload
+  // In production, this should be more restrictive
+  const isDev = process.env.NODE_ENV === 'development'
+  const csp = [
+    "default-src 'self'",
+    `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://accounts.google.com https://www.googletagmanager.com https://www.google-analytics.com`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: blob: https: http:",
+    "font-src 'self' https://fonts.gstatic.com",
+    "connect-src 'self' https://accounts.google.com https://www.google-analytics.com https://vitals.vercel-insights.com",
+    "frame-src 'self' https://accounts.google.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+  ].join('; ')
+  
+  response.headers.set('Content-Security-Policy', csp)
+
   // Remove server header
   response.headers.delete('Server')
 
