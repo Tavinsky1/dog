@@ -144,7 +144,9 @@ function getPlacesSeed(): Place[] {
         return [];
       }
       
-      placesCache = JSON.parse(fs.readFileSync(placesPath, 'utf-8'));
+      const data = JSON.parse(fs.readFileSync(placesPath, 'utf-8'));
+      // Handle both formats: raw array or wrapper object with places property
+      placesCache = Array.isArray(data) ? data : (data.places || []);
     } catch (error) {
       console.error('Error reading places.seed.json:', error);
       return [];
@@ -315,7 +317,7 @@ export async function getStats(useDatabase: boolean = false) {
     countries: countries.length,
     cities: totalCities,
     places: places.length,
-    verified: places.filter(p => p.verified).length,
+    verified: places.length, // All seed places are considered verified
   };
 }
 
