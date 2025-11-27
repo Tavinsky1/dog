@@ -45,8 +45,8 @@ export default async function CityPage({ params, searchParams }: PageProps) {
     notFound();
   }
 
-  // Get places (from seed file or database)
-  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, featureFlags.useDatabase);
+  // Get places from database (always use database in production)
+  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, true);
   
   // Filter places based on category and search query
   const filteredPlaces = allPlaces.filter((place) => {
@@ -511,7 +511,7 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
     };
   }
 
-  const places = await getPlaces(countrySlug, citySlug, category, featureFlags.useDatabase);
+  const places = await getPlaces(countrySlug, citySlug, category, true);
   const categoryLabel = category ? getCategoryLabel(category) : 'places';
 
   return generateSEOMetadata({

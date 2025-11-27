@@ -24,7 +24,7 @@ export default function ContactPage() {
       <section className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-8 space-y-4">
         <h2 className="text-2xl font-bold text-slate-900">About Dog Atlas</h2>
         <p className="text-slate-700 leading-relaxed">
-          Dog Atlas is operated by <strong>Gustavo Del Prato</strong>, dedicated to helping dog owners 
+          Dog Atlas is operated by <strong>Inksky Independent Studio</strong>, dedicated to helping dog owners 
           discover the best dog-friendly places around the world. From cozy cafés with outdoor seating 
           to off-leash parks and swimming spots, we make it easy to find places where both you and your 
           furry friend are welcome.

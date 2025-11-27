@@ -24,8 +24,8 @@ export default async function PlaceDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Get all places for this city
-  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, featureFlags.useDatabase);
+  // Get all places for this city (always use database)
+  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, true);
   
   // Find the specific place by ID
   const place = allPlaces.find((p) => p.id === placeId);
@@ -260,7 +260,7 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
-  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, featureFlags.useDatabase);
+  const allPlaces = await getPlaces(countrySlug, citySlug, undefined, true);
   const place = allPlaces.find((p) => p.id === placeId);
 
   if (!place) {
