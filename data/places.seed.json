@@ -249,7 +249,7 @@
     "lng": 2.13705660911329,
     "shortDescription": "Artisan bakery and café with multiple locations in Barcelona. Dogs welcome on the terrace for coffee and pastries.",
     "fullDescription": "Artisan bakery and café with multiple locations in Barcelona. Dogs welcome on the terrace for coffee and pastries.",
-    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/15037/20160616_7131_15037.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -273,7 +273,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.204Z",
-    "updatedAt": "2025-11-26T23:46:46.808Z"
+    "updatedAt": "2025-11-27T11:42:38.037Z"
   },
   {
     "id": "08b6c80c-23fa-4d3f-92a3-223ac958087b",
@@ -563,7 +563,7 @@
     "lng": 12.51399992070655,
     "shortDescription": "Elegant restaurant with a relaxed atmosphere. Dogs welcome to join their owners for a meal.",
     "fullDescription": "Elegant restaurant with a relaxed atmosphere. Dogs welcome to join their owners for a meal.",
-    "imageUrl": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/8/2/4/117428/117428_73499188.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -587,7 +587,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.195Z",
-    "updatedAt": "2025-11-26T23:46:46.803Z"
+    "updatedAt": "2025-11-27T11:42:38.034Z"
   },
   {
     "id": "10f64911-0c52-4cbe-a36e-db19470b5dc4",
@@ -1183,7 +1183,7 @@
     "lng": 13.4003478437491,
     "shortDescription": "Organic café in Friedrichshain with delicious breakfast and brunch. Dogs welcome both inside and on the terrace.",
     "fullDescription": "Organic café in Friedrichshain with delicious breakfast and brunch. Dogs welcome both inside and on the terrace.",
-    "imageUrl": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/2/9/8/74892/74892_283480.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -1207,7 +1207,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.321Z",
-    "updatedAt": "2025-11-26T23:46:46.794Z"
+    "updatedAt": "2025-11-27T11:42:38.027Z"
   },
   {
     "id": "20570b4b-e6bd-4053-8894-87c21582f1db",
@@ -1697,7 +1697,7 @@
     "lng": 13.34804302067357,
     "shortDescription": "Pan-Asian restaurant near Savignyplatz. Dogs are welcome and the staff is very accommodating to four-legged guests.",
     "fullDescription": "Pan-Asian restaurant near Savignyplatz. Dogs are welcome and the staff is very accommodating to four-legged guests.",
-    "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/posted/2024/11/21/458557892_526003399952561_1614617182611515524_n.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -1720,7 +1720,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.326Z",
-    "updatedAt": "2025-11-26T23:46:46.797Z"
+    "updatedAt": "2025-11-27T11:42:38.028Z"
   },
   {
     "id": "2675dbee-ffb9-44ec-b6f9-9d6d534415bb",
@@ -1806,7 +1806,7 @@
     "lng": 2.3372,
     "shortDescription": "Beautiful park with designated dog areas",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Le_Jardin_du_Luxembourg_5%2C_Paris_2010.jpg/1280px-Le_Jardin_du_Luxembourg_5%2C_Paris_2010.jpg",
     "gallery": null,
     "dogFriendlyLevel": 3,
     "amenities": null,
@@ -1826,7 +1826,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.688Z",
-    "updatedAt": "2025-11-26T22:14:20.688Z"
+    "updatedAt": "2025-11-27T11:42:38.042Z"
   },
   {
     "id": "2750995d-9037-40c2-9efc-cd1d841f63c4",
@@ -2316,7 +2316,7 @@
     "lng": 13.34917340607143,
     "shortDescription": "Large forested park with designated off-leash areas for dogs. Plenty of shade and trails to explore.",
     "fullDescription": "Large forested park with designated off-leash areas for dogs. Plenty of shade and trails to explore.",
-    "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Volkspark_Jungfernheide_Berlin-Charlottenburg.jpg/1280px-Volkspark_Jungfernheide_Berlin-Charlottenburg.jpg",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -2341,7 +2341,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.323Z",
-    "updatedAt": "2025-11-26T23:46:46.795Z"
+    "updatedAt": "2025-11-27T11:42:38.044Z"
   },
   {
     "id": "31969396-a4e5-4618-9fec-bc7a05e98772",
@@ -2767,7 +2767,7 @@
     "lng": 2.3758452702516,
     "shortDescription": "River shuttle service on the Seine. Small dogs in carriers are allowed, making it a unique way to sightsee with your pup.",
     "fullDescription": "River shuttle service on the Seine. Small dogs in carriers are allowed, making it a unique way to sightsee with your pup.",
-    "imageUrl": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/attractions/1/8/7/3187/3187_21009.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -2791,7 +2791,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.332Z",
-    "updatedAt": "2025-11-26T23:46:46.800Z"
+    "updatedAt": "2025-11-27T11:42:38.032Z"
   },
   {
     "id": "3a591640-868f-43d7-9a50-bbe2e292bb21",
@@ -2941,7 +2941,7 @@
     "lng": 2.352101936475086,
     "shortDescription": "Trendy café-bar in the 11th with great cocktails and food. Dogs are welcome and the staff is very friendly to pets.",
     "fullDescription": "Trendy café-bar in the 11th with great cocktails and food. Dogs are welcome and the staff is very friendly to pets.",
-    "imageUrl": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/posted/2019/06/14/537915/21617670_529832054022724_2729206268465984721_n.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -2965,7 +2965,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.330Z",
-    "updatedAt": "2025-11-26T23:46:46.799Z"
+    "updatedAt": "2025-11-27T11:42:38.030Z"
   },
   {
     "id": "3fedb2b5-ba44-40b3-b966-91312a3358c5",
@@ -3251,7 +3251,7 @@
     "lng": 2.1838,
     "shortDescription": "Popular beach with dog-friendly areas",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Barcelona_Barceloneta_Beach.jpg/1280px-Barcelona_Barceloneta_Beach.jpg",
     "gallery": null,
     "dogFriendlyLevel": 4,
     "amenities": null,
@@ -3271,7 +3271,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.686Z",
-    "updatedAt": "2025-11-26T22:14:20.686Z"
+    "updatedAt": "2025-11-27T11:42:38.042Z"
   },
   {
     "id": "481dc6a6-8133-43c4-b337-d27573e12a14",
@@ -3459,7 +3459,7 @@
     "lng": 2.177237537126007,
     "shortDescription": "Trendy café and brunch spot. Dogs welcome on the outdoor seating area.",
     "fullDescription": "Trendy café and brunch spot. Dogs welcome on the outdoor seating area.",
-    "imageUrl": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/12853/20160616_6893_12853.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -3483,7 +3483,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.204Z",
-    "updatedAt": "2025-11-26T23:46:46.808Z"
+    "updatedAt": "2025-11-27T11:42:38.037Z"
   },
   {
     "id": "4b874a77-ea60-4c6d-9f45-99ca7ad503ce",
@@ -3654,40 +3654,6 @@
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:13:19.641Z",
     "updatedAt": "2025-11-26T23:13:19.641Z"
-  },
-  {
-    "id": "4ea36956-6ff0-4354-97ed-73b6c16cf04e",
-    "slug": "dr-fidos-tierklinik",
-    "name": "Dr. Fido's Tierklinik",
-    "type": "shops_services",
-    "cityId": "4ad785df-355c-46bf-a3ee-22ad5bdf4705",
-    "region": "Kreuzberg",
-    "country": "Germany",
-    "lat": 52.492,
-    "lng": 13.41,
-    "shortDescription": "24-hour emergency veterinary clinic",
-    "fullDescription": null,
-    "imageUrl": null,
-    "gallery": null,
-    "dogFriendlyLevel": 5,
-    "amenities": null,
-    "rules": null,
-    "websiteUrl": null,
-    "phone": null,
-    "email": null,
-    "priceRange": null,
-    "openingHours": null,
-    "rating": 4.8,
-    "tags": null,
-    "source": null,
-    "dogSizeAllowed": null,
-    "hasWaterBowl": null,
-    "offLeashAllowed": null,
-    "hasOutdoorSeating": null,
-    "petFee": null,
-    "maxDogsAllowed": null,
-    "createdAt": "2025-11-26T22:14:20.684Z",
-    "updatedAt": "2025-11-26T22:14:20.684Z"
   },
   {
     "id": "4f6b4406-59b6-420d-950f-495e3f029013",
@@ -4155,7 +4121,7 @@
     "lng": 13.3501,
     "shortDescription": "Large central park perfect for dog walking",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tiergarten_Berlin_Luftaufnahme.jpg/1280px-Tiergarten_Berlin_Luftaufnahme.jpg",
     "gallery": null,
     "dogFriendlyLevel": 5,
     "amenities": null,
@@ -4175,7 +4141,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.678Z",
-    "updatedAt": "2025-11-26T22:14:20.678Z"
+    "updatedAt": "2025-11-27T11:42:38.040Z"
   },
   {
     "id": "59f54334-a718-4f5d-b31a-37950543d97d",
@@ -4189,7 +4155,7 @@
     "lng": 12.53584214493461,
     "shortDescription": "Pet-friendly tour of Rome on a classic Vespa sidecar. See the historic sites while your small dog rides along!",
     "fullDescription": "Pet-friendly tour of Rome on a classic Vespa sidecar. See the historic sites while your small dog rides along!",
-    "imageUrl": "https://images.unsplash.com/photo-1523395243481-163f8f6155ab?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/attractions/2/6/2/20262/20262_9693.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -4213,7 +4179,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.200Z",
-    "updatedAt": "2025-11-26T23:46:46.806Z"
+    "updatedAt": "2025-11-27T11:42:38.036Z"
   },
   {
     "id": "5aa64988-9419-4ff3-a264-24661451826c",
@@ -4295,7 +4261,7 @@
     "lng": 2.3652,
     "shortDescription": "Dog-friendly bar and café with garden",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Le_Comptoir_G%C3%A9n%C3%A9ral_2.jpg/1280px-Le_Comptoir_G%C3%A9n%C3%A9ral_2.jpg",
     "gallery": null,
     "dogFriendlyLevel": 4,
     "amenities": null,
@@ -4315,7 +4281,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.690Z",
-    "updatedAt": "2025-11-26T22:14:20.690Z"
+    "updatedAt": "2025-11-27T11:42:38.043Z"
   },
   {
     "id": "5d7a926e-c250-4a7c-8e2d-0863d3997ca8",
@@ -4454,40 +4420,6 @@
     "updatedAt": "2025-11-26T23:13:19.776Z"
   },
   {
-    "id": "62c883f7-57e4-4b82-84b1-723f58b3b3cc",
-    "slug": "hundepension-berlin",
-    "name": "Hundepension Berlin",
-    "type": "accommodation",
-    "cityId": "4ad785df-355c-46bf-a3ee-22ad5bdf4705",
-    "region": "Mitte",
-    "country": "Germany",
-    "lat": 52.52,
-    "lng": 13.41,
-    "shortDescription": "Premium dog hotel with daycare services",
-    "fullDescription": null,
-    "imageUrl": null,
-    "gallery": null,
-    "dogFriendlyLevel": 5,
-    "amenities": null,
-    "rules": null,
-    "websiteUrl": null,
-    "phone": null,
-    "email": null,
-    "priceRange": null,
-    "openingHours": null,
-    "rating": 4.7,
-    "tags": null,
-    "source": null,
-    "dogSizeAllowed": null,
-    "hasWaterBowl": null,
-    "offLeashAllowed": null,
-    "hasOutdoorSeating": null,
-    "petFee": null,
-    "maxDogsAllowed": null,
-    "createdAt": "2025-11-26T22:14:20.684Z",
-    "updatedAt": "2025-11-26T22:14:20.684Z"
-  },
-  {
     "id": "64386640-e62d-43d4-9d60-c724bd430dd0",
     "slug": "gothic-quarter-walking-tour",
     "name": "Gothic Quarter Walking Tour",
@@ -4499,7 +4431,7 @@
     "lng": 2.177929690403427,
     "shortDescription": "Explore the historic Barri Gòtic with your dog. Winding medieval streets full of history and dog-friendly cafés.",
     "fullDescription": "Explore the historic Barri Gòtic with your dog. Winding medieval streets full of history and dog-friendly cafés.",
-    "imageUrl": "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/attractions/5/0/2/18502/18502_6556.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -4523,7 +4455,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.209Z",
-    "updatedAt": "2025-11-26T23:46:46.811Z"
+    "updatedAt": "2025-11-27T11:42:38.039Z"
   },
   {
     "id": "643c3180-4c6b-4a3f-a16b-2db140914875",
@@ -4605,7 +4537,7 @@
     "lng": 2.34270247048424,
     "shortDescription": "Professional dog walking and pet sitting service in Paris. Great for tourists who need someone to watch their pup.",
     "fullDescription": "Professional dog walking and pet sitting service in Paris. Great for tourists who need someone to watch their pup.",
-    "imageUrl": "https://images.unsplash.com/photo-1558929996-da64ba858215?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/resources/8/5/5/120855/120855_93052717.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -4628,7 +4560,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.336Z",
-    "updatedAt": "2025-11-26T23:46:46.801Z"
+    "updatedAt": "2025-11-27T11:42:38.033Z"
   },
   {
     "id": "65aac086-ea1b-436b-93e1-d05ba9de7c26",
@@ -4748,7 +4680,7 @@
     "lng": 2.168345329595852,
     "shortDescription": "Water park designed specifically for dogs! Features swimming pools, shallow areas for small dogs, and plenty of space to splash.",
     "fullDescription": "Water park designed specifically for dogs! Features swimming pools, shallow areas for small dogs, and plenty of space to splash.",
-    "imageUrl": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/attractions/7/1/6/18716/18716_6765.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -4772,7 +4704,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.208Z",
-    "updatedAt": "2025-11-26T23:46:46.810Z"
+    "updatedAt": "2025-11-27T11:42:38.039Z"
   },
   {
     "id": "674e5fa8-ec4e-4784-a51b-0fc97d5e95fd",
@@ -5028,7 +4960,7 @@
     "lng": 2.2495,
     "shortDescription": "Large forest with extensive off-leash areas",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Bois_de_boulogne.jpg/1280px-Bois_de_boulogne.jpg",
     "gallery": null,
     "dogFriendlyLevel": 5,
     "amenities": null,
@@ -5048,7 +4980,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.689Z",
-    "updatedAt": "2025-11-26T22:14:20.689Z"
+    "updatedAt": "2025-11-27T11:42:38.043Z"
   },
   {
     "id": "738a4929-0549-464d-9548-8fa4e4226b7a",
@@ -5236,7 +5168,7 @@
     "lng": 2.387863859150174,
     "shortDescription": "Dog grooming salon in Paris. Professional groomers who specialize in all breeds and coat types.",
     "fullDescription": "Dog grooming salon in Paris. Professional groomers who specialize in all breeds and coat types.",
-    "imageUrl": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/resources/8/5/4/120854/120854_93052641.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -5259,7 +5191,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.337Z",
-    "updatedAt": "2025-11-26T23:46:46.802Z"
+    "updatedAt": "2025-11-27T11:42:38.033Z"
   },
   {
     "id": "77286dfa-b7dc-40e5-83f7-05e3ca374483",
@@ -5749,7 +5681,7 @@
     "lng": 12.4798,
     "shortDescription": "Historic café with dog-friendly outdoor seating",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Caffe_Greco_in_Rome.jpg/1280px-Caffe_Greco_in_Rome.jpg",
     "gallery": null,
     "dogFriendlyLevel": 3,
     "amenities": null,
@@ -5769,7 +5701,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.692Z",
-    "updatedAt": "2025-11-26T22:14:20.692Z"
+    "updatedAt": "2025-11-27T11:42:38.044Z"
   },
   {
     "id": "85830b77-c7a7-4ff1-b385-d6eb956c88da",
@@ -5783,7 +5715,7 @@
     "lng": 2.204571068885723,
     "shortDescription": "Dog-themed café where canines are the star! A must-visit for dog lovers with treats for both humans and pups.",
     "fullDescription": "Dog-themed café where canines are the star! A must-visit for dog lovers with treats for both humans and pups.",
-    "imageUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/6/4/5/84546/84546_319609.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -5807,7 +5739,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.206Z",
-    "updatedAt": "2025-11-26T23:46:46.810Z"
+    "updatedAt": "2025-11-27T11:42:38.038Z"
   },
   {
     "id": "85d79a90-e73b-4e6d-9285-33199aa4e9b3",
@@ -5957,7 +5889,7 @@
     "lng": 2.325367516409681,
     "shortDescription": "Rooftop restaurant atop Printemps department store with stunning views. Dogs allowed on the outdoor terrace.",
     "fullDescription": "Rooftop restaurant atop Printemps department store with stunning views. Dogs allowed on the outdoor terrace.",
-    "imageUrl": "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/posted/2023/05/15/image.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -5981,7 +5913,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.331Z",
-    "updatedAt": "2025-11-26T23:46:46.799Z"
+    "updatedAt": "2025-11-27T11:42:38.031Z"
   },
   {
     "id": "867d675a-270a-43e3-a0fe-c03da7b554d5",
@@ -6097,7 +6029,7 @@
     "lng": 12.48685622043091,
     "shortDescription": "Beloved Trastevere trattoria known for authentic Roman cuisine. Small dogs welcome on the terrace.",
     "fullDescription": "Beloved Trastevere trattoria known for authentic Roman cuisine. Small dogs welcome on the terrace.",
-    "imageUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/2/7/9/120972/120972_93808587.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -6121,7 +6053,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.193Z",
-    "updatedAt": "2025-11-26T23:46:46.802Z"
+    "updatedAt": "2025-11-27T11:42:38.034Z"
   },
   {
     "id": "8941543d-e62d-44e2-b257-f6eb0cf16089",
@@ -6169,7 +6101,7 @@
     "lng": 2.369751309538711,
     "shortDescription": "Classic Parisian bistro in the Bastille area. Dogs are welcome inside and it's a great spot for people-watching with your pup.",
     "fullDescription": "Classic Parisian bistro in the Bastille area. Dogs are welcome inside and it's a great spot for people-watching with your pup.",
-    "imageUrl": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/450/20160616_10563_450.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -6193,7 +6125,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.327Z",
-    "updatedAt": "2025-11-26T23:46:46.797Z"
+    "updatedAt": "2025-11-27T11:42:38.029Z"
   },
   {
     "id": "89d1ba88-7d5d-48c9-83da-037a03be5cc8",
@@ -6687,7 +6619,7 @@
     "lng": 13.35227224663634,
     "shortDescription": "Healthy fresh food spot in Friedrichshain. Dog-friendly with a relaxed atmosphere, perfect for brunch with your pup.",
     "fullDescription": "Healthy fresh food spot in Friedrichshain. Dog-friendly with a relaxed atmosphere, perfect for brunch with your pup.",
-    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/7/9/7/125797/125797_99145278.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -6710,7 +6642,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.322Z",
-    "updatedAt": "2025-11-26T23:46:46.794Z"
+    "updatedAt": "2025-11-27T11:42:38.027Z"
   },
   {
     "id": "96617673-9bf4-43a4-968e-2c2a446e60c0",
@@ -6894,7 +6826,7 @@
     "lng": 13.4023,
     "shortDescription": "Famous park with flea market and dog-friendly areas",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mauerpark_Berlin.jpg/1280px-Mauerpark_Berlin.jpg",
     "gallery": null,
     "dogFriendlyLevel": 4,
     "amenities": null,
@@ -6914,7 +6846,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.683Z",
-    "updatedAt": "2025-11-26T22:14:20.683Z"
+    "updatedAt": "2025-11-27T11:42:38.041Z"
   },
   {
     "id": "99a831d8-2db8-4f88-a85c-4c8599923c44",
@@ -6996,7 +6928,7 @@
     "lng": 13.36556693038248,
     "shortDescription": "Professional dog training service in Kreuzberg. Offers both group classes and private sessions using positive reinforcement methods.",
     "fullDescription": "Professional dog training service in Kreuzberg. Offers both group classes and private sessions using positive reinforcement methods.",
-    "imageUrl": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/resources/2/1/8/68218/68218_40127.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -7020,7 +6952,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.325Z",
-    "updatedAt": "2025-11-26T23:46:46.796Z"
+    "updatedAt": "2025-11-27T11:42:38.029Z"
   },
   {
     "id": "9e36f707-52a4-4c08-9e80-172421c52f73",
@@ -7034,7 +6966,7 @@
     "lng": 12.47180406249918,
     "shortDescription": "Charming traditional bakery in Trastevere. Perfect for a quick coffee and biscotti with your pup.",
     "fullDescription": "Charming traditional bakery in Trastevere. Perfect for a quick coffee and biscotti with your pup.",
-    "imageUrl": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/0/9/7/119790/119790_86870193.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -7058,7 +6990,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.198Z",
-    "updatedAt": "2025-11-26T23:46:46.805Z"
+    "updatedAt": "2025-11-27T11:42:38.035Z"
   },
   {
     "id": "9f0e8862-d5db-414f-86ca-ccf6f2ffdebe",
@@ -8406,7 +8338,7 @@
     "lng": 2.345103001987795,
     "shortDescription": "Upscale pet boutique in the 9th arrondissement. Great selection of premium dog food, accessories, and treats.",
     "fullDescription": "Upscale pet boutique in the 9th arrondissement. Great selection of premium dog food, accessories, and treats.",
-    "imageUrl": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/resources/8/5/6/120856/120856_93052785.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -8429,7 +8361,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.334Z",
-    "updatedAt": "2025-11-26T23:46:46.801Z"
+    "updatedAt": "2025-11-27T11:42:38.032Z"
   },
   {
     "id": "c381561f-fb15-45fb-89a9-76d28a6dd3e4",
@@ -8685,7 +8617,7 @@
     "lng": 2.193011841101702,
     "shortDescription": "Popular tapas restaurant with multiple locations. Dogs welcome on outdoor terraces while you enjoy authentic Spanish tapas.",
     "fullDescription": "Popular tapas restaurant with multiple locations. Dogs welcome on outdoor terraces while you enjoy authentic Spanish tapas.",
-    "imageUrl": "https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/453/20160616_10788_453.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -8709,7 +8641,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.203Z",
-    "updatedAt": "2025-11-26T23:46:46.807Z"
+    "updatedAt": "2025-11-27T11:42:38.037Z"
   },
   {
     "id": "c86ba832-996c-4f8f-aa29-f9949cf09843",
@@ -8931,7 +8863,7 @@
     "lng": 13.3617,
     "shortDescription": "Dog-friendly café with outdoor seating",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Einstein_Stammhaus_Berlin_Kurfuerstenstrasse.jpg/1280px-Einstein_Stammhaus_Berlin_Kurfuerstenstrasse.jpg",
     "gallery": null,
     "dogFriendlyLevel": 4,
     "amenities": null,
@@ -8951,7 +8883,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.680Z",
-    "updatedAt": "2025-11-26T22:14:20.680Z"
+    "updatedAt": "2025-11-27T11:42:38.040Z"
   },
   {
     "id": "cc15d247-eb1e-4d3a-bb5e-19596dbabc10",
@@ -9101,7 +9033,7 @@
     "lng": 13.38797740680414,
     "shortDescription": "Classic Berlin beer garden right by the Tiergarten lock. Dogs welcome on the outdoor terrace. Perfect stop after a walk through Tiergarten.",
     "fullDescription": "Classic Berlin beer garden right by the Tiergarten lock. Dogs welcome on the outdoor terrace. Perfect stop after a walk through Tiergarten.",
-    "imageUrl": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/9/6/8/127869/127869_133078267.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -9125,7 +9057,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.319Z",
-    "updatedAt": "2025-11-26T23:46:46.790Z"
+    "updatedAt": "2025-11-27T11:42:38.021Z"
   },
   {
     "id": "cfc1bd4d-b3bd-4fc5-99bc-41e4684dceae",
@@ -9313,7 +9245,7 @@
     "lng": 13.2594,
     "shortDescription": "Large forest with trails for hiking with dogs",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Grunewald_Luftbild.jpg/1280px-Grunewald_Luftbild.jpg",
     "gallery": null,
     "dogFriendlyLevel": 5,
     "amenities": null,
@@ -9333,7 +9265,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.681Z",
-    "updatedAt": "2025-11-26T22:14:20.681Z"
+    "updatedAt": "2025-11-27T11:42:38.041Z"
   },
   {
     "id": "d3198b67-69ca-42bf-aab9-817b2b8c13e6",
@@ -9381,7 +9313,7 @@
     "lng": 2.143495555742152,
     "shortDescription": "French-style bistro in Barcelona. Dogs allowed to accompany their owners for a lovely meal.",
     "fullDescription": "French-style bistro in Barcelona. Dogs allowed to accompany their owners for a lovely meal.",
-    "imageUrl": "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/8/2/7/74728/74728_283498.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -9405,7 +9337,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.205Z",
-    "updatedAt": "2025-11-26T23:46:46.809Z"
+    "updatedAt": "2025-11-27T11:42:38.038Z"
   },
   {
     "id": "d6e7d775-bd12-4e2c-9053-d8b53ceb5cdc",
@@ -9555,7 +9487,7 @@
     "lng": 12.46264641758604,
     "shortDescription": "Modern bistro with creative Italian cuisine. Dogs allowed on the outdoor terrace area.",
     "fullDescription": "Modern bistro with creative Italian cuisine. Dogs allowed on the outdoor terrace area.",
-    "imageUrl": "https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/2/8/7/119782/119782_86817610.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -9579,7 +9511,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.196Z",
-    "updatedAt": "2025-11-26T23:46:46.804Z"
+    "updatedAt": "2025-11-27T11:42:38.034Z"
   },
   {
     "id": "d8ea1235-bd43-4ec0-9119-159be3c4f173",
@@ -10277,7 +10209,7 @@
     "lng": 2.1527,
     "shortDescription": "Famous park with stunning city views",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Park_G%C3%BCell_-_Terrace.jpg/1280px-Park_G%C3%BCell_-_Terrace.jpg",
     "gallery": null,
     "dogFriendlyLevel": 3,
     "amenities": null,
@@ -10297,7 +10229,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.685Z",
-    "updatedAt": "2025-11-26T22:14:20.685Z"
+    "updatedAt": "2025-11-27T11:42:38.042Z"
   },
   {
     "id": "e624dda2-fbdb-4272-97bd-86160b618d31",
@@ -10719,7 +10651,7 @@
     "lng": 12.4922,
     "shortDescription": "Large park in the heart of Rome",
     "fullDescription": null,
-    "imageUrl": null,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Villa_Borghese_Park_in_Rome.jpg/1280px-Villa_Borghese_Park_in_Rome.jpg",
     "gallery": null,
     "dogFriendlyLevel": 4,
     "amenities": null,
@@ -10739,7 +10671,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T22:14:20.690Z",
-    "updatedAt": "2025-11-26T22:14:20.690Z"
+    "updatedAt": "2025-11-27T11:42:38.044Z"
   },
   {
     "id": "f288faf2-fd7c-4b01-9991-4c23b6aff7c3",
@@ -11097,7 +11029,7 @@
     "lng": 12.48358534800044,
     "shortDescription": "Bustling food hall at Termini Station. Dogs welcome in the open-air areas. Great for trying different Italian foods.",
     "fullDescription": "Bustling food hall at Termini Station. Dogs welcome in the open-air areas. Great for trying different Italian foods.",
-    "imageUrl": "https://images.unsplash.com/photo-1534531173927-aeb928d54385?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/8/6/9/120968/120968_93767082.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -11121,7 +11053,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.199Z",
-    "updatedAt": "2025-11-26T23:46:46.805Z"
+    "updatedAt": "2025-11-27T11:42:38.035Z"
   },
   {
     "id": "f97e0bb4-fc56-401f-862a-399357810e76",
@@ -11203,7 +11135,7 @@
     "lng": 12.50421889395604,
     "shortDescription": "Professional dog grooming service in Rome. High-quality care by appointment only for personalized attention.",
     "fullDescription": "Professional dog grooming service in Rome. High-quality care by appointment only for personalized attention.",
-    "imageUrl": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/resources/7/9/1/119791/119791_86872136.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -11227,7 +11159,7 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:36:30.202Z",
-    "updatedAt": "2025-11-26T23:46:46.807Z"
+    "updatedAt": "2025-11-27T11:42:38.036Z"
   },
   {
     "id": "fedea5fe-6e40-41b1-94e5-286f489d6291",
@@ -11381,7 +11313,7 @@
     "lng": 2.377025787827495,
     "shortDescription": "Famous ice cream shop on Île Saint-Louis. Grab a cone and stroll along the Seine with your dog!",
     "fullDescription": "Famous ice cream shop on Île Saint-Louis. Grab a cone and stroll along the Seine with your dog!",
-    "imageUrl": "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "https://photos.bringfido.com/restaurants/448/20160616_9877_448.jpg?size=slide600&density=2x",
     "gallery": null,
     "dogFriendlyLevel": null,
     "amenities": [
@@ -11404,6 +11336,6 @@
     "petFee": null,
     "maxDogsAllowed": null,
     "createdAt": "2025-11-26T23:34:55.328Z",
-    "updatedAt": "2025-11-26T23:46:46.798Z"
+    "updatedAt": "2025-11-27T11:42:38.030Z"
   }
 ]
