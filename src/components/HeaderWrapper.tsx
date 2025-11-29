@@ -24,19 +24,40 @@ export default function HeaderWrapper() {
   const router = useRouter();
   const pathname = usePathname();
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const [prevSession, setPrevSession] = useState(session);
 
   const [cities, setCities] = useState<City[]>([]);
   const [selected, setSelected] = useState("home");
   const [isLoadingCities, setIsLoadingCities] = useState(true);
 
-  // Refresh the page when session changes (after sign in/out)
+  // CRITICAL FIX #1: Force session update after OAuth redirect
   useEffect(() => {
-    if (prevSession !== session && status !== "loading") {
-      setPrevSession(session);
-      router.refresh();
+    if (status === "loading") return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("callbackUrl") || urlParams.has("error") || urlParams.get("code")) {
+      // We're back from OAuth provider → force session refetch
+      update(); // This forces next-auth to refetch session from /api/auth/session
+      // Clean URL without polluting history
+      router.replace(pathname, { scroll: false });
     }
-  }, [session, status, prevSession, router]);
+  }, [status, update, router, pathname]);
+
+  // CRITICAL FIX #2: Proper signOut with client-side redirect
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut({
+        redirect: false,     // ← Don't let next-auth do navigation
+        callbackUrl: "/"     // ← We handle redirect ourselves
+      });
+      // Manually redirect + force session clear
+      router.push("/");
+      router.refresh();    // Optional: refresh server components
+    } catch (error) {
+      console.error("Sign out failed:", error);
+      setIsSigningOut(false);
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -181,11 +202,7 @@ export default function HeaderWrapper() {
                 </span>
               </div>
                             <button
-                onClick={() => {
-                  if (isSigningOut) return;
-                  setIsSigningOut(true);
-                  signOut({ callbackUrl: '/' });
-                }}
+                onClick={handleSignOut}
                 disabled={isSigningOut}
                 className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md disabled:opacity-50"
               >
