@@ -59,6 +59,14 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
+  events: {
+    async signOut(message) {
+      console.log('NextAuth event: signOut', { message });
+    },
+    async signIn(message) {
+      console.log('NextAuth event: signIn', { message });
+    }
+  },
   
   secret: process.env.NEXTAUTH_SECRET,
   
