@@ -64,8 +64,10 @@ export const authOptions: NextAuthOptions = {
   
   callbacks: {
     async signIn({ user, account }) {
+      console.log("SignIn callback triggered", { user: user?.email, provider: account?.provider });
       if (account?.provider === "google" && user.email) {
         try {
+          console.log("Upserting Google user:", user.email);
           await prisma.user.upsert({
             where: { email: user.email },
             update: { 
@@ -79,6 +81,7 @@ export const authOptions: NextAuthOptions = {
               role: "USER"
             }
           });
+          console.log("Google user upserted successfully");
         } catch (error) {
           console.error("Failed to upsert user:", error);
         }
@@ -87,6 +90,7 @@ export const authOptions: NextAuthOptions = {
     },
     
     async jwt({ token, user, account }) {
+      console.log("JWT callback", { tokenEmail: token.email, userId: user?.id, provider: account?.provider });
       if (user) {
         token.id = user.id;
         token.role = (user as any).role || "USER";
@@ -94,6 +98,7 @@ export const authOptions: NextAuthOptions = {
       
       if (account?.provider === "google" && token.email) {
         try {
+          console.log("Fetching Google user from DB:", token.email);
           const dbUser = await prisma.user.findUnique({
             where: { email: token.email as string },
             select: { id: true, role: true }
@@ -101,6 +106,9 @@ export const authOptions: NextAuthOptions = {
           if (dbUser) {
             token.id = dbUser.id;
             token.role = dbUser.role;
+            console.log("Google user found in DB:", dbUser);
+          } else {
+            console.log("Google user not found in DB");
           }
         } catch (error) {
           console.error("Failed to fetch user:", error);
@@ -111,6 +119,7 @@ export const authOptions: NextAuthOptions = {
     },
     
     async session({ session, token }) {
+      console.log("Session callback", { sessionUser: session.user?.email, tokenId: token.id });
       if (session.user) {
         (session.user as any).id = token.id;
         (session.user as any).role = token.role;
