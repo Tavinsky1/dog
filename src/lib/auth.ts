@@ -93,6 +93,7 @@ export const authOptions: NextAuthOptions = {
       console.log("JWT callback", { tokenEmail: token.email, userId: user?.id, provider: account?.provider });
       if (user) {
         token.id = user.id;
+        token.sub = user.id;
         token.role = (user as any).role || "USER";
       }
       
