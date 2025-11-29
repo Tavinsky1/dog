@@ -47,12 +47,20 @@ export default function HeaderWrapper() {
     setIsSigningOut(true);
     try {
       await signOut({
-        redirect: false,     // ← Don't let next-auth do navigation
-        callbackUrl: "/"     // ← We handle redirect ourselves
+        redirect: false, // Don't let next-auth navigate — we'll handle it client-side
+        callbackUrl: "/",
       });
-      // Manually redirect + force session clear
+
+      // Force next-auth to revalidate the session immediately and update UI
+      try {
+        await update();
+      } catch (err) {
+        // ignore if update fails — we'll still navigate
+      }
+
+      // Client-side navigation after cookies cleared
       router.push("/");
-      router.refresh();    // Optional: refresh server components
+      router.refresh(); // Optional: refresh server components
     } catch (error) {
       console.error("Sign out failed:", error);
       setIsSigningOut(false);

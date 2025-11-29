@@ -19,7 +19,11 @@ export default function Header() {
   } : null;
 
   async function logout() {
-    await signOut({ callbackUrl: "/" });
+    // Use redirect:false so the client can manage the navigation and session update
+    await signOut({ redirect: false, callbackUrl: "/" });
+    // We intentionally don't attempt to update here; HeaderWrapper handles update() on signOut flows.
+    // A client refresh will pick up the cleared session.
+    location.reload();
   }
 
   return (
