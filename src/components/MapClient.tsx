@@ -64,6 +64,13 @@ function FitBounds({ places }: { places: PlaceMarker[] }) {
   useEffect(() => {
     if (!places?.length) return;
     const coordinates = places.map((place) => [place.lat, place.lng] as [number, number]);
+    // Ensure the Leaflet container recalculates size (fix visual "corner" / clipped maps
+    // when the map container was resized or was initially hidden)
+    try {
+      (map as any).invalidateSize?.();
+    } catch (e) {
+      // ignore
+    }
     if (coordinates.length === 1) {
       map.setView(coordinates[0], 13);
     } else {

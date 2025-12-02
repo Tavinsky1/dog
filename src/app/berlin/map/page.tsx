@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Map, { Marker, NavigationControl, Popup } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Link from "next/link";
@@ -67,6 +67,13 @@ export default function BerlinMapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, q, JSON.stringify(geo), radiusKmParam]);
 
+  const mapRef = useRef<any | null>(null);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    setTimeout(() => mapRef.current.resize?.(), 100);
+  }, [data.items.length]);
+
   const firstWithCoords = useMemo(
     () => data.items.find(p => p.lat && p.lng),
     [data.items]
@@ -76,6 +83,7 @@ export default function BerlinMapPage() {
     <div className="grid lg:grid-cols-3 gap-4">
       <div className="lg:col-span-2 h-[70vh] lg:h-[calc(100vh-10rem)] rounded-2xl border overflow-hidden bg-white">
         <Map
+          key={firstWithCoords ? `${firstWithCoords.lat}:${firstWithCoords.lng}` : 'no-center'}
           initialViewState={{
             longitude: firstWithCoords?.lng ?? 13.405,
             latitude: firstWithCoords?.lat ?? 52.52,
@@ -83,6 +91,10 @@ export default function BerlinMapPage() {
           }}
           style={{ width: "100%", height: "100%" }}
           mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+          onLoad={(evt:any) => {
+            mapRef.current = evt.target;
+            try { evt.target.resize?.(); } catch (e) {}
+          }}
         >
           <NavigationControl position="top-right" />
           {data.items.filter(p => p.lat && p.lng).map(p => (
