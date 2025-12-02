@@ -6,6 +6,8 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Inter, Nunito } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { generateSEOMetadata } from "@/lib/seo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", weight: ["700", "800"] });
@@ -16,12 +18,15 @@ export const metadata = generateSEOMetadata({
   keywords: ['dog friendly places', 'pet friendly cafes', 'dog parks near me', 'dog friendly hotels', 'pet travel guide'],
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Get session on server to hydrate client
+  const session = await getServerSession(authOptions);
+  
   return (
     <html lang="en" className={`${inter.variable} ${nunito.variable} scroll-smooth`}>
       <body className="min-h-screen bg-gray-50">
         <GoogleAnalytics />
-        <Providers>
+        <Providers session={session}>
           <HeaderWrapper />
           <main className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 space-y-16">
             {children}

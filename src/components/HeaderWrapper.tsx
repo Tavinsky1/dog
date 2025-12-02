@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -19,58 +19,47 @@ function deriveSelectedCity(pathname: string, cities: City[]): string {
 }
 
 export default function HeaderWrapper() {
-  const { data: session, status, update } = useSession();
-  const userRole = (session?.user as { role?: string } | undefined)?.role;
+  const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const [isSigningOut, setIsSigningOut] = useState(false);
-
+  
   const [cities, setCities] = useState<City[]>([]);
   const [selected, setSelected] = useState("home");
   const [isLoadingCities, setIsLoadingCities] = useState(true);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
-  // CRITICAL FIX #1: Force session update after OAuth redirect
-  useEffect(() => {
-    if (status === "loading") return;
+  // Derived values
+  const userRole = session?.user?.role;
+  const isAuthenticated = status === "authenticated" && !!session?.user;
+  const isLoading = status === "loading";
 
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("callbackUrl") || urlParams.has("error") || urlParams.get("code")) {
-      // We're back from OAuth provider → force session refetch
-      update(); // This forces next-auth to refetch session from /api/auth/session
-      // Clean URL without polluting history
-      router.replace(pathname, { scroll: false });
-    }
-  }, [status, update, router, pathname]);
-
-  // CRITICAL FIX #2: Proper signOut with client-side redirect
-  const handleSignOut = async () => {
+  // Simple sign out handler - use window.location for hard reload
+  const handleSignOut = useCallback(async () => {
+    if (isSigningOut) return;
     setIsSigningOut(true);
+    
     try {
-      await signOut({
-        redirect: false, // Don't let next-auth navigate — we'll handle it client-side
-        callbackUrl: "/",
-      });
-
-      // Force next-auth to revalidate the session immediately and update UI
-      try {
-        await update();
-      } catch (err) {
-        // ignore if update fails — we'll still navigate
-      }
-
-      // Client-side navigation after cookies cleared
-      router.push("/");
-      router.refresh(); // Optional: refresh server components
+      // Sign out without redirect, then hard reload to clear all state
+      await signOut({ redirect: false });
+      // Hard reload clears all client state and forces cookie check
+      window.location.href = "/";
     } catch (error) {
-      console.error("Sign out failed:", error);
+      console.error("Sign out error:", error);
       setIsSigningOut(false);
     }
-  };
+  }, [isSigningOut]);
 
+  // Simple sign in handler
+  const handleSignIn = useCallback(() => {
+    signIn(undefined, { callbackUrl: pathname || "/" });
+  }, [pathname]);
+
+  // Fetch cities
   useEffect(() => {
     let isMounted = true;
+    
     fetch("/api/cities")
-      .then(res => (res.ok ? res.json() : []))
+      .then(res => res.ok ? res.json() : [])
       .then((data: City[]) => {
         if (isMounted) {
           setCities(data);
@@ -83,25 +72,23 @@ export default function HeaderWrapper() {
           setIsLoadingCities(false);
         }
       });
-    return () => {
-      isMounted = false;
-    };
+    
+    return () => { isMounted = false; };
   }, []);
 
+  // Update selected city based on pathname
   useEffect(() => {
-    if (!pathname) return;
-    setSelected(deriveSelectedCity(pathname, cities));
+    if (pathname) {
+      setSelected(deriveSelectedCity(pathname, cities));
+    }
   }, [pathname, cities]);
 
-  const handleCityChange = (value: string) => {
+  const handleCityChange = useCallback((value: string) => {
     setSelected(value);
-    if (value === "home") {
-      router.push("/");
-    } else {
-      router.push(`/${value}`);
-    }
-  };
+    router.push(value === "home" ? "/" : `/${value}`);
+  }, [router]);
 
+  // City selector
   const cityOptions = useMemo(() => {
     if (cities.length === 0) {
       return (
@@ -119,7 +106,7 @@ export default function HeaderWrapper() {
         aria-label="Choose a city"
         className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={selected}
-        onChange={(event) => handleCityChange(event.target.value)}
+        onChange={(e) => handleCityChange(e.target.value)}
       >
         <option value="home">Choose a city</option>
         {cities.map((city) => (
@@ -129,7 +116,68 @@ export default function HeaderWrapper() {
         ))}
       </select>
     );
-  }, [cities, selected]);
+  }, [cities, selected, handleCityChange]);
+
+  // Auth section - loading state
+  const renderAuthSection = () => {
+    if (isLoading) {
+      return <div className="h-9 w-9 animate-pulse rounded-full bg-slate-100" />;
+    }
+
+    if (isAuthenticated && session.user) {
+      return (
+        <div className="flex items-center gap-3">
+          <Link
+            href="/favorites"
+            className="hidden sm:flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          >
+            <span>❤️</span>
+            <span>Favorites</span>
+          </Link>
+          
+          {userRole === "ADMIN" && (
+            <Link
+              href="/admin/dashboard"
+              className="hidden sm:flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-sm font-medium text-purple-700 transition-colors hover:bg-purple-100"
+            >
+              <span>👑</span>
+              <span>Admin</span>
+            </Link>
+          )}
+          
+          <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5">
+            {session.user.image && (
+              <img
+                src={session.user.image}
+                alt={session.user.name || "User"}
+                className="h-6 w-6 rounded-full"
+              />
+            )}
+            <span className="text-sm font-medium text-slate-700">
+              {session.user.name || session.user.email?.split('@')[0]}
+            </span>
+          </div>
+          
+          <button
+            onClick={handleSignOut}
+            disabled={isSigningOut}
+            className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSigningOut ? "Signing out..." : "Sign out"}
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <button
+        onClick={handleSignIn}
+        className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 shadow-sm hover:shadow-md"
+      >
+        Sign in
+      </button>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -177,54 +225,7 @@ export default function HeaderWrapper() {
             </span>
           )}
 
-          {status === "loading" ? (
-            <div className="h-9 w-9 animate-pulse rounded-full bg-slate-100" />
-          ) : session?.user ? (
-            <div className="flex items-center gap-3">
-              <Link
-                href="/favorites"
-                className="hidden sm:flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
-              >
-                <span>❤️</span>
-                <span>Favorites</span>
-              </Link>
-              {userRole === "ADMIN" && (
-                <Link
-                  href="/admin/dashboard"
-                  className="hidden sm:flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-sm font-medium text-purple-700 transition-colors hover:bg-purple-100"
-                >
-                  <span>👑</span>
-                  <span>Admin</span>
-                </Link>
-              )}
-              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5">
-                {session.user.image && (
-                  <img
-                    src={session.user.image}
-                    alt={session.user.name || "User"}
-                    className="h-6 w-6 rounded-full"
-                  />
-                )}
-                <span className="text-sm font-medium text-slate-700">
-                  {session.user.name || session.user.email?.split('@')[0]}
-                </span>
-              </div>
-                            <button
-                onClick={handleSignOut}
-                disabled={isSigningOut}
-                className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 shadow-sm hover:shadow-md disabled:opacity-50"
-              >
-                {isSigningOut ? "Signing out..." : "Sign out"}
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => signIn()}
-              className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 shadow-sm hover:shadow-md"
-            >
-              Sign in
-            </button>
-          )}
+          {renderAuthSection()}
         </div>
       </div>
     </header>
