@@ -109,9 +109,6 @@ export default {
     return config
   },
 
-  // Output optimization
-  output: 'standalone',
-
   // Power optimizations for static export
   trailingSlash: false,
   poweredByHeader: false,
