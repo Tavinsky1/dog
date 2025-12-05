@@ -24,7 +24,6 @@ async function SearchResults({ searchParams }: SearchPageProps) {
   const category = typeof params.category === 'string' ? params.category : undefined;
   const country = typeof params.country === 'string' ? params.country : undefined;
   const city = typeof params.city === 'string' ? params.city : undefined;
-  const verified = params.verified === 'true';
 
   if (!query) {
     return (
@@ -39,7 +38,6 @@ async function SearchResults({ searchParams }: SearchPageProps) {
     category,
     country,
     city,
-    verified,
     limit: 50,
   });
 
@@ -56,7 +54,7 @@ async function SearchResults({ searchParams }: SearchPageProps) {
       </div>
 
       {/* Filter Pills */}
-      {(category || country || city || verified) && (
+      {(category || country || city) && (
         <div className="mb-6 flex flex-wrap gap-2">
           {category && (
             <Link
@@ -82,15 +80,6 @@ async function SearchResults({ searchParams }: SearchPageProps) {
               className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700 hover:bg-green-200"
             >
               <span>City: {city}</span>
-              <span>×</span>
-            </Link>
-          )}
-          {verified && (
-            <Link
-              href={`/search?q=${query}${category ? `&category=${category}` : ''}${country ? `&country=${country}` : ''}${city ? `&city=${city}` : ''}`}
-              className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700 hover:bg-green-200"
-            >
-              <span>✓ Verified Only</span>
               <span>×</span>
             </Link>
           )}
@@ -131,13 +120,6 @@ function PlaceCard({ place }: { place: SearchResult }) {
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        
-        {/* Verified Badge */}
-        {place.verified && (
-          <div className="absolute top-3 right-3 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">
-            ✓ Verified
-          </div>
-        )}
 
         {/* Match Score (for debugging) */}
         {process.env.NODE_ENV === 'development' && (

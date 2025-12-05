@@ -388,12 +388,6 @@ export default async function CityPage({ params, searchParams }: PageProps) {
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-gray-900">
                     {getCategoryIcon(place.category)} {getCategoryLabel(place.category)}
                   </div>
-
-                  {place.verified && (
-                    <div className="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                      ✓ Verified
-                    </div>
-                  )}
                 </div>
 
                 {/* Place Info */}

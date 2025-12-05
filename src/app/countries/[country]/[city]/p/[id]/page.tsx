@@ -76,11 +76,6 @@ export default async function PlaceDetailPage({ params }: PageProps) {
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-4xl font-bold text-gray-900">{place.name}</h1>
-                {place.verified && (
-                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                    ✓ Verified
-                  </span>
-                )}
               </div>
               <p className="text-lg text-gray-600 mt-2">
                 {getCategoryLabel(place.category)} in {city.name}
