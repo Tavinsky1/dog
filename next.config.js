@@ -37,7 +37,6 @@ export default {
   typescript: {
     ignoreBuildErrors: true,
   },
-};
 
   // Image optimization
   images: {
