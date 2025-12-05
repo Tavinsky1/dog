@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { addSecurityHeaders } from "@/lib/security";
 
 // Force NEXTAUTH_URL to production domain on Vercel
-if (process.env.VERCEL && !process.env.NEXTAUTH_URL) {
+if (process.env.VERCEL_ENV === 'production') {
   process.env.NEXTAUTH_URL = 'https://www.dog-atlas.com'
 }
 

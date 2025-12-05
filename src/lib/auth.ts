@@ -79,6 +79,20 @@ export const authOptions: NextAuthOptions = {
   },
   
   secret: process.env.NEXTAUTH_SECRET,
+
+  // Explicitly configure cookies for production to handle cross-subdomain (www vs non-www)
+  cookies: process.env.VERCEL_ENV === 'production' ? {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.dog-atlas.com'
+      }
+    }
+  } : undefined,
   
   callbacks: {
     // Called when user signs in - upsert Google users to DB
