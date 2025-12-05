@@ -3,6 +3,7 @@
 import Link from "next/link";
 import FavoriteButton from "./FavoriteButton";
 import PlaceBadges from "./PlaceBadges";
+import PlaceImage from "./PlaceImage";
 
 type DogSizeAllowed = "all" | "small_only" | "small_medium" | "large_ok";
 
@@ -38,9 +39,11 @@ export default function PlaceCard({ place, showFavoriteButton = false, isFavorit
     <div className="block rounded-xl border border-slate-200 bg-white p-4 hover:shadow-md transition-shadow">
       {place.imageUrl && (
         <div className="aspect-video w-full mb-3 rounded-lg overflow-hidden bg-slate-100">
-          <img
+          <PlaceImage
             src={place.imageUrl}
             alt={place.name}
+            width={640}
+            height={360}
             className="w-full h-full object-cover"
           />
         </div>
