@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { addSecurityHeaders } from "@/lib/security";
 
+// Force NEXTAUTH_URL to production domain on Vercel
+if (process.env.VERCEL && !process.env.NEXTAUTH_URL) {
+  process.env.NEXTAUTH_URL = 'https://www.dog-atlas.com'
+}
+
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
