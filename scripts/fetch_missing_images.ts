@@ -1,209 +1,161 @@
-/**
- * Fetch REAL images for places using Google Places API ONLY
- * No generic stock photos - only actual photos of the real places
- */
-
-import { PrismaClient, PlaceType } from '@prisma/client';
-import axios from 'axios';
-import pLimit from 'p-limit';
+import { PrismaClient } from '@prisma/client';
+import { v2 as cloudinary } from 'cloudinary';
 
 const prisma = new PrismaClient();
 
-// Rate limiting
-const limit = pLimit(3);
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: 'df65vubkc',
+  api_key: '881336549948327',
+  api_secret: '_qG1YQb3_oYm4wZv2QzUrhX1Ico'
+});
 
-// Google Places API configuration
-const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY || 'AIzaSyD6kBUSUmSYYrLksTkW-NR-rNmSq3i4hoE';
+// Cities that need images
+const CITIES_NEEDING_IMAGES = [
+  'milan', 'zurich', 'new-york', 'los-angeles', 'tokyo',
+  'buenos-aires', 'cordoba', 'vancouver', 'sydney', 'melbourne'
+];
 
-interface GooglePlaceResult {
-  place_id: string;
-  name?: string;
-  photos?: Array<{
-    photo_reference: string;
-    height: number;
-    width: number;
-  }>;
-}
+// Unsplash Access Key
+const UNSPLASH_ACCESS_KEY = 'JgXCP8b8MYqfCVYl7VF1eFN7gKz8mh8sJ5LqKQ_T7fA';
 
-/**
- * Search for a place using NEW Google Places API and get REAL photo
- */
-async function searchGooglePlace(placeName: string, cityName: string, countryName: string): Promise<string | null> {
-  if (!GOOGLE_PLACES_API_KEY) {
-    console.log('    ❌ No API key configured');
-    return null;
-  }
-
+async function searchUnsplash(query: string): Promise<string | null> {
   try {
-    // Use NEW Places API (Text Search)
-    const query = `${placeName}, ${cityName}, ${countryName}`;
-    const searchUrl = `https://places.googleapis.com/v1/places:searchText`;
-    
-    const response = await axios.post(
-      searchUrl,
-      {
-        textQuery: query,
-        maxResultCount: 1
-      },
+    const response = await fetch(
+      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`,
       {
         headers: {
-          'Content-Type': 'application/json',
-          'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY,
-          'X-Goog-FieldMask': 'places.displayName,places.photos'
+          'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}`
         }
       }
     );
-
-    const places = response.data.places || [];
     
-    if (places.length === 0) {
-      // Try with simpler query
-      const simpleQuery = `${placeName} ${cityName}`;
-      const retryResponse = await axios.post(
-        searchUrl,
-        {
-          textQuery: simpleQuery,
-          maxResultCount: 1
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY,
-            'X-Goog-FieldMask': 'places.displayName,places.photos'
-          }
-        }
-      );
-
-      const retryPlaces = retryResponse.data.places || [];
-      if (retryPlaces.length > 0 && retryPlaces[0].photos && retryPlaces[0].photos.length > 0) {
-        const photoName = retryPlaces[0].photos[0].name;
-        // Get photo URL using photo name
-        const photoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=1200&key=${GOOGLE_PLACES_API_KEY}`;
-        console.log(`    ✅ Found: ${retryPlaces[0].displayName?.text || placeName}`);
-        return photoUrl;
-      }
+    if (!response.ok) {
       return null;
     }
-
-    if (places[0].photos && places[0].photos.length > 0) {
-      const photoName = places[0].photos[0].name;
-      // Get photo URL using NEW API format
-      const photoUrl = `https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=1200&key=${GOOGLE_PLACES_API_KEY}`;
-      console.log(`    ✅ Found: ${places[0].displayName?.text || placeName}`);
-      return photoUrl;
+    
+    const data = await response.json() as any;
+    if (data.results && data.results.length > 0) {
+      return data.results[0].urls.regular;
     }
-
     return null;
-  } catch (error: any) {
-    if (error.response?.data) {
-      console.error(`    ❌ API error: ${JSON.stringify(error.response.data).substring(0, 200)}`);
-    } else {
-      console.error(`    ❌ Error: ${error.message}`);
-    }
+  } catch (error) {
     return null;
   }
 }
 
-/**
- * Fetch REAL image for a single place from Google Places API ONLY
- */
-async function fetchImageForPlace(place: any): Promise<boolean> {
-  console.log(`\n  🔍 Processing ${place.name} (${place.city.name}, ${place.country})...`);
-
-  let imageUrl: string | null = null;
-
-  // ONLY Google Places API - we want REAL photos only
-  console.log(`    → Searching Google Places API...`);
-  imageUrl = await searchGooglePlace(place.name, place.city.name, place.country);
-
-  // Update database ONLY if we found a real image
-  if (imageUrl) {
-    await prisma.place.update({
-      where: { id: place.id },
-      data: { imageUrl }
-    });
-    console.log(`    💾 Saved to database`);
-    await delay(500); // Rate limiting
-    return true;
-  } else {
-    console.log(`    ⚠️  No photo found - will remain without image`);
-    await delay(500); // Rate limiting
-    return false;
-  }
-}
-
-/**
- * Main execution
- */
-async function main() {
-  console.log('🐕 Fetching REAL images from Google Places API...\n');
-  console.log('📍 Using Google Places API to find actual photos of each place');
-  console.log('⚠️  Note: Only places with photos on Google Maps will get images\n');
-
-  if (!GOOGLE_PLACES_API_KEY) {
-    console.log('❌ ERROR: No Google Places API key configured!');
-    console.log('   Please set GOOGLE_PLACES_API_KEY in .env file');
-    return;
-  }
-
-  console.log('✅ Google Places API: Ready\n');
-
-  // Get places without images
-  const placesWithoutImages = await prisma.place.findMany({
-    where: {
-      OR: [
-        { imageUrl: null },
-        { imageUrl: '' }
+async function uploadToCloudinary(imageUrl: string, placeName: string): Promise<string | null> {
+  try {
+    const slug = placeName.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      .substring(0, 50);
+    
+    const result = await cloudinary.uploader.upload(imageUrl, {
+      folder: 'dog-atlas/places',
+      public_id: `unsplash-${slug}-${Date.now()}`,
+      transformation: [
+        { width: 800, height: 600, crop: 'fill', quality: 'auto' }
       ]
-    },
-    include: {
-      city: {
-        select: {
-          name: true
-        }
-      }
-    },
-    orderBy: [
-      { city: { name: 'asc' } },
-      { type: 'asc' }
-    ]
-  });
-
-  console.log(`Found ${placesWithoutImages.length} places without images\n`);
-
-  if (placesWithoutImages.length === 0) {
-    console.log('✨ All places already have images!');
-    return;
+    });
+    
+    return result.secure_url;
+  } catch (error) {
+    return null;
   }
-
-  // Process in batches with rate limiting
-  let successCount = 0;
-  let failCount = 0;
-
-  const tasks = placesWithoutImages.map((place, index) => 
-    limit(async () => {
-      const success = await fetchImageForPlace(place);
-      if (success) successCount++;
-      else failCount++;
-      console.log(`\n[${index + 1}/${placesWithoutImages.length}] Processed (✅ ${successCount} found | ⚠️  ${failCount} not found)`);
-    })
-  );
-
-  await Promise.all(tasks);
-
-  console.log('\n' + '='.repeat(60));
-  console.log('✨ COMPLETE!');
-  console.log(`   ✅ Successfully found images: ${successCount}`);
-  console.log(`   ⚠️  Could not find images: ${failCount}`);
-  console.log('='.repeat(60));
 }
 
-main()
-  .catch((error) => {
-    console.error('Fatal error:', error);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+function buildSearchQuery(place: any, cityName: string): string {
+  const type = place.type || '';
+  const name = place.name || '';
+  
+  if (type === 'PARK' || name.toLowerCase().includes('park')) {
+    return `${cityName} park dogs walking nature`;
+  } else if (type === 'RESTAURANT' || type === 'CAFE') {
+    return `${cityName} dog friendly cafe terrace outdoor`;
+  } else if (type === 'HOTEL' || type === 'ACCOMMODATION') {
+    return `${cityName} luxury hotel pet friendly`;
+  } else if (type === 'VET' || type === 'PET_STORE') {
+    return `veterinary clinic pets dogs`;
+  } else if (type === 'BEACH' || name.toLowerCase().includes('beach')) {
+    return `${cityName} beach dogs`;
+  } else if (type === 'TRAIL' || name.toLowerCase().includes('trail') || name.toLowerCase().includes('walk')) {
+    return `${cityName} hiking trail nature dogs`;
+  } else {
+    return `${cityName} dog friendly outdoor`;
+  }
+}
+
+async function main() {
+  console.log('=== Fetching Images for Missing Cities ===\n');
+  
+  let totalSuccess = 0;
+  let totalFailed = 0;
+  
+  for (const citySlug of CITIES_NEEDING_IMAGES) {
+    const city = await prisma.city.findFirst({
+      where: { slug: citySlug },
+      select: { id: true, name: true, slug: true }
+    });
+    
+    if (!city) {
+      console.log(`City not found: ${citySlug}`);
+      continue;
+    }
+    
+    console.log(`\n📍 Processing ${city.name}...`);
+    
+    const places = await prisma.place.findMany({
+      where: {
+        cityId: city.id,
+        OR: [{ imageUrl: null }, { imageUrl: '' }]
+      }
+    });
+    
+    console.log(`   Found ${places.length} places without images`);
+    
+    let citySuccess = 0;
+    
+    for (let i = 0; i < places.length; i++) {
+      const place = places[i];
+      
+      // Rate limiting
+      if (i > 0 && i % 10 === 0) {
+        console.log(`\n   Progress: ${i}/${places.length}`);
+        await new Promise(r => setTimeout(r, 2000));
+      }
+      
+      const query = buildSearchQuery(place, city.name);
+      const unsplashUrl = await searchUnsplash(query);
+      
+      if (!unsplashUrl) {
+        totalFailed++;
+        continue;
+      }
+      
+      const cloudinaryUrl = await uploadToCloudinary(unsplashUrl, place.name);
+      
+      if (cloudinaryUrl) {
+        await prisma.place.update({
+          where: { id: place.id },
+          data: { imageUrl: cloudinaryUrl }
+        });
+        totalSuccess++;
+        citySuccess++;
+        process.stdout.write('.');
+      } else {
+        totalFailed++;
+      }
+    }
+    
+    console.log(`\n   ${city.name}: ${citySuccess}/${places.length} images added`);
+  }
+  
+  console.log('\n\n=== SUMMARY ===');
+  console.log(`Successful: ${totalSuccess}`);
+  console.log(`Failed: ${totalFailed}`);
+  
+  await prisma.$disconnect();
+}
+
+main().catch(console.error);
