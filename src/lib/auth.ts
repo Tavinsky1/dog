@@ -80,16 +80,65 @@ export const authOptions: NextAuthOptions = {
   
   secret: process.env.NEXTAUTH_SECRET,
 
-  // Explicitly configure cookies for production to handle cross-subdomain (www vs non-www)
+  // Configure ALL cookies for production to ensure proper domain handling
   cookies: {
     sessionToken: {
-      name: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')) ? `__Secure-next-auth.session-token` : `next-auth.session-token`,
+      name: `__Secure-next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: 'lax' as const,
         path: '/',
-        secure: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')),
-        domain: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')) ? '.dog-atlas.com' : undefined
+        secure: true,
+        domain: '.dog-atlas.com'
+      }
+    },
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true,
+        domain: '.dog-atlas.com'
+      }
+    },
+    csrfToken: {
+      name: `__Host-next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true
+      }
+    },
+    pkceCodeVerifier: {
+      name: `__Secure-next-auth.pkce.code_verifier`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true,
+        domain: '.dog-atlas.com'
+      }
+    },
+    state: {
+      name: `__Secure-next-auth.state`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true,
+        domain: '.dog-atlas.com'
+      }
+    },
+    nonce: {
+      name: `__Secure-next-auth.nonce`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true,
+        domain: '.dog-atlas.com'
       }
     }
   },
