@@ -83,13 +83,13 @@ export const authOptions: NextAuthOptions = {
   // Explicitly configure cookies for production to handle cross-subdomain (www vs non-www)
   cookies: {
     sessionToken: {
-      name: process.env.VERCEL_ENV === 'production' ? `__Secure-next-auth.session-token` : `next-auth.session-token`,
+      name: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')) ? `__Secure-next-auth.session-token` : `next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.VERCEL_ENV === 'production',
-        domain: process.env.VERCEL_ENV === 'production' ? '.dog-atlas.com' : undefined
+        secure: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')),
+        domain: (process.env.VERCEL_ENV === 'production' || process.env.NEXTAUTH_URL?.includes('dog-atlas.com')) ? '.dog-atlas.com' : undefined
       }
     }
   },
