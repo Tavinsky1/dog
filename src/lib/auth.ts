@@ -5,6 +5,17 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
+// Production URL - hardcoded to prevent auth issues
+const PRODUCTION_URL = "https://www.dog-atlas.com";
+const getBaseUrl = () => {
+  // In production on Vercel, always use the production domain
+  if (process.env.VERCEL_ENV === "production") {
+    return PRODUCTION_URL;
+  }
+  // Use NEXTAUTH_URL if set, otherwise fallback
+  return process.env.NEXTAUTH_URL || PRODUCTION_URL;
+};
+
 // Extend types for our custom properties
 declare module "next-auth" {
   interface Session {
@@ -79,6 +90,22 @@ export const authOptions: NextAuthOptions = {
   },
   
   secret: process.env.NEXTAUTH_SECRET,
+  
+  // Ensure cookies work correctly on production domain
+  cookies: {
+    sessionToken: {
+      name: process.env.VERCEL_ENV === "production" 
+        ? "__Secure-next-auth.session-token" 
+        : "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.VERCEL_ENV === "production",
+        domain: process.env.VERCEL_ENV === "production" ? ".dog-atlas.com" : undefined,
+      },
+    },
+  },
   
   callbacks: {
     // Called when user signs in - upsert Google users to DB
