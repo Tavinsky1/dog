@@ -507,20 +507,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
               </div>
               
               <div className="space-y-4">
-                {categoryPlaces.map((place) => {
-                  // Get category-specific placeholder image
-                  const getPlaceholderImage = (type: string): string => {
-                    const placeholders: Record<string, string> = {
-                      'parks': 'https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?auto=format&fit=crop&w=400&q=80',
-                      'cafes_restaurants': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80',
-                      'accommodation': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80',
-                      'shops_services': 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80',
-                      'walks_trails': 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=400&q=80',
-                      'tips_local_info': 'https://images.unsplash.com/photo-1516192518150-0d8fee5425e3?auto=format&fit=crop&w=400&q=80'
-                    };
-                    return placeholders[type] || 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=400&q=80';
-                  };
-                  
+                {categoryPlaces.filter(place => place.imageUrl).map((place) => {
                   return (
                   <Link
                     key={place.id}
@@ -529,7 +516,7 @@ export default async function CityPage({ params, searchParams }: { params: Promi
                   >
                     <div className="h-48 w-full sm:h-full sm:w-48">
                       <img
-                        src={place.imageUrl || getPlaceholderImage(place.type)}
+                        src={place.imageUrl}
                         alt={place.name}
                         className="h-full w-full object-cover"
                         loading="lazy"

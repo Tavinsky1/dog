@@ -104,8 +104,12 @@ async function SearchResults({ searchParams }: SearchPageProps) {
 }
 
 function PlaceCard({ place }: { place: SearchResult }) {
-  const defaultImage = 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80';
-  const photo = place.photos[0] || defaultImage;
+  const photo = place.photos[0];
+  
+  // Don't render if no real image
+  if (!photo) {
+    return null;
+  }
 
   return (
     <Link

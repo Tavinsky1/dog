@@ -63,19 +63,36 @@ function FitBounds({ places }: { places: PlaceMarker[] }) {
 
   useEffect(() => {
     if (!places?.length) return;
+    
     const coordinates = places.map((place) => [place.lat, place.lng] as [number, number]);
-    // Ensure the Leaflet container recalculates size (fix visual "corner" / clipped maps
-    // when the map container was resized or was initially hidden)
-    try {
-      (map as any).invalidateSize?.();
-    } catch (e) {
-      // ignore
-    }
-    if (coordinates.length === 1) {
-      map.setView(coordinates[0], 13);
-    } else {
-      map.fitBounds(coordinates, { padding: [40, 40] });
-    }
+    
+    // Delay to ensure container is fully rendered before fitting bounds
+    const fitMap = () => {
+      try {
+        // Force container size recalculation
+        map.invalidateSize();
+        
+        if (coordinates.length === 1) {
+          map.setView(coordinates[0], 13);
+        } else {
+          // Use LatLngBounds for more precise fitting
+          const bounds = L.latLngBounds(coordinates);
+          map.fitBounds(bounds, { 
+            padding: [50, 50],
+            maxZoom: 15,
+            animate: false
+          });
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+    
+    // Run immediately and after a short delay for hydration
+    fitMap();
+    const timer = setTimeout(fitMap, 100);
+    
+    return () => clearTimeout(timer);
   }, [places, map]);
 
   return null;

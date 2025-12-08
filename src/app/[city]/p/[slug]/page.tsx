@@ -87,9 +87,10 @@ export default async function PlaceDetailPage({
       </Link>
 
       <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        {place.imageUrl && (
         <div className="relative h-80 w-full bg-slate-100 sm:h-96">
           <img
-            src={place.imageUrl || "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1600&q=80"}
+            src={place.imageUrl}
             alt={place.name}
             className="h-full w-full object-cover"
           />
@@ -106,6 +107,23 @@ export default async function PlaceDetailPage({
             session={session}
           />
         </div>
+        )}
+        {!place.imageUrl && (
+          <div className="relative p-6 bg-gradient-to-r from-blue-50 to-orange-50">
+            <PlaceHeader
+              place={{
+                id: place.id,
+                name: place.name,
+                type: place.type,
+                rating: place.rating,
+                dogFriendlyLevel: place.dogFriendlyLevel,
+              }}
+              cityName={place.city.name}
+              isFavorited={isFavorited}
+              session={session}
+            />
+          </div>
+        )}
 
         <div className="grid gap-8 p-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:p-10">
           <div className="space-y-8">
