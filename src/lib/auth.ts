@@ -113,6 +113,38 @@ export const authOptions: NextAuthOptions = {
           secure: true
         }
       },
+      pkceCodeVerifier: {
+        name: `__Secure-next-auth.pkce.code_verifier`,
+        options: {
+          httpOnly: true,
+          sameSite: 'lax' as const,
+          path: '/',
+          secure: true,
+          maxAge: 900,
+          domain: '.dog-atlas.com'
+        }
+      },
+      state: {
+        name: `__Secure-next-auth.state`,
+        options: {
+          httpOnly: true,
+          sameSite: 'lax' as const,
+          path: '/',
+          secure: true,
+          maxAge: 900,
+          domain: '.dog-atlas.com'
+        }
+      },
+      nonce: {
+        name: `__Secure-next-auth.nonce`,
+        options: {
+          httpOnly: true,
+          sameSite: 'lax' as const,
+          path: '/',
+          secure: true,
+          domain: '.dog-atlas.com'
+        }
+      }
     }
   } : {}),
   
