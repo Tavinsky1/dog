@@ -4,4 +4,14 @@ Found 1815 places needing images
 
 
 [0/1815] 0 success, 0 failed
-✓✓✓✓✓✓✓✓✓
+✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓
+[20/1815] 20 success, 0 failed
+✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓
+[40/1815] 40 success, 0 failed
+✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓
+[60/1815] 60 success, 0 failed
+✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓
+[80/1815] 80 success, 0 failed
+✓✓✓✓✓✓✓✓✓✓✓✓✓x✓✓✓✓✓✓
+[100/1815] 99 success, 1 failed
+✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓
