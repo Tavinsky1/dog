@@ -95,10 +95,14 @@ async function upload(imageUrl: string, name: string, city: string): Promise<str
 async function main() {
   console.log('=== Image Scraper v2 ===\n');
   
-  // Get all places without images
+  // Get all places without real images (null, empty, or Unsplash placeholders)
   const places = await prisma.place.findMany({
     where: {
-      OR: [{ imageUrl: null }, { imageUrl: '' }],
+      OR: [
+        { imageUrl: null }, 
+        { imageUrl: '' },
+        { imageUrl: { contains: 'unsplash.com' } }
+      ],
       city: { active: true }
     },
     include: { city: true }

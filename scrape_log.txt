@@ -1,0 +1,7 @@
+=== Image Scraper v2 ===
+
+Found 1815 places needing images
+
+
+[0/1815] 0 success, 0 failed
+✓✓✓✓✓✓✓✓✓
